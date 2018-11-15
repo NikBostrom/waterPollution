@@ -1,7 +1,7 @@
 var width = 1000,
     height = 600;
 
-var svg = d3.select("#viz-area").append("svg")
+var svg = d3.select("#map-vis").append("svg")
     .attr("width", width)
     .attr("height", height);
 

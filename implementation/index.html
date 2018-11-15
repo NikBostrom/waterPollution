@@ -7,13 +7,57 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Water Pollution Around the Globe</h1>
+    <h1></h1>
 
-    <div id="viz-area"></div>
+    <div class="container">
 
-    <script src="js/d3.min.js"></script>
+        <div class="row">
+            <div class="col-md-12">
+                <h1><span class="h1-sub">Water Pollution Around the Globe</span></h1>
+                <h2>Visualizing human effects on large bodies of water</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="time-period-min"></div>
+                <div id="time-period-max"></div>
+                <div id="map-vis"></div>
+            </div>
+        </div>
+
+        <!--<div class="row">-->
+            <!--<div class="col-md-4">-->
+                <!--<div id="agevis"></div>-->
+            <!--</div>-->
+            <!--<div class="col-md-8">-->
+                <!--<div id="priovis"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="slider-vis"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JS libraries -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/topojson.v1.min.js"></script>
     <script src="js/queue.v1.min.js"></script>
+    <script src="js/d3.min.js"></script>
+
+    <!-- Visualization objects -->
+    <!--<script src="js/countvis.js"></script>-->
+    <!--<script src="js/agevis.js"></script>-->
+    <!--<script src="js/priovis.js"></script>-->
     <script src="js/map.js"></script>
+    <script src="js/timeSlider.js"></script>
+
+    <!-- Load data, create visualizations -->
+    <!--<script src="js/main.js"></script>-->
 </body>
 </html>
