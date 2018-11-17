@@ -1,3 +1,29 @@
 body {
     text-align: center;
 }
+
+/*Map Styles*/
+#map-vis {
+    margin-bottom: 25px;
+}
+
+/*Timeslider Styles*/
+#timeslider-vis {
+    margin-bottom: 25px;
+}
+#showcase {
+    margin: 0 20px;
+    text-align: center;
+}
+#range {
+    height: 300px;
+    margin: 0 auto 30px;
+}
+/*#value-span,*/
+/*#value-input {*/
+    /*width: 50%;*/
+    /*float: left;*/
+    /*display: block;*/
+    /*text-align: center;*/
+    /*margin: 0;*/
+/*}*/

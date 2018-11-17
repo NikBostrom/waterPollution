@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Water Pollution</title>
 
+    <link rel="stylesheet" href="css/nouislider.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,8 +21,8 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div id="time-period-min"></div>
-                <div id="time-period-max"></div>
+                <!--<div id="time-period-min"></div>-->
+                <!--<div id="time-period-max"></div>-->
                 <div id="map-vis"></div>
             </div>
         </div>
@@ -37,7 +38,10 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div id="slider-vis"></div>
+                <div id="timeslider-vis"></div>
+
+                <label for="timeslider-hover-val">Last Hovered Slider Value:</label>
+                <div id="timeslider-hover-val"></div>
             </div>
         </div>
     </div>
@@ -49,6 +53,7 @@
     <script src="js/topojson.v1.min.js"></script>
     <script src="js/queue.v1.min.js"></script>
     <script src="js/d3.min.js"></script>
+    <script src="js/nouislider.js"></script>
 
     <!-- Visualization objects -->
     <!--<script src="js/countvis.js"></script>-->
