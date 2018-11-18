@@ -24,7 +24,7 @@ function createVis(error, water_conditions, world, water_quality) {
            "State": d.ST,
            "Total_Phosphorus": +d.Total_Phosphorous,
            "Total_Nitrogen": +d.Total_Nitrogen,
-           "Turbidity": s+d.TURB,
+           "Turbidity": +d.TURB,
            "Dissolved_Org_Carbon": +d.DOC,
        }
     });
