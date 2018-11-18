@@ -1,11 +1,15 @@
+// Function to convert date objects to strings or reverse
+var dateFormatter = d3.timeFormat("%Y-%m-%d");
+var dateParser = d3.timeParse("%Y-%m-%d");
 
 queue()
     .defer(d3.csv,"data/water_conditions.csv")
+    .defer(d3.json, "data/world-110m.json")
     .defer(d3.json,"data/waterdata.json")
     .await(createVis);
 
 
-function createVis(error, water_conditions, water_quality) {
+function createVis(error, water_conditions, world, water_quality) {
     if(error) throw error;
 
     // console.log(water_conditions);
@@ -26,4 +30,32 @@ function createVis(error, water_conditions, water_quality) {
     });
 
     console.log(water_data);
+    var mapVis = new MapVis("map-vis", water_data, world);
 }
+
+
+    // // (3) Create event handler
+    // var MyEventHandler = {};
+
+    // (4) Create visualization instances
+
+
+    // var countVis = new CountVis("countvis", allData, MyEventHandler);
+//     // *** TO-DO ***
+//     //  pass event handler to CountVis, at constructor of CountVis above
+//
+//     // *** TO-DO ***
+//     var ageVis = new AgeVis("agevis", allData);
+//     var prioVis = new PrioVis("priovis", allData, metaData);
+//
+//
+//     // (5) Bind event handler
+//
+//     // *** TO-DO ***
+//     $(MyEventHandler).bind("selectionChanged", function(event, rangeStart, rangeEnd){
+//         ageVis.onSelectionChange(rangeStart, rangeEnd);
+//         prioVis.onSelectionChange(rangeStart, rangeEnd);
+//         countVis.onSelectionChange(rangeStart, rangeEnd);
+//     });
+//
+
