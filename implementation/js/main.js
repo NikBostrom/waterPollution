@@ -8,6 +8,28 @@ queue()
     .defer(d3.json, "data/world-110m.json")
     .defer(d3.json,"data/waterdata.json")
     .await(createVis);
+/*
+
+region_data = {
+    "Region_1": {
+        "Total_Nitrogen": [],
+        "Total_Phosphorus": [],
+        "Turbidity": [],
+    },
+    "Region_2": ...,
+    "Region_3": ...,
+}
+
+state_data = {
+    "FL": {
+        "Total_Nitrogen": [],
+        "Total_Phosphorus": [],
+        "Turbidity": [],
+    },
+    "GA": ...,
+    "MT": ...,
+}
+*/
 
 region_data = {}
 state_data = {}
@@ -15,11 +37,7 @@ state_data = {}
 function createVis(error, water_conditions, world, water_quality) {
     if(error) throw error;
 
-    // console.log(water_conditions);
-    // console.log(water_quality);
-
     water_data = water_conditions.map(function(d,i) {
-       // console.log(d);
        return {
            "Region": d.EPA_REG,
            "Lat": +d.LAT_DD,
@@ -31,81 +49,38 @@ function createVis(error, water_conditions, world, water_quality) {
            "Dissolved_Org_Carbon": +d.DOC,
        }
     });
-    /*
-
-   region_data = {
-        "Region_1": {
-            "Total_Nitrogen": [],
-            "Total_Phosphorus": [],
-            "Turbidity": [],
-        },
-        "Region_2": ...,
-        "Region_3": ...,
-   }
-
-   state_data = {
-        "FL": {
-            "Total_Nitrogen": [],
-            "Total_Phosphorus": [],
-            "Turbidity": [],
-        },
-        "GA": ...,
-        "MT": ...,
-   }
 
 
+    createDataSet(water_data, state_data, "State");
+    createDataSet(water_data, region_data, "Region");
 
-    */
     console.log(water_data);
-    water_data.map(function(d, i) {
-        // populate state_data
-        if (state_data[d.State]) {
-            state_data[d.State].Total_Nitrogen.push(d.Total_Nitrogen);
-            state_data[d.State].Total_Phosphorus.push(d.Total_Phosphorus);
-            state_data[d.State].Turbidity.push(d.Turbidity);
-        } else {
-            //first entry for state_data[d.State]
-            state_data[d.State] = {
-                "Total_Nitrogen": [d.Total_Nitrogen],
-                "Total_Phosphorus": [d.Total_Phosphorus],
-                "Turbidity": [d.Turbidity],
-            }
-        }
-
-
-        // populate region_data
-        if (region_data[d.Region]) {
-            region_data[d.Region].Total_Nitrogen.push(d.Total_Nitrogen);
-            region_data[d.Region].Total_Phosphorus.push(d.Total_Phosphorus);
-            region_data[d.Region].Turbidity.push(d.Turbidity);
-        } else {
-            //first entry for state_data[d.State]
-            region_data[d.Region] = {
-                "Total_Nitrogen": [d.Total_Nitrogen],
-                "Total_Phosphorus": [d.Total_Phosphorus],
-                "Turbidity": [d.Turbidity],
-            }
-        }
-
-
-
-    });
-
-    // region_data[d.Region].avg_Total_Nitrogen = average(region_data[d.Region].Total_Nitrogen)
-    // region_data[d.Region].avg_Total_Phosphorus = average(region_data[d.Region].Total_Phosphorus)
-    // region_data[d.Region].avg_Turbidity = average(region_data[d.Region].Turbidity)
-    //
-    // state_data[d.State].avg_Total_Nitrogen = average(state_data[d.State].Total_Nitrogen)
-    // state_data[d.State].avg_Total_Phosphorus = average(state_data[d.State].Total_Phosphorus)
-    // state_data[d.State].avg_Turbidity = average(state_data[d.State].Turbidity)
 
     getAverage(state_data);
     getAverage(region_data);
 
-    // console.log(state_data);
-    // console.log(region_data);
+    console.log(state_data);
+    console.log(region_data);
 
-    var mapVis = new MapVis("map-vis", water_data, world);
+    var mapVis = new MapVis("map-vis", state_data, world);
+}
+
+function createDataSet(water_data, new_data, key) {
+    water_data.map(function(d, i) {
+
+        if (new_data[d[key]]) {
+            new_data[d[key]].Total_Nitrogen.push(d.Total_Nitrogen);
+            new_data[d[key]].Total_Phosphorus.push(d.Total_Phosphorus);
+            new_data[d[key]].Turbidity.push(d.Turbidity);
+        } else {
+            new_data[d[key]] = {
+                "Total_Nitrogen": [d.Total_Nitrogen],
+                "Total_Phosphorus": [d.Total_Phosphorus],
+                "Turbidity": [d.Turbidity],
+            }
+        }
+        return(new_data);
+    });
 }
 
 function getAverage(data) {
