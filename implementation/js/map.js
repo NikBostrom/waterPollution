@@ -1,68 +1,60 @@
-var width = 1000,
-    height = 600;
+/*
+ * MapVis - Object constructor function
+ * @param _parentElement 	-- the HTML element in which to draw the visualization
+ * @param _data				-- the actual data
+ * @param _worldData              -- the map data
+ */
 
-var svg = d3.select("#map-vis").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+MapVis = function(_parentElement, _data, _worldData ){
+    this.parentElement = _parentElement;
+    this.data = _data;
+    this.worldData = _worldData;
 
-queue()
-    .defer(d3.json, "data/world-110m.json")
-    .await(createVisualization);
+    this.initVis();
+};
 
-function createVisualization(error, _worldData) {
-    if (error) throw error;
+/*
+ * Initialize visualization (static content, e.g. SVG area or axes)
+ */
 
-    var projection = d3.geoMercator()
-        .translate([width / 2, height / 2])
+MapVis.prototype.initVis = function() {
+    var vis = this;
+
+    console.log(vis.worldData);
+
+    vis.margin = { top: 0, right: 0, bottom: 0, left: 0 };
+
+    vis.width = 1000 - vis.margin.left - vis.margin.right;
+    vis.height = 600 - vis.margin.top - vis.margin.bottom;
+
+    // SVG drawing area
+    vis.svg = d3.select("#" + vis.parentElement).append("svg")
+        .attr("width", vis.width)
+        .attr("height", vis.height);
+
+    vis.projection = d3.geoMercator()
+        .translate([vis.width/2, vis.height/2])
         .center([0, 20])
         .scale(150);
 
-    // var projection = d3.geoOrthographic();
-
-    var path = d3.geoPath()
-        .projection(projection);
+    vis.path = d3.geoPath()
+        .projection(vis.projection);
 
     // Convert TopoJSON to GeoJSON (target object = 'countries')
-    var world = topojson.feature(_worldData, _worldData.objects.countries).features;
-    // var airports = _airportData.nodes;
+    vis.world = topojson.feature(vis.worldData, vis.worldData.objects.countries).features;
 
     // Render the U.S. by using the path generator
-    svg.selectAll("path")
-        .data(world)
+    // this may be problematic as we add more paths...
+    vis.svg.selectAll("path")
+        .data(vis.world)
         .enter().append("path")
-        .attr("d", path);
+        .attr("d", vis.path);
 
     // Add country boundaries
-    svg.append("path")
-        .datum(topojson.mesh(_worldData, _worldData.objects.countries, function(a, b) { return a !== b; }))
-        .attr("d", path)
+    vis.svg.append("path")
+        .datum(topojson.mesh(vis.worldData, vis.worldData.objects.countries, function(a,b) {return a !== b; }))
+        .attr("d", vis.path)
         .attr("class", "subunit-boundary");
-
-    // svg.selectAll("circle")
-    //     .data(airports)
-    //     .enter()
-    //     .append("circle")
-    //     .attr("r", 3.25)
-    //     .attr("transform", function(d) {
-    //         return "translate(" + projection([d.longitude, d.latitude]) + ")";
-    //     })
-    //     .attr("class", "airport")
-    //     .append("title")
-    //     .text(function(d) { return d.name; });
-
-
-    // var edges = _airportData.links;
-
-    // Add lines to connect the airports
-    // svg.selectAll("line")
-    //     .data(edges)
-    //     .enter()
-    //     .append("line")
-    //     .attr("class", "airport-line")
-    //     .attr("x1", function(d) { return projection([airports[d.source].longitude, airports[d.source].latitude])[0]; })
-    //     .attr("y1", function(d) { return projection([airports[d.source].longitude, airports[d.source].latitude])[1]; })
-    //     .attr("x2", function(d) { return projection([airports[d.target].longitude, airports[d.target].latitude])[0]; })
-    //     .attr("y2", function(d) { return projection([airports[d.target].longitude, airports[d.target].latitude])[1]; });
-}
+};
 
 
