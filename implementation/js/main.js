@@ -1,3 +1,4 @@
+
 // Function to convert date objects to strings or reverse
 var dateFormatter = d3.timeFormat("%Y-%m-%d");
 var dateParser = d3.timeParse("%Y-%m-%d");
@@ -8,6 +9,8 @@ queue()
     .defer(d3.json,"data/waterdata.json")
     .await(createVis);
 
+region_data = {}
+state_data = {}
 
 function createVis(error, water_conditions, world, water_quality) {
     if(error) throw error;
@@ -28,8 +31,67 @@ function createVis(error, water_conditions, world, water_quality) {
            "Dissolved_Org_Carbon": +d.DOC,
        }
     });
+    /*
 
+   region_data = {
+        "Region_1": {
+            "Total_Nitrogen": [],
+            "Total_Phosphorus": [],
+            "Turbidity": [],
+        },
+        "Region_2": ...,
+        "Region_3": ...,
+   }
+
+   state_data = {
+        "FL": {
+            "Total_Nitrogen": [],
+            "Total_Phosphorus": [],
+            "Turbidity": [],
+        },
+        "GA": ...,
+        "MT": ...,
+   }
+
+
+
+    */
     console.log(water_data);
+    water_data.map(function(d, i) {
+        // populate state_data
+        if (state_data[d.State]) {
+            state_data[d.State].Total_Nitrogen.push(d.Total_Nitrogen);
+            state_data[d.State].Total_Phosphorus.push(d.Total_Phosphorus);
+            state_data[d.State].Turbidity.push(d.Turbidity);
+        } else {
+            //first entry for state_data[d.State]
+            state_data[d.State] = {
+                "Total_Nitrogen": [d.Total_Nitrogen],
+                "Total_Phosphorus": [d.Total_Phosphorus],
+                "Turbidity": [d.Turbidity],
+            }
+        }
+
+
+
+        // populate region_data
+        if (region_data[d.Region]) {
+            region_data[d.Region].Total_Nitrogen.push(d.Total_Nitrogen);
+            region_data[d.Region].Total_Phosphorus.push(d.Total_Phosphorus);
+            region_data[d.Region].Turbidity.push(d.Turbidity);
+        } else {
+            //first entry for state_data[d.State]
+            region_data[d.Region] = {
+                "Total_Nitrogen": [d.Total_Nitrogen],
+                "Total_Phosphorus": [d.Total_Phosphorus],
+                "Turbidity": [d.Turbidity],
+            }
+        }
+
+    });
+    console.log(state_data);
+    console.log(region_data);
+
     var mapVis = new MapVis("map-vis", water_data, world);
 }
 
