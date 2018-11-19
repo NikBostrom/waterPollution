@@ -5,9 +5,12 @@ var dateParser = d3.timeParse("%Y-%m-%d");
 
 queue()
     .defer(d3.csv,"data/water_conditions.csv")
+    .defer(d3.json, "data/usStatesOutline-5m.json")
     .defer(d3.json, "data/world-110m.json")
     .defer(d3.json,"data/waterdata.json")
+    .defer(d3.json,"data/us_states.json")
     .await(createVis);
+
 /*
 
 region_data = {
@@ -34,7 +37,7 @@ state_data = {
 region_data = {}
 state_data = {}
 
-function createVis(error, water_conditions, world, water_quality) {
+function createVis(error, water_conditions, us, world, water_quality, states) {
     if(error) throw error;
 
     water_data = water_conditions.map(function(d,i) {
@@ -62,7 +65,7 @@ function createVis(error, water_conditions, world, water_quality) {
     console.log(state_data);
     console.log(region_data);
 
-    var mapVis = new MapVis("map-vis", state_data, world);
+    var mapVis = new MapVis("map-vis", water_data, us, state_data, states);
 }
 
 function createDataSet(water_data, new_data, key) {
