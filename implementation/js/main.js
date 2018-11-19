@@ -76,8 +76,10 @@ function createVis(error, water_conditions, world, water_quality, water_assess) 
         // .key(function(d) { return d.Region })
         .key(function(d) { return d.State })
         .key(function(d) { return d['Water Status']})
-        .rollup(function(leaves) { return leaves.length; })
-        .object(water_assess); //.entries(water_assess) for array instead of object
+        // .rollup(function(leaves) { console.log(leaves); return {"state": leaves[0].State, "count": leaves.length}; })
+        .rollup(function(leaves) { return leaves.length })
+        .entries(water_assess); // for array
+        // .object(water_assess); // for object
     console.log(waterAssessByState);
 
     var mapVis = new MapVis("map-vis", state_data, world);
