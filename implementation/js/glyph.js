@@ -18,7 +18,7 @@ GlyphVis = function(_parentElement, _data ){
 GlyphVis.prototype.initVis = function() {
     var vis = this;
 
-    vis.margin = { top: 200, right: 100, bottom: 100, left: 100 };
+    vis.margin = { top: 100, right: 100, bottom: 100, left: 100 };
 
     vis.width = 500 - vis.margin.left - vis.margin.right;
     vis.height = 500 - vis.margin.top - vis.margin.bottom;

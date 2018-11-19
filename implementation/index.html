@@ -5,17 +5,32 @@
     <title>Water Pollution</title>
 
     <link rel="stylesheet" href="css/nouislider.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
     <h1></h1>
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <h1><span class="h1-sub">Water Pollution Around the Globe</span></h1>
                 <h2>Visualizing human effects on large bodies of water</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="placeholder">Intro text</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <p class="placeholder">Visualization explanation: colors based on averages</p>
+            </div>
+            <div class="col-lg-6">
+                <p class="placeholder">Explanation of phosphorus, nitrogen, turbidity</p>
             </div>
         </div>
         <div class="row">
@@ -28,10 +43,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <!--<div id="time-period-min"></div>-->
                 <!--<div id="time-period-max"></div>-->
                 <div id="map-vis"></div>
+                <p class="placeholder">Explanation of map</p>
             </div>
         </div>
 
@@ -46,15 +62,36 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div id="timeslider-vis"></div>
+                <!--<div id="timeslider-vis"></div>-->
 
-                <label for="timeslider-hover-val">Last Hovered Slider Value:</label>
-                <div id="timeslider-hover-val"></div>
+                <!--<label for="timeslider-hover-val">Last Hovered Slider Value:</label>-->
+                <!--<div id="timeslider-hover-val"></div>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Bar chart of statuses of bodies of water by state</p>
+                <div id="glyph-vis"></div>
+            </div>
+            <div class="col-md-6">
+                <p class="placeholder">Selected state with most polluted bodies of water plotted</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="placeholder">
+                    Explanation of above chart
+                </p>
+            </div>
+            <div class="col-md-6">
+                <p class="placeholder">
+                    Explanation of above chart
+                </p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="glyph-vis"></div>
+                <p class="placeholder">Call to action</p>
             </div>
         </div>
     </div>
@@ -67,11 +104,11 @@
     <script src="js/queue.v1.min.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/d3-tip.js"></script>
-    <script src="js/nouislider.js"></script>
+    <!--<script src="js/nouislider.js"></script>-->
 
     <!-- Visualization objects -->
     <script src="js/map.js"></script>
-    <script src="js/timeSlider.js"></script>
+    <!--<script src="js/timeSlider.js"></script>-->
     <script src="js/getData.js"></script>
     <script src="js/glyph.js"></script>
 

@@ -40,3 +40,9 @@ body {
     /*text-align: center;*/
     /*margin: 0;*/
 /*}*/
+
+.placeholder {
+    padding: 100px;
+    border: black;
+    border-style: solid;
+}
