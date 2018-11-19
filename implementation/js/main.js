@@ -7,12 +7,13 @@ queue()
     .defer(d3.csv,"data/water_conditions.csv")
     .defer(d3.json, "data/world-110m.json")
     .defer(d3.json,"data/waterdata.json")
+    .defer(d3.json, "data/us-10m.json")
     .await(createVis);
 
 region_data = {}
 state_data = {}
 
-function createVis(error, water_conditions, world, water_quality) {
+function createVis(error, water_conditions, world, water_quality, world2) {
     if(error) throw error;
 
     // console.log(water_conditions);
@@ -105,7 +106,7 @@ function createVis(error, water_conditions, world, water_quality) {
     // console.log(state_data);
     // console.log(region_data);
 
-    var mapVis = new MapVis("map-vis", water_data, world);
+    var mapVis = new MapVis("map-vis", water_data, world2);
 }
 
 function getAverage(data) {
