@@ -32,6 +32,18 @@ MapVis.prototype.initVis = function() {
         .attr("width", vis.width)
         .attr("height", vis.height);
 
+    // vis.path = d3.geoPath();
+    //
+    // vis.svg.selectAll("path")
+    //     .data(topojson.feature(vis.worldData, vis.worldData.objects.states).features)
+    //     .enter().append("path")
+    //     .attr("d", vis.path);
+    //
+    // vis.svg.append("path")
+    //     .attr("class", "state-borders")
+    //     .attr("d", vis.path(topojson.mesh(vis.worldData, vis.worldData.objects.states, function(a, b) { return a !== b; })));
+
+
     vis.projection = d3.geoMercator()
         .translate([vis.width/2, vis.height/2])
         .center([0, 20])
@@ -40,21 +52,37 @@ MapVis.prototype.initVis = function() {
     vis.path = d3.geoPath()
         .projection(vis.projection);
 
-    // Convert TopoJSON to GeoJSON (target object = 'countries')
-    vis.world = topojson.feature(vis.worldData, vis.worldData.objects.countries).features;
-
-    // Render the U.S. by using the path generator
-    // this may be problematic as we add more paths...
+    vis.us = topojson.feature(vis.worldData, vis.worldData.objects.states).features;
     vis.svg.selectAll("path")
-        .data(vis.world)
+        .data(vis.us)
         .enter().append("path")
         .attr("d", vis.path);
+    //
+    // var world = topojson.feature(data1, data1.objects.countries).features;
 
-    // Add country boundaries
-    vis.svg.append("path")
-        .datum(topojson.mesh(vis.worldData, vis.worldData.objects.countries, function(a,b) {return a !== b; }))
-        .attr("d", vis.path)
-        .attr("class", "subunit-boundary");
+    // vis.svg.append("path")
+    //     .attr("class", "state-borders")
+    //     .attr("d", vis.path(topojson.mesh(vis.worldData, vis.worldData.objects.states, function(a, b) { return a !== b; })));
+
+
+
+
+    // Convert TopoJSON to GeoJSON (target object = 'countries')
+    // vis.world = topojson.feature(vis.worldData, vis.worldData.objects.countries).features;
+    //
+    // // Render the U.S. by using the path generator
+    // // this may be problematic as we add more paths...
+    // vis.svg.selectAll("path")
+    //     .data(vis.world)
+    //     .enter().append("path")
+    //     .attr("d", vis.path);
+    //
+    // // Add country boundaries
+    // vis.svg.append("path")
+    //     .datum(topojson.mesh(vis.worldData, vis.worldData.objects.countries, function(a,b) {return a !== b; }))
+    //     .attr("d", vis.path)
+    //     .attr("class", "subunit-boundary");
+
 };
 
 
