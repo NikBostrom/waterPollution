@@ -20,7 +20,7 @@ MapVis = function(_parentElement, _data, _worldData ){
 MapVis.prototype.initVis = function() {
     var vis = this;
 
-    console.log(vis.worldData);
+    // console.log(vis.worldData);
 
     vis.margin = { top: 0, right: 0, bottom: 0, left: 0 };
 

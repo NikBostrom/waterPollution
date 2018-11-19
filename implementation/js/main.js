@@ -7,6 +7,7 @@ queue()
     .defer(d3.csv,"data/water_conditions.csv")
     .defer(d3.json, "data/world-110m.json")
     .defer(d3.json,"data/waterdata.json")
+    .defer(d3.csv,"data/assess_region1.csv") // assess_nation.csv
     .await(createVis);
 /*
 
@@ -31,12 +32,13 @@ state_data = {
 }
 */
 
-region_data = {}
-state_data = {}
+region_data = {};
+state_data = {};
 
-function createVis(error, water_conditions, world, water_quality) {
+function createVis(error, water_conditions, world, water_quality, water_assess) {
     if(error) throw error;
 
+    // clean water-conditions data
     water_data = water_conditions.map(function(d,i) {
        return {
            "Region": d.EPA_REG,
@@ -62,7 +64,24 @@ function createVis(error, water_conditions, world, water_quality) {
     console.log(state_data);
     console.log(region_data);
 
+    // Clean assessment data
+    water_assess.map(function(d) {
+        d.Cycle = +d.Cycle;
+        d.Region = +d.Region;
+        d['Water Size'] = +d['Water Size'];
+    });
+
+    // Nest data by state
+    var waterAssessByState = d3.nest()
+        // .key(function(d) { return d.Region })
+        .key(function(d) { return d.State })
+        .key(function(d) { return d['Water Status']})
+        .rollup(function(leaves) { return leaves.length; })
+        .object(water_assess); //.entries(water_assess) for array instead of object
+    console.log(waterAssessByState);
+
     var mapVis = new MapVis("map-vis", state_data, world);
+    var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
 }
 
 function createDataSet(water_data, new_data, key) {
