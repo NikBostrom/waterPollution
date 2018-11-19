@@ -11,14 +11,27 @@ body {
 #timeslider-vis {
     margin-bottom: 25px;
 }
+
 #showcase {
     margin: 0 20px;
     text-align: center;
 }
+
 #range {
     height: 300px;
     margin: 0 auto 30px;
 }
+
+.d3-tip {
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#heading, .centered {
+    text-align: center;
+}
+
 /*#value-span,*/
 /*#value-input {*/
     /*width: 50%;*/

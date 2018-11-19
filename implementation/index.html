@@ -18,7 +18,15 @@
                 <h2>Visualizing human effects on large bodies of water</h2>
             </div>
         </div>
-
+        <div class="row">
+            <div class="">
+                <select class="form-control" id="measurable">
+                    <option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>
+                    <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
+                    <option value="Turbidity">Turbidity (NTU)</option>
+                </select>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <!--<div id="time-period-min"></div>-->
@@ -58,6 +66,7 @@
     <script src="js/topojson.v1.min.js"></script>
     <script src="js/queue.v1.min.js"></script>
     <script src="js/d3.min.js"></script>
+    <script src="js/d3-tip.js"></script>
     <script src="js/nouislider.js"></script>
 
     <!-- Visualization objects -->
