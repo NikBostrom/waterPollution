@@ -8,6 +8,12 @@
  * @param _abbToState       -- state for each 2-letter abbreviation
  */
 
+/*
+TO DOs:
+Add tooltips
+Pie charts by region
+ */
+
 SymbVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState){
     this.parentElement = _parentElement;
     this.data = _data;
@@ -36,6 +42,8 @@ SymbVis.prototype.initVis = function() {
         .attr("width", vis.width)
         .attr("height", vis.height);
 
+    vis.g = vis.svg.append("g"); // change 'g.' back to 'svg.'?
+
     // Set up map
     vis.projection = d3.geoAlbersUsa()
         .scale(1100);
@@ -55,6 +63,23 @@ SymbVis.prototype.initVis = function() {
         .value(function(d) { return d; });
 
     vis.color = d3.schemeCategory10;
+
+    // Zoom
+    vis.active = d3.select(null);
+
+    vis.zoom = d3.zoom()
+        // these are v3 attributes
+        // .translate([0, 0])
+        // .scale(1)
+        // .scaleExtent([1,8])
+        // .on("zoom", vis.zoomed);
+        .on("zoom", function() {
+            vis.svg.attr("transform", d3.event.transform)
+        });
+
+    vis.svg
+        .call(vis.zoom);
+        // .call(vis.zoom.event);
 
     // Filter, aggregate, modify data
     vis.wrangleData();
@@ -121,23 +146,16 @@ SymbVis.prototype.updateVis = function() {
     var vis = this;
 
     // Draw geographic features
-    vis.svg.selectAll("path")
+    vis.g.selectAll("path")
         .data(vis.stateOutlines.features)
         .enter()
         .append("path")
-        .attr("d", vis.path);
-
-    // // Draw circles
-    // vis.svg.selectAll(".symbol")
-    //     .data(vis.stateCentroids.features)
-    //     .enter().append("path")
-    //     .attr("class", "symbol")
-    //     .attr("d", vis.path.pointRadius(15))
-    //     .attr("fill", "blue");
+        .attr("d", vis.path)
+        .on("click", vis.clicked);
 
     // Draw pie charts
     console.log(vis.wrangledData);
-    vis.points = vis.svg.selectAll("g")
+    vis.points = vis.g.selectAll("g")
         .data(vis.wrangledData)
         .enter()
         .append("g")
@@ -155,3 +173,32 @@ SymbVis.prototype.updateVis = function() {
         .attr("fill", function(d, i) { return vis.color[i]; })
         .attr("style", "fill-opacity: 0.8")
 };
+
+SymbVis.prototype.clicked = function() {
+    var vis = this;
+
+    if (vis.active.node() === this) return vis.reset();
+    vis.active.classed("active", false);
+    vis.active = d3.select(this).classed("active", true);
+
+
+};
+
+SymbVis.prototype.reset = function() {
+    var vis = this;
+
+    vis.active.classed("active", false);
+    vis.active = d3.select(null);
+
+    vis.svg.transition()
+        .duration(750)
+        .call(zoom.translate([0,0]).scale(1).event);
+};
+//
+// SymbVis.prototype.zoomed = function() {
+//     var vis = this;
+//
+//     // vis.g.style("stroke-width", 1.5 / d3.event.scale + "px");
+//     vis.g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+//
+// };
