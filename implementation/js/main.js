@@ -226,10 +226,27 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     }
 
 
-    console.log(locations);
-    console.log(nyHarborData);
+    // console.log(locations);
+    // console.log(nyHarborData);
+
+    var harborMapVis = new HarborMapVis("harbor-map", locations, nyHarborData);
+    // var harborLinechartVis = new HarborLinechartVis("harbor-linechart", locations, nyHarborData);
 
 
+    var harborEventHandler = {};
+    var selectionBox = d3.select("#harbor-select-box");
+    console.log(d3.select("#harbor-select-box").property("value"));
+    console.log(d3.select("#ranking-type").property("value"));
 
-    var harborVis = new HarborMapVis("harbor-map", locations, nyHarborData);
+    selectionBox.on("change", function() {
+        $(harborEventHandler).trigger("harbor-filter-selection-changed", )
+    });
+
+    $(harborEventHandler).bind("harbor-filter-selection-changed", function(_event) {
+        console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
+        harborMapVis.updateVis(selectionBox.property("value"));
+        // harborLinechartVis.updateVis(selectionBox.property("value"));
+    })
+
+
 }

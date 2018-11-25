@@ -106,7 +106,8 @@ var chesapeakeData;
 
 function loadData() {
     d3.csv("data/chesapeakeBayLoads.csv", function(chesapeake) {
-        console.log(chesapeake);
+        // COMMD OUT - Nik
+        // console.log(chesapeake);
         chesapeakeData = chesapeake.map(function(d) {
             return {
                 "Region": d.Region,
@@ -116,7 +117,8 @@ function loadData() {
                 "TSS": +d.TSS
             }
         });
-        console.log(chesapeakeData);
+        // COMMD OUT - Nik
+        // console.log(chesapeakeData);
     });
 
     setTimeout(updateVisualization, 200);

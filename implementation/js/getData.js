@@ -8,7 +8,8 @@ $(document).ready(function(){
         // });
         var jsonData = JSON.stringify(result);
         // download(jsonData, 'waterdata.json', 'json');
-        console.log("done");
+        // COMMD OUT - Nik
+        // console.log("done");
     });
     // });
 });
