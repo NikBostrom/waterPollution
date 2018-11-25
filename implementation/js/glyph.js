@@ -28,7 +28,8 @@ GlyphVis.prototype.initVis = function() {
         .attr("width", vis.width)
         .attr("height", vis.height);
 
-    console.log(vis.data);
+//COMMD OUT
+//    console.log(vis.data);
 
     // bar chart?
     // pie chart?
