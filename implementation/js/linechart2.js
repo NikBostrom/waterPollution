@@ -7,7 +7,7 @@ var height = 400 - margin.top - margin.bottom;
 
 // SVG drawing area
 // vis.svg = d3.select("#" + vis.parentElement).append("svg")
-var svg = d3.select("#newguy").append("svg")
+var svg = d3.select("#chesapeakeChart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -17,9 +17,6 @@ var svg = d3.select("#newguy").append("svg")
 // Scales
 var x = d3.scaleTime()
     .rangeRound([0, width]);
-// vis.x = d3.scaleBand()
-//     .domain(['1','2','3','4','5','6','7','8','9','10','11','12'])
-//     .range([0, vis.width]);
 
 var y = d3.scaleLinear()
     .range([height, 0]);
@@ -101,7 +98,7 @@ var parseDate = d3.timeParse("%Y");
 // Initialize data
 loadData();
 
-// FIFA world cup
+// Chesapeake Bay Data
 var chesapeakeData;
 
 function loadData() {
@@ -121,12 +118,12 @@ function loadData() {
         // console.log(chesapeakeData);
     });
 
-    setTimeout(updateVisualization, 200);
+    setTimeout(updateChesapeake, 200);
 }
 
 
 // Render visualization
-function updateVisualization() {
+function updateChesapeake() {
 
 
 
@@ -174,7 +171,7 @@ function updateVisualization() {
         .call(yAxis);
 
     svg.select(".x-label").text("Year");
-    svg.select(".y-label").text(selectedOption + " (lbs/day)");
+    svg.select(".y-label").text(selectedOption + " (lbs/year)");
 
     // create line function for line chart
     DCline = d3.line()
@@ -243,7 +240,7 @@ function updateVisualization() {
     var tool_tip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-8, 0])
-        .html(function(d) { return "Region: " + d.Region + ", Year: " + formatDate(d.Year) + "<br>" + selectedOption + ": " + d[selectedOption] + " lbs/day"; });
+        .html(function(d) { return "Region: " + d.Region + ", Year: " + formatDate(d.Year) + "<br>" + selectedOption + ": " + d[selectedOption] + " lbs/year"; });
     svg.call(tool_tip);
 
     // Data-join (circle now contains the update selection)
