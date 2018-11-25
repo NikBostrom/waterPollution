@@ -89,14 +89,27 @@ SymbVis.prototype.wrangleData = function() {
 
     // Combine nested data with lat/long of center
     // console.log(vis.stateCentroids.features);
+    vis.assessTypes = ['GOOD', 'IMPAIRED', 'THREATENED', 'NOT_ASSESSED'];
     vis.wrangledData = [];
+
     for (i = 0; i < vis.stateCentroids.features.length; i++) {
         var d = vis.stateCentroids.features[i];
         // console.log(d);
         var state = {};
         state["name"] = d.properties.name;
         state["center"] = d.geometry.coordinates;
-        state["values"] = vis.byState[i].values;
+        state['values'] = [];
+        vis.assessTypes.forEach(function(type) {
+            // console.log(vis.byState[i].values);
+            var idx = vis.byState[i].values.findIndex(x => x.key===type);
+            // console.log(idx);
+            if (idx === -1) {
+                state['values'].push(0);
+            }
+            else {
+                state['values'].push(vis.byState[i].values[idx].value);
+            }
+        });
         vis.wrangledData.push(state);
     }
     console.log(vis.wrangledData);
@@ -114,13 +127,13 @@ SymbVis.prototype.updateVis = function() {
         .append("path")
         .attr("d", vis.path);
 
-    // Draw circles
-    vis.svg.selectAll(".symbol")
-        .data(vis.stateCentroids.features)
-        .enter().append("path")
-        .attr("class", "symbol")
-        .attr("d", vis.path.pointRadius(15))
-        .attr("fill", "blue");
+    // // Draw circles
+    // vis.svg.selectAll(".symbol")
+    //     .data(vis.stateCentroids.features)
+    //     .enter().append("path")
+    //     .attr("class", "symbol")
+    //     .attr("d", vis.path.pointRadius(15))
+    //     .attr("fill", "blue");
 
     // Draw pie charts
     console.log(vis.wrangledData);
@@ -131,17 +144,14 @@ SymbVis.prototype.updateVis = function() {
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
         .attr("class", "pie");
 
-    console.log(vis.points);
-
     vis.pies = vis.points.selectAll(".pie")
-        .data(function(d) {return d.values})
+        .data(function(d) {return vis.pie(d.values)})
         .enter()
         .append('g')
         .attr('class', 'arc');
 
-    console.log(vis.pies);
-
     vis.pies.append('path')
         .attr('d', vis.arc)
-        .attr("fill", "red")
+        .attr("fill", function(d, i) { return vis.color[i]; })
+        .attr("style", "fill-opacity: 0.8")
 };
