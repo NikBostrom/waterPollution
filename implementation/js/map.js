@@ -4,15 +4,15 @@
  * @param _data				-- original data being visualized
  * @param _stateOutlines    -- usStatesOutline json
  * @param _stateData        -- cleaned data nested by 2-letter state abbreviation
- * @param _stateAbbs       -- 2-letter abbreviations for each state
+ * @param _stateToAbb       -- 2-letter abbreviations for each state
  */
 
-MapVis = function(_parentElement, _data, _stateOutlines, _stateData, _stateAbbs ){
+MapVis = function(_parentElement, _data, _stateOutlines, _stateData, _stateToAbb ){
     this.parentElement = _parentElement;
     this.data = _data;
     this.stateOutlines = _stateOutlines;
     this.stateData = _stateData;
-    this.stateAbbs = _stateAbbs;
+    this.stateToAbb = _stateToAbb;
 
     this.initVis();
 };
@@ -75,11 +75,11 @@ MapVis.prototype.updateChoropleth = function() {
 
     // --> Choropleth implementation
     vis.stateOutlines.features.forEach(function(d) {
-        // console.log(vis.stateAbbs[d.properties.NAME])
-        // console.log(vis.stateData[vis.stateAbbs[d.properties.NAME]]);
+        // console.log(vis.stateToAbb[d.properties.NAME])
+        // console.log(vis.stateData[vis.stateToAbb[d.properties.NAME]]);
         // console.log(d.properties.NAME.substr(0, 2).toUpperCase())
-        if(vis.stateData[vis.stateAbbs[d.properties.NAME]]){
-            d.properties.data = vis.stateData[vis.stateAbbs[d.properties.NAME]];
+        if(vis.stateData[vis.stateToAbb[d.properties.NAME]]){
+            d.properties.data = vis.stateData[vis.stateToAbb[d.properties.NAME]];
             d.properties.value = d.properties.data["avg_" + vis.type];
         }
     });

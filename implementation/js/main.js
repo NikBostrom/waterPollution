@@ -60,13 +60,13 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
     createDataSet(water_data, state_data, "State");
     createDataSet(water_data, region_data, "Region");
 
-    console.log(water_data);
+    // console.log(water_data);
 
     getAverage(state_data);
     getAverage(region_data);
 
-    console.log(state_data);
-    console.log(region_data);
+    // console.log(state_data);
+    // console.log(region_data);
 
     // Clean assessment data
     waterAssess.map(function(d) {
@@ -75,8 +75,19 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
         d['Water Size'] = +d['Water Size'];
     });
 
+    // Create JSON with states as keys and abbreviations for values
+    function swap(json) {
+        var ret = {};
+        for (var key in json) {
+            ret[json[key]] = key;
+        }
+        return ret;
+    }
+    var abbToState = swap(states);
+    // console.log(stateToAbb);
+
     // var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
-    var symbVis = new SymbVis("symb-vis", waterAssess, usOutline, stateCentroids, states);
+    var symbVis = new SymbVis("symb-vis", waterAssess, usOutline, stateCentroids, states, abbToState);
     var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
 }
 

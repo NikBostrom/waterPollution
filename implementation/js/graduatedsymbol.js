@@ -4,15 +4,17 @@
  * @param _data				-- water assessment data being visualized
  * @param _stateOutlines    -- usStatesOutline json
  * @param _stateCentroids   -- lat/longs of state centroids
- * @param _stateAbbs       -- 2-letter abbreviations for each state
+ * @param _stateToAbb       -- 2-letter abbreviations for each state
+ * @param _abbToState       -- state for each 2-letter abbreviation
  */
 
-SymbVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateAbbs){
+SymbVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState){
     this.parentElement = _parentElement;
     this.data = _data;
     this.stateOutlines = _stateOutlines;
     this.stateCentroids = _stateCentroids;
-    this.stateAbbs = _stateAbbs;
+    this.stateToAbb = _stateToAbb;
+    this.abbToState = _abbToState;
     this.initVis();
 };
 
@@ -61,28 +63,44 @@ SymbVis.prototype.initVis = function() {
 SymbVis.prototype.wrangleData = function() {
     var vis = this;
 
+    console.log(vis.data);
     // Nest data by state
-    vis.cleanedData = d3.nest()
+    vis.byState = d3.nest()
     // .key(function(d) { return d.Region })
         .key(function(d) { return d.State })
         .key(function(d) { return d['Water Status']})
         .rollup(function(leaves) { return leaves.length })
-        // .entries(vis.data); // for array
-        .object(vis.data); // for object
-    // console.log(vis.cleanedData);
+        .entries(vis.data); // for array
+        // .object(vis.data); // for object
+
+    // console.log(vis.abbToState);
+
+    // Filter out non-states
+    vis.byState = vis.byState.filter(function(d) {return d.key in vis.abbToState});
+    // Sort alphabetically by full state name
+    vis.byState = vis.byState.sort(function(a, b) {
+        var state1 = vis.abbToState[a.key];
+        var state2 = vis.abbToState[b.key];
+        if (state1 < state2) {return -1}
+        if (state1 > state2) {return 1}
+        return 0;
+    });
+    // console.log(vis.byState);
 
     // Combine nested data with lat/long of center
-    console.log(vis.stateCentroids.features);
+    // console.log(vis.stateCentroids.features);
     vis.wrangledData = [];
-    vis.stateCentroids.features.forEach(function (d) {
+    for (i = 0; i < vis.stateCentroids.features.length; i++) {
+        var d = vis.stateCentroids.features[i];
+        // console.log(d);
         var state = {};
         state["name"] = d.properties.name;
         state["center"] = d.geometry.coordinates;
-        state["values"] = vis.cleanedData[vis.stateAbbs[d.properties.name]];
+        state["values"] = vis.byState[i].values;
         vis.wrangledData.push(state);
-    });
-
+    }
     console.log(vis.wrangledData);
+
     vis.updateVis()
 };
 
@@ -113,6 +131,17 @@ SymbVis.prototype.updateVis = function() {
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
         .attr("class", "pie");
 
+    console.log(vis.points);
+
     vis.pies = vis.points.selectAll(".pie")
-        .data(vis.wrangledData, function(d) {console.log(d.name)})
+        .data(function(d) {return d.values})
+        .enter()
+        .append('g')
+        .attr('class', 'arc');
+
+    console.log(vis.pies);
+
+    vis.pies.append('path')
+        .attr('d', vis.arc)
+        .attr("fill", "red")
 };
