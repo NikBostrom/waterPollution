@@ -183,7 +183,7 @@
                     (Not all states are the same, and not all pollutants are the same)
                 </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" id="chesapeakeBay">
                 <p class="placeholder">
                     Explanation of above chart
                     (Not all states are the same, and not all pollutants are the same)
@@ -202,6 +202,22 @@
         </div>
     </div>
 
+<div class="row">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="ranking-type">Show</label>
+            <select class="form-control" id="ranking-type" onchange="updateVisualization();">
+                <option value="Nitrogen">Nitrogen</option>
+                <option value="Phosphorous">Phosphorous</option>
+                <option value="TSS">TSS</option>
+            </select>
+        </div>
+    </form>
+    <div class="col-md-12" id="newguy">
+
+    </div>
+</div>
+
     <!-- Load JS libraries -->
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -217,6 +233,8 @@
     <!--<script src="js/timeSlider.js"></script>-->
     <script src="js/getData.js"></script>
     <script src="js/glyph.js"></script>
+    <!--<script src="js/linechart.js"></script>-->
+    <script src="js/linechart2.js"></script>
 
     <!-- Load data, create visualizations -->
     <script src="js/main.js"></script>
