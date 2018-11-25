@@ -183,6 +183,50 @@ h2 {
 .dark-block {
     background-color: #000C14;
 }
+
+/* Line chart styles */
+
+.DCline {
+    fill: none;
+    stroke: #1C9A3D;
+    stroke-width: 1.5px;
+}
+
+.DEline {
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5px;
+}
+
+.MDline {
+    fill: none;
+    stroke: blue;
+    stroke-width: 1.5px;
+}
+
+.NYline {
+    fill: none;
+    stroke: purple;
+    stroke-width: 1.5px;
+}
+
+.PAline {
+    fill: none;
+    stroke: orange;
+    stroke-width: 1.5px;
+}
+
+.VAline {
+    fill: none;
+    stroke: pink;
+    stroke-width: 1.5px;
+}
+
+.WVline {
+    fill: none;
+    stroke: cyan;
+    stroke-width: 1.5px;
+}
 /*
 Specify size of the map container for leaflet
 #station-map {

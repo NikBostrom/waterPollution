@@ -10,6 +10,7 @@ queue()
     .defer(d3.json,"data/waterdata.json")
     .defer(d3.csv,"data/assess_region1.csv") // assess_nation.csv
     .defer(d3.json,"data/us_states.json")
+    // .defer(d3.csv,"data/chesapeakeBayLoads.csv")
     .await(createVis);
 
 /*
@@ -98,10 +99,28 @@ function createVis(error, water_conditions, us, world, water_quality, water_asse
         });
     });
 
+
+    // console.log(chesapeake);
+    // chesapeakeData = chesapeake.map(function(d) {
+    //     return {
+    //         "Region": d.Region,
+    //         "Year": d3.timeParse("%Y")(d.Year),
+    //         "Nitrogen": +d.Nitrogen,
+    //         "Phosphorous": +d.Phosphorous,
+    //         "TSS": +d.TSS
+    //     }
+    // });
+    // console.log(chesapeakeData);
+    
+    
+    
+
     // Instantiation of Visualizations
     var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
 
     var mapVis = new MapVis("map-vis", water_data, us, state_data, states);
+
+    // var chesapeakeVis = new LineChart("chesapeakeBay", chesapeakeData)
 }
 
 function createDataSet(water_data, new_data, key) {
