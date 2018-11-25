@@ -10,6 +10,7 @@ queue()
     .defer(d3.json,"data/waterdata.json")
     .defer(d3.csv,"data/assess_region1.csv") // assess_nation.csv
     .defer(d3.json,"data/us_states.json")
+    .defer(d3.json, "data/us-state-centroids.json")
     .await(createVis);
 
 /*
@@ -38,7 +39,7 @@ state_data = {
 region_data = {};
 state_data = {};
 
-function createVis(error, water_conditions, us, world, water_quality, water_assess, states) {
+function createVis(error, water_conditions, us, world, water_quality, water_assess, states, stateCentroids) {
     if(error) throw error;
 
     // clean water-conditions data
@@ -86,7 +87,7 @@ function createVis(error, water_conditions, us, world, water_quality, water_asse
     console.log(waterAssessByState);
 
     var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
-
+    var symbVis = new GraduatedSymbolVis("symb-vis", waterAssessByState, stateCentroids);
     var mapVis = new MapVis("map-vis", water_data, us, state_data, states);
 }
 
