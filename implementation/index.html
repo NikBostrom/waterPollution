@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Water Pollution</title>
 
     <link rel="stylesheet" href="css/nouislider.min.css">
@@ -10,29 +11,82 @@
 
 </head>
 <body>
-    <h1></h1>
+<div class="hero-image">
+    <div class="hero-text">
 
+    <h1>
+        Water Woes in the Midwest
+    </h1>
+    <h3>How Humans Are Destroying Aquatic Ecosystems</h3>
+    </div>
+    <!--<a id="unsplash-cred" href="https://unsplash.com/@its_tgain?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Tucker  Tangeman"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Tom Gainor</span></a>-->
+</div>
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-lg-12">
-                <h1><span class="h1-sub">Water Pollution Around the Globe</span></h1>
-                <h2>Visualizing human effects on large bodies of water</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <p class="placeholder">Intro text: there are several kinds of pollutants, and different pollutants have
-                    different effects on the water and environment</p>
+            <div class="col-lg-12 placeholder">
+                <p class="">
+                    Nitrogen and phosphorus are natural parts of aquatic ecosystems, and according to the
+                    <a href="https://www.epa.gov/nutrientpollution/problem">
+                        EPA
+                    </a>,
+                </p>
+                <blockquote>
+                    “[Nitrogen and Phosphorus] support the growth of algae and aquatic plants, which provide
+                    food and habitat for fish, shellfish and smaller organisms that live
+                    in water… <br> Too much nitrogen and phosphorus in the water causes algae
+                    to grow faster than ecosystems can handle. Significant increases in algae
+                    harm water quality, food resources and habitats, and <strong>decrease the oxygen
+                    that fish and other aquatic life need to survive</strong>. Large growths of algae
+                    are called <strong>algal blooms</strong> and they can <strong>severely reduce or eliminate oxygen
+                    in the water, leading to illnesses in fish and the death of large numbers
+                    of fish</strong>. Some algal blooms are <strong>harmful to humans</strong> because they produce elevated
+                    toxins and bacterial growth that <strong>can make people sick if they come into contact
+                    with polluted water, consume tainted fish or shellfish, or drink contaminated water.</strong>”
+                    (emphasis added)
+                </blockquote>
+                <p> Lakes are valued as water sources and for fishing, water transport, recreation, and tourism, so we can see
+                     that more than just an ecosystem is at risk when our lakes become contaminated.
+
+                    According to the <a href="https://www2.gov.bc.ca/assets/gov/environment/air-land-water/water/waterquality/wqgs-wqos/approved-wqgs/nitrogen-overview.pdf"> Water Quality Guidelines for Nitrogen (Nitrate, Nitrite,
+                    and Ammonia) by Water Stewardship Division Ministry of Environment Province
+                    of British Columbia </a>, with respect to nitrate (as N), the <strong> average concentration
+                    to protect freshwater aquatic life</strong> is <strong>3000 ug/L</strong> (micrograms per liter). For nitrate (as N), the 30-day average
+                    <strong>concentration to protect marine aquatic life</strong> is <strong>3700 ug/L</strong>. The concentrations of total nitrogen,
+                    which includes nitrate, nitrite, and ammonia (the maximums for the latter two are not listed in
+                    our consideration) for the most polluted states in terms of their lakes' water quality on average are:
+                    <ul>
+                        <li> North Dakota: 3,866 ug/L</li>
+                        <li> South Dakota: 4,015 ug/L</li>
+                        <li> Nebraska: 4,681 ug/L</li>
+                    </ul>
+
+                </p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <p class="placeholder">Visualization explanation: colors based on averages</p>
+                <p class="placeholder">We can see that <em>each of these states has an average total nitrogen level per
+                    lake much greater than the noted average concentration to protect freshwater aquatic life</em>, and
+                    also <em>greater than the suggested concentration to protect marine aquatic life</em>. As we noted before,
+                    this contributes to algal bloom, which has the potential to starve the marine life of nutrients
+                    and even oxygen, causing fish kills and bacterial growth in the water that can make humans very sick.
+                <br>
+                    From our choropleth map detailing average state pollutant levels across three measurable pollutants,
+                    we gleaned that the state of Nebraska was clearly not at a satisfactory level, especially in terms
+                    of the nitrogen concentration and turbidity. The states of North Dakota and South Dakota also had
+                    very high levels of pollutants relative to other states, and these three states far outweigh the
+                    rest in terms of need for change as of 2007.
+
+                    <!--This choropleth map shows the average concentration per state of each pollutant across all of the state's lakes.-->
+                    <!--The darker regions show heavier pollutant concentrations, the lighter regions show lesser pollutant concentrations,-->
+                    <!--and the colors represent the different pollutants- total nitrogen, total phosphorus, and turbidity.-->
+                </p>
+
             </div>
-            <div class="col-lg-6">
-                <p class="placeholder">Explanation of phosphorus, nitrogen, turbidity</p>
-            </div>
+            <!--<div class="col-lg-6">-->
+                <!--<p class="placeholder">Explanation of phosphorus, nitrogen, turbidity</p>-->
+            <!--</div>-->
         </div>
         <div class="row">
             <div class="">
@@ -48,27 +102,71 @@
                 <!--<div id="time-period-min"></div>-->
                 <!--<div id="time-period-max"></div>-->
                 <div id="map-vis"></div>
-                <p class="placeholder">Explanation of map</p>
+                    <h2>Something clever to segue into Nebraska</h2>
+                    <p class="">From <a href="http://netnebraska.org/article/news/water-woes-widespread-across-nebraska">this article</a>, published by NET News in 2013,
+                    we gain the follwing insights into progression of the situation in the midwest with respect to water quality:</p>
+                    <ul>
+                        <li>Park managers in Nebraska began using “expensive chemicals”around 2007 to combat invasive species, in the form of aerial spraying. The spraying began in 2007, and continued at least until the writing of this article.
+                        </li>
+                        <li>Dan Lyle, a helicopter pilot and aerial sprayer in the area on restrictions on using the chemicals around municipal water sources - “That’s just as a safety factor to be sure that there’s no additional chemical in their water. It’s not that it’s not safe. It’s just that they do that to try and hedge on the safe side.”
+                        </li>
+                        <li>It was estimated at that time that more than $1 million per year would be allocated for this spraying to take place and combat the invasive plant species. The species are said to “choke” the water of its nutrients
+                        </li>
+                        <li>In another nearby Nebraskan city, Hastings, the city faces water pollution from a different source: <strong>over-application of nitrogen fertilizer</strong>. Marty Stange, environmental supervisor for Hastings Utilities, said <strong>plumes of groundwater with nitrate concentrations above federal limits will reach the city’s drinking water wells in about two years.</strong> </li>
+                        <li>There are a number of Nebraskan problems for which the article claims that money is the solution:
+                            <ul>
+                                <li>Aerial spraying, $1 million a year
+                                </li>
+                                <li>Treat all the water in the state, $100 million</li>
+                                <li> Aquifer storage restoration system, $46 million</li>
+                                <li>Replacing the 2,800 miles of old cast iron water pipe in Omaha, $25 million</li>
+                                <li>Rock Creek irrigation system, $130 million</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-
-        <!--<div class="row">-->
-            <!--<div class="col-md-4">-->
-                <!--<div id="agevis"></div>-->
-            <!--</div>-->
-            <!--<div class="col-md-8">-->
-                <!--<div id="priovis"></div>-->
-            <!--</div>-->
-        <!--</div>-->
-
         <div class="row">
             <div class="col-md-12">
-                <!--<div id="timeslider-vis"></div>-->
+                <p class="placeholder">
+                    Senator Tom Carlson of Nebraska (unquoted) “said projects like those are good for complying with the interstate compact. But Carlson said they don’t necessarily help Nebraska reach water sustainability. He defines that as on average, across the state, not using more water than the supply provides. Carlson suggests sustainability requires a timetable for reducing water use. Not everyone agrees. Jasper Fanning, manager of southwest Nebraska’s Upper Republican Natural Resources District, said people should use less water. But Fanning doesn’t like the idea of a timetable. “I think choosing an arbitrary timeline for that is somewhat reckless, because you impose an economic cost, and you don’t know what technologies are going to come,” Fanning said.”
 
-                <!--<label for="timeslider-hover-val">Last Hovered Slider Value:</label>-->
-                <!--<div id="timeslider-hover-val"></div>-->
+                </p>
+                <!--&lt;!&ndash;<div id="timeslider-vis"></div>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<label for="timeslider-hover-val">Last Hovered Slider Value:</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div id="timeslider-hover-val"></div>&ndash;&gt;-->
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 placeholder">
+                <p class="">
+                    Questions raised:
+                    <ul>
+                        <li> Who is over-applying nitrogen-based fertilizer?
+                        </li>
+                        <li> What have been the effects to-date of the aerial spraying and continual use of nitrogen-based fertilizer?
+                        </li>
+                        <li> What has the government (Carson especially) done, not done yet, or refused to do regarding the pollution situation and other water issues coming up in the state?
+                        </li>
+                        <li> How can the best solutions be gained for the best price? Who should be in charge?
+                        </li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-md-12 placeholder">
+            <h2><a href="https://www.epa.gov/nutrientpollution/where-occurs-lakes-and-rivers">Case studies that worked:</a></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 placeholder">
+            Draw conclusions and make final assessments
+        </div>
+    </div>
+
         <div class="row">
             <div class="col-md-6">
                 <p>Bar chart of statuses of bodies of water by state</p>
