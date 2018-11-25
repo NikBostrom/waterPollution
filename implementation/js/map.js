@@ -2,17 +2,17 @@
  * MapVis - Object constructor function
  * @param _parentElement 	-- the HTML element in which to draw the visualization
  * @param _data				-- original data being visualized
- * @param _usData           -- usStatesOutline json
+ * @param _stateOutlines    -- usStatesOutline json
  * @param _stateData        -- cleaned data nested by 2-letter state abbreviation
- * @param _all_states       -- 2-letter abbreviations for each state
+ * @param _stateAbbs       -- 2-letter abbreviations for each state
  */
 
-MapVis = function(_parentElement, _data, _usData, _stateData, _all_states ){
+MapVis = function(_parentElement, _data, _stateOutlines, _stateData, _stateAbbs ){
     this.parentElement = _parentElement;
     this.data = _data;
-    this.usData = _usData;
+    this.stateOutlines = _stateOutlines;
     this.stateData = _stateData;
-    this.all_states = _all_states;
+    this.stateAbbs = _stateAbbs;
 
     this.initVis();
 };
@@ -70,28 +70,28 @@ MapVis.prototype.updateChoropleth = function() {
     vis.svg.selectAll("path").remove();
     vis.svg.selectAll(".legend").remove();
 
-    // console.log(vis.usData.features);
+    // console.log(vis.stateOutlines.features);
     // console.log(vis.stateData);
 
     // --> Choropleth implementation
-    vis.usData.features.forEach(function(d) {
-        // console.log(vis.all_states[d.properties.NAME])
-        // console.log(vis.stateData[vis.all_states[d.properties.NAME]]);
+    vis.stateOutlines.features.forEach(function(d) {
+        // console.log(vis.stateAbbs[d.properties.NAME])
+        // console.log(vis.stateData[vis.stateAbbs[d.properties.NAME]]);
         // console.log(d.properties.NAME.substr(0, 2).toUpperCase())
-        if(vis.stateData[vis.all_states[d.properties.NAME]]){
-            d.properties.data = vis.stateData[vis.all_states[d.properties.NAME]];
+        if(vis.stateData[vis.stateAbbs[d.properties.NAME]]){
+            d.properties.data = vis.stateData[vis.stateAbbs[d.properties.NAME]];
             d.properties.value = d.properties.data["avg_" + vis.type];
         }
     });
 
-    // console.log(vis.usData.features);
+    // console.log(vis.stateOutlines.features);
 
     // Set up tooltip
     let tool_tip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-8, 0])
         .html(function(d) {
-            console.log(d.properties.data["avg_" + vis.type]);
+            // console.log(d.properties.data["avg_" + vis.type]);
             if (d.properties.data){
                 if (!isNaN(d.properties.data["avg_" + vis.type])){
                     return `${d.properties.NAME} <br/>${
@@ -124,15 +124,15 @@ MapVis.prototype.updateChoropleth = function() {
             colorSet = colorRanges.purple;
             break;
     }
-    var labels = [d3.min(vis.usData.features, d => d.properties.value), d3.max(vis.usData.features, d => d.properties.value)];
+    var labels = [d3.min(vis.stateOutlines.features, d => d.properties.value), d3.max(vis.stateOutlines.features, d => d.properties.value)];
 
     color = d3.scaleLinear()
-        .domain(d3.extent(vis.usData.features, d => d.properties.value))
+        .domain(d3.extent(vis.stateOutlines.features, d => d.properties.value))
         .range(colorSet);
 
     // Create countries
     vis.svg.selectAll("path")
-        .data(vis.usData.features)
+        .data(vis.stateOutlines.features)
         .enter()
         .append("path")
         .attr("d", vis.path) .style("fill", function(d) {
@@ -184,7 +184,7 @@ MapVis.prototype.updateChoropleth = function() {
         .style("fill", "url(#gradient)")
         .attr("transform", "translate(100,10)");
 
-    let domain = d3.extent(vis.usData.features, d => d.properties.value);
+    let domain = d3.extent(vis.stateOutlines.features, d => d.properties.value);
 
     var y = d3.scaleLinear()
         .range([h, 0])

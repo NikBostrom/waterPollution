@@ -1,14 +1,18 @@
 /*
  * GraduatedSymbolVis - Object constructor function
  * @param _parentElement 	-- the HTML element in which to draw the visualization
- * @param _data				-- the actual data
+ * @param _data				-- water assessment data being visualized
+ * @param _stateOutlines    -- usStatesOutline json
  * @param _stateCentroids   -- lat/longs of state centroids
+ * @param _stateAbbs       -- 2-letter abbreviations for each state
  */
 
-SymbVis = function(_parentElement, _data, _stateCentroids ){
+SymbVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateAbbs){
     this.parentElement = _parentElement;
     this.data = _data;
+    this.stateOutlines = _stateOutlines;
     this.stateCentroids = _stateCentroids;
+    this.stateAbbs = _stateAbbs;
     this.initVis();
 };
 
@@ -19,6 +23,7 @@ SymbVis = function(_parentElement, _data, _stateCentroids ){
 SymbVis.prototype.initVis = function() {
     var vis = this;
 
+    // SVG variables
     vis.margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
     vis.width = 1000 - vis.margin.left - vis.margin.right;
@@ -31,157 +36,83 @@ SymbVis.prototype.initVis = function() {
 
     // Set up map
     vis.projection = d3.geoAlbersUsa()
-        .translate([vis.width/1.95, vis.height/3.75])
-        .scale(600);
+        .scale(1100);
 
     vis.path = d3.geoPath()
         .projection(vis.projection);
 
-    // Update the visualization
-    vis.updateVis();
+    // Pie chart variables
+    vis.radius = 15;
+
+    vis.arc = d3.arc()
+        .innerRadius(0)
+        .outerRadius(vis.radius);
+
+    vis.pie = d3.pie()
+        .sort(null) // alter to sort alphabetically by field
+        .value(function(d) { return d; });
+
+    vis.color = d3.schemeCategory10;
+
+    // Filter, aggregate, modify data
+    vis.wrangleData();
+};
+
+SymbVis.prototype.wrangleData = function() {
+    var vis = this;
+
+    // Nest data by state
+    vis.cleanedData = d3.nest()
+    // .key(function(d) { return d.Region })
+        .key(function(d) { return d.State })
+        .key(function(d) { return d['Water Status']})
+        .rollup(function(leaves) { return leaves.length })
+        // .entries(vis.data); // for array
+        .object(vis.data); // for object
+    // console.log(vis.cleanedData);
+
+    // Combine nested data with lat/long of center
+    console.log(vis.stateCentroids.features);
+    vis.wrangledData = [];
+    vis.stateCentroids.features.forEach(function (d) {
+        var state = {};
+        state["name"] = d.properties.name;
+        state["center"] = d.geometry.coordinates;
+        state["values"] = vis.cleanedData[vis.stateAbbs[d.properties.name]];
+        vis.wrangledData.push(state);
+    });
+
+    console.log(vis.wrangledData);
+    vis.updateVis()
 };
 
 SymbVis.prototype.updateVis = function() {
     var vis = this;
+
+    // Draw geographic features
+    vis.svg.selectAll("path")
+        .data(vis.stateOutlines.features)
+        .enter()
+        .append("path")
+        .attr("d", vis.path);
+
+    // Draw circles
+    vis.svg.selectAll(".symbol")
+        .data(vis.stateCentroids.features)
+        .enter().append("path")
+        .attr("class", "symbol")
+        .attr("d", vis.path.pointRadius(15))
+        .attr("fill", "blue");
+
+    // Draw pie charts
+    console.log(vis.wrangledData);
+    vis.points = vis.svg.selectAll("g")
+        .data(vis.wrangledData)
+        .enter()
+        .append("g")
+        .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
+        .attr("class", "pie");
+
+    vis.pies = vis.points.selectAll(".pie")
+        .data(vis.wrangledData, function(d) {console.log(d.name)})
 };
-//
-//     vis.svg.selectAll("path").remove();
-//     vis.svg.selectAll(".legend").remove();
-//     let newData = geoJSON;
-//     let labels = [];
-//
-//     console.log(newData.features)
-//
-//     console.log(stateData)
-//
-//     // --> Choropleth implementation
-//     newData.features.forEach(function(d) {
-//         // console.log(vis.all_states[d.properties.NAME])
-//         console.log(stateData[vis.all_states[d.properties.NAME]])
-//         // console.log(d.properties.NAME.substr(0, 2).toUpperCase())
-//         if(stateData[vis.all_states[d.properties.NAME]]){
-//             d.properties.data = stateData[vis.all_states[d.properties.NAME]];
-//             d.properties.value = d.properties.data["avg_" + vis.type];
-//         }
-//     })
-//
-//     console.log(newData)
-//
-//     vis.svg.append("path")
-//         .attr("class", "state-borders")
-//         .attr("d", vis.path)
-//         .attr("fill", "#fff");
-//
-//     // Set up tooltip
-//     let tool_tip = d3.tip()
-//         .attr("class", "d3-tip")
-//         .offset([-8, 0])
-//         .html(function(d) {
-//             console.log(d.properties.data["avg_" + vis.type])
-//             if (d.properties.data){
-//                 if (!isNaN(d.properties.data["avg_" + vis.type])){
-//                     return `${d.properties.NAME} <br/>${
-//                         d3.select("#measurable")
-//                             .node().options[d3.select("#measurable")
-//                             .node().selectedIndex].text}: ${d.properties.data["avg_" + vis.type].toFixed(2)}`;
-//                 } else {
-//                     return `No data for ${d.properties.data ? d.properties.data.Country : "this country"}.`;
-//                 }
-//
-//             }
-//             else {
-//                 return `No data for ${d.properties.data ? d.properties.data.Country : "this country"}.`;
-//             }
-//         });
-//
-//     vis.svg.call(tool_tip);
-//
-//
-//     let colorSet;
-//
-//     switch (vis.type) {
-//         case "Total_Nitrogen":
-//             colorSet = colorRanges.green;
-//             break;
-//         case "Turbidity":
-//             colorSet = colorRanges.pink;
-//             break;
-//         case "Total_Phosphorus":
-//             colorSet = colorRanges.purple;
-//             break;
-//     }
-//     labels = [d3.min(newData.features, d => d.properties.value), d3.max(newData.features, d => d.properties.value)];
-//
-//     color = d3.scaleLinear()
-//         .domain(d3.extent(newData.features, d => d.properties.value))
-//         .range(colorSet);
-//
-//     // Create countries
-//     vis.svg.selectAll("path")
-//         .data(newData.features)
-//         .enter()
-//         .append("path")
-//         .attr("d", vis.path) .style("fill", function(d) {
-//
-//         let value = d.properties.value;
-//         if (value) {
-//             //If value exists
-//             return color(value);
-//         }else{
-//             //If value is undefined
-//             return "#ccc";
-//         }
-//     })
-//         .on('mouseover', tool_tip.show)
-//         .on('mouseout', tool_tip.hide);
-//
-//
-//     var w = 140, h = 300;
-//
-//     var key = vis.svg
-//         .append("g")
-//         .attr("width", w)
-//         .attr("height", h)
-//         .attr("class", "legend")
-//         .attr("transform", `translate(${vis.margin.left},${vis.margin.top})`);
-//
-//     var legend = key.append("defs")
-//         .append("svg:linearGradient")
-//         .attr("id", "gradient")
-//         .attr("x1", "100%")
-//         .attr("y1", "0%")
-//         .attr("x2", "100%")
-//         .attr("y2", "100%")
-//         .attr("spreadMethod", "pad");
-//
-//     legend.append("stop")
-//         .attr("offset", "0%")
-//         .attr("stop-color", colorSet[1])
-//         .attr("stop-opacity", 1);
-//
-//     legend.append("stop")
-//         .attr("offset", "100%")
-//         .attr("stop-color", colorSet[0])
-//         .attr("stop-opacity", 1);
-//
-//     key.append("rect")
-//         .attr("width", w - 100)
-//         .attr("height", h)
-//         .style("fill", "url(#gradient)")
-//         .attr("transform", "translate(100,10)");
-//
-//     let domain = d3.extent(newData.features, d => d.properties.value);
-//
-//     var y = d3.scaleLinear()
-//         .range([h, 0])
-//         .domain(domain);
-//
-//     var yAxis = d3.axisRight(y);
-//
-//     key.append("g")
-//         .attr("class", "y axis")
-//         .attr("transform", "translate(141,10)")
-//         .call(yAxis)
-// }
-
-
