@@ -1,5 +1,5 @@
 /*
- * HarvorVis - Object constructor function
+ * HarborVis - Object constructor function
  * @param _parentElement 	-- the HTML element in which to draw the visualization
  * @param _locationData				-- the list of locations where measurements in the NU Harbor were taken
  */
@@ -20,8 +20,9 @@ HarborMapVis = function(_parentElement, _locationData, _harborData2017){
 // Set ranges of color for different map types
 let harborColorRanges = {
     green: ["#455611", "#E1F69E"],
-    // pink: ["#E5AED1", "#7E195B"],
-    // purple: ["#C2A9D9", "#471C6E"]
+    pink: ["#7E195B", "#E5AED1"],
+    purple: ["#471C6E", "#C2A9D9"],
+    blue: ["#12246E", "#70B0D9"]
 };
 
 HarborMapVis.prototype.initVis = function() {
@@ -53,19 +54,36 @@ HarborMapVis.prototype.initVis = function() {
 
     vis.svg = d3.select("#harbor-map").select("svg");
 
-    // vis.svg = L.svg();
 
-
-    vis.addLocationMarkers();
+    // var t = d3
+    vis.updateVis($("#harbor-select-box :selected").val());
 };
 
+HarborMapVis.prototype.updateVis = function(selection) {
+    var vis = this;
+    console.log(selection);
+    vis.addLocationMarkers(selection);
+}
 
-HarborMapVis.prototype.addLocationMarkers = function() {
+HarborMapVis.prototype.addLocationMarkers = function(selection) {
     var vis = this;
 
     let colorSet;
 
-    colorSet = harborColorRanges.green;
+    switch (selection) {
+        case "DO (mg/L) - Top":
+            colorSet = harborColorRanges.green;
+            break;
+        case "DO (mg/L) - Bot":
+            colorSet = harborColorRanges.pink;
+            break;
+        case "Fecal Coliform (#/100 mL) - Top":
+            colorSet = harborColorRanges.purple;
+            break;
+        case "Fecal Coliform (#/100 mL) - Bot":
+            colorSet = harborColorRanges.blue;
+            break;
+    }
 
     let colorScale = d3.scaleLinear()
         .domain(d3.extent(vis.harborData, function(d) {
@@ -84,7 +102,7 @@ HarborMapVis.prototype.addLocationMarkers = function() {
     // vis.harborData.forEach(function(location) {
 
     for (var i = 0; i < 1000; i++) {
-        console.log(vis.harborData[i]);
+        // console.log(vis.harborData[i]);
         if (vis.harborData[i]["coords"]) {
             let tColor;
             let selectionVal = vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"];
