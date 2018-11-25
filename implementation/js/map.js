@@ -1,8 +1,10 @@
 /*
  * MapVis - Object constructor function
  * @param _parentElement 	-- the HTML element in which to draw the visualization
- * @param _data				-- the actual data
- * @param _worldData              -- the map data
+ * @param _data				-- original data being visualized
+ * @param _usData           -- usStatesOutline json
+ * @param _stateData        -- cleaned data nested by 2-letter state abbreviation
+ * @param _all_states       -- 2-letter abbreviations for each state
  */
 
 MapVis = function(_parentElement, _data, _usData, _stateData, _all_states ){
@@ -39,8 +41,6 @@ MapVis.prototype.initVis = function() {
         .attr("width", vis.width)
         .attr("height", vis.height);
 
-    // vis.path = d3.geoPath();
-
     // Set up map
     vis.projection = d3.geoAlbersUsa()
         .translate([vis.width/1.95, vis.height/3.75])
@@ -52,93 +52,46 @@ MapVis.prototype.initVis = function() {
     // Initialize variables for dynamic updates
     vis.type = d3.select("#measurable").node().value;
 
-    // Dynamically update mearsurable
+    // Dynamically update measurable
     d3.select("#measurable").on("change", function(){
         vis.type = d3.select("#measurable").node().value;
         console.log(vis.type);
-        updateChoropleth(vis.usData, vis.stateData, vis);
-    })
+        vis.updateChoropleth();
+    });
 
-    updateChoropleth(vis.usData, vis.stateData, vis);
-
-
-    // vis.projection = d3.geoMercator()
-    //     .translate([vis.width/2, vis.height/2])
-    //     .center([0, 20])
-    //     .scale(150);
-    //
-    // vis.path = d3.geoPath()
-    //     .projection(vis.projection);
-    //
-    // vis.us = topojson.feature(vis.worldData, vis.worldData.objects.states).features;
-    // vis.svg.selectAll("path")
-    //     .data(vis.us)
-    //     .enter().append("path")
-    //     .attr("d", vis.path);
-    //
-    // var world = topojson.feature(data1, data1.objects.countries).features;
-
-    // vis.svg.append("path")
-    //     .attr("class", "state-borders")
-    //     .attr("d", vis.path(topojson.mesh(vis.worldData, vis.worldData.objects.states, function(a, b) { return a !== b; })));
-
-
-
-
-    // Convert TopoJSON to GeoJSON (target object = 'countries')
-    // vis.world = topojson.feature(vis.worldData, vis.worldData.objects.countries).features;
-    //
-    // // Render the U.S. by using the path generator
-    // // this may be problematic as we add more paths...
-    // vis.svg.selectAll("path")
-    //     .data(vis.world)
-    //     .enter().append("path")
-    //     .attr("d", vis.path);
-    //
-    // // Add country boundaries
-    // vis.svg.append("path")
-    //     .datum(topojson.mesh(vis.worldData, vis.worldData.objects.countries, function(a,b) {return a !== b; }))
-    //     .attr("d", vis.path)
-    //     .attr("class", "subunit-boundary");
-
+    vis.updateChoropleth();
 };
 
 
-function updateChoropleth(geoJSON, stateData, vis) {
+MapVis.prototype.updateChoropleth = function() {
+    var vis = this;
 
+    // Remove old paths and legend
     vis.svg.selectAll("path").remove();
     vis.svg.selectAll(".legend").remove();
-    let newData = geoJSON;
-    let labels = [];
 
-    console.log(newData.features)
-
-    console.log(stateData)
+    // console.log(vis.usData.features);
+    // console.log(vis.stateData);
 
     // --> Choropleth implementation
-    newData.features.forEach(function(d) {
+    vis.usData.features.forEach(function(d) {
         // console.log(vis.all_states[d.properties.NAME])
-        console.log(stateData[vis.all_states[d.properties.NAME]])
+        // console.log(vis.stateData[vis.all_states[d.properties.NAME]]);
         // console.log(d.properties.NAME.substr(0, 2).toUpperCase())
-        if(stateData[vis.all_states[d.properties.NAME]]){
-            d.properties.data = stateData[vis.all_states[d.properties.NAME]];
+        if(vis.stateData[vis.all_states[d.properties.NAME]]){
+            d.properties.data = vis.stateData[vis.all_states[d.properties.NAME]];
             d.properties.value = d.properties.data["avg_" + vis.type];
         }
-    })
+    });
 
-    console.log(newData)
-
-    vis.svg.append("path")
-        .attr("class", "state-borders")
-        .attr("d", vis.path)
-        .attr("fill", "#fff");
+    // console.log(vis.usData.features);
 
     // Set up tooltip
     let tool_tip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-8, 0])
         .html(function(d) {
-            console.log(d.properties.data["avg_" + vis.type])
+            console.log(d.properties.data["avg_" + vis.type]);
             if (d.properties.data){
                 if (!isNaN(d.properties.data["avg_" + vis.type])){
                     return `${d.properties.NAME} <br/>${
@@ -171,15 +124,15 @@ function updateChoropleth(geoJSON, stateData, vis) {
             colorSet = colorRanges.purple;
             break;
     }
-    labels = [d3.min(newData.features, d => d.properties.value), d3.max(newData.features, d => d.properties.value)];
+    var labels = [d3.min(vis.usData.features, d => d.properties.value), d3.max(vis.usData.features, d => d.properties.value)];
 
     color = d3.scaleLinear()
-        .domain(d3.extent(newData.features, d => d.properties.value))
+        .domain(d3.extent(vis.usData.features, d => d.properties.value))
         .range(colorSet);
 
     // Create countries
     vis.svg.selectAll("path")
-        .data(newData.features)
+        .data(vis.usData.features)
         .enter()
         .append("path")
         .attr("d", vis.path) .style("fill", function(d) {
@@ -231,7 +184,7 @@ function updateChoropleth(geoJSON, stateData, vis) {
         .style("fill", "url(#gradient)")
         .attr("transform", "translate(100,10)");
 
-    let domain = d3.extent(newData.features, d => d.properties.value);
+    let domain = d3.extent(vis.usData.features, d => d.properties.value);
 
     var y = d3.scaleLinear()
         .range([h, 0])
@@ -243,6 +196,4 @@ function updateChoropleth(geoJSON, stateData, vis) {
         .attr("class", "y axis")
         .attr("transform", "translate(141,10)")
         .call(yAxis)
-}
-
-
+};

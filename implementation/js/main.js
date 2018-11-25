@@ -39,7 +39,7 @@ state_data = {
 region_data = {};
 state_data = {};
 
-function createVis(error, water_conditions, us, world, water_quality, water_assess, states, stateCentroids) {
+function createVis(error, water_conditions, usOutline, world, water_quality, water_assess, states, stateCentroids) {
     if(error) throw error;
 
     // clean water-conditions data
@@ -87,8 +87,8 @@ function createVis(error, water_conditions, us, world, water_quality, water_asse
     console.log(waterAssessByState);
 
     var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
-    var symbVis = new GraduatedSymbolVis("symb-vis", waterAssessByState, stateCentroids);
-    var mapVis = new MapVis("map-vis", water_data, us, state_data, states);
+    var symbVis = new SymbVis("symb-vis", waterAssessByState, stateCentroids);
+    var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
 }
 
 function createDataSet(water_data, new_data, key) {
