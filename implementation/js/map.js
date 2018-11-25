@@ -138,7 +138,7 @@ function updateChoropleth(geoJSON, stateData, vis) {
         .attr("class", "d3-tip")
         .offset([-8, 0])
         .html(function(d) {
-            console.log(d.properties.data["avg_" + vis.type])
+            // console.log(d.properties.data["avg_" + vis.type])
             if (d.properties.data){
                 if (!isNaN(d.properties.data["avg_" + vis.type])){
                     return `${d.properties.NAME} <br/>${
