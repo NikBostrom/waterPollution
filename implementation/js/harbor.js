@@ -48,6 +48,14 @@ HarborMapVis.prototype.initVis = function() {
     // Add empty layer group for the markers
     vis.locMarkers = L.layerGroup();
 
+    var svgLayer = L.svg();
+    svgLayer.addTo(vis.map);
+
+    vis.svg = d3.select("#harbor-map").select("svg");
+
+    // vis.svg = L.svg();
+
+
     vis.addLocationMarkers();
 };
 
@@ -60,28 +68,65 @@ HarborMapVis.prototype.addLocationMarkers = function() {
     colorSet = harborColorRanges.green;
 
     let colorScale = d3.scaleLinear()
-        .domain(d3.extent(vis.harborData, d => d["Fecal Coliform (#/100 mL) - Top"]))
+        .domain(d3.extent(vis.harborData, function(d) {
+            // console.log(d);
+            return +d["Fecal Coliform (#/100 mL) - Top"];
+        }))
         .range(colorSet);
 
     // console.log(colorScale(location["Fecal Coliform (#/100 mL) - Top"]));
 
-    // colorScale(location["Fecal Coliform (#/100 mL) - Top"])
+    colorScale(location["Fecal Coliform (#/100 mL) - Top"]);
 
-    // vis.map.removeLayer(vis.locMarkers);
+    vis.map.removeLayer(vis.locMarkers);
 
     // vis.harborData.forEach(function(location) {
 
-    for (var i = 0; i < 1000; i++) {
-        // console.log(vis.harborData[i]);
-        if (vis.harborData[i]["coords"]) {
-            var loc = L.circle(vis.harborData[i]["coords"], 100, {
-                color: "blue"
-            }).bindPopup(vis.harborData[i]["loc_name"]);
-            vis.locMarkers.addLayer(loc);
+        for (var i = 0; i < 1000; i++) {
+            // console.log(vis.harborData[i]);
+            if (vis.harborData[i]["coords"]) {
+                let tColor = colorScale(vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
+                // console.log(tColor, vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
+                var loc = L.circle(vis.harborData[i]["coords"], 300, {
+                    fillColor: tColor,
+                    // stroke attributes
+                    color: "black",
+                    weight: 0.5
+                }).bindPopup(vis.harborData[i]["loc_name"]);
+                vis.locMarkers.addLayer(loc);
+            }
         }
-    };
 
-    vis.locMarkers.addTo(vis.map);
-}
+
+        vis.locMarkers.addTo(vis.map);
+    // });
+
+
+
+
+
+    // var sampleLocations = vis.svg.selectAll("circle")
+    //     .data(vis.harborData.filter(function(d, i) {
+    //         console.log(d);
+    //         return i < 1000;
+    //     }))
+    //     .enter()
+    //     .append("circle")
+    //     .style("stroke", "black")
+    //     // .style("opacity", .6)
+    //     .style("fill", "blue")
+    //     .attr("r", 5);
+    //
+    // vis.map.on("viewreset", update);
+    // update();
+    // function update() {
+    //     sampleLocations.attr("transform",
+    //         function(d) {
+    //             return "translate("+
+    //                 vis.map.latLngToLayerPoint(d["coords"]).x + "," + vis.map.latLngToLayerPoint(d["coords"]).y +")";
+    //         }
+    //     );
+    // }
+};
 
 
