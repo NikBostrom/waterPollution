@@ -19,7 +19,7 @@ HarborMapVis = function(_parentElement, _locationData, _harborData2017){
 
 // Set ranges of color for different map types
 let harborColorRanges = {
-    green: ["#E1F69E", "#455611"],
+    green: ["#455611", "#E1F69E"],
     // pink: ["#E5AED1", "#7E195B"],
     // purple: ["#C2A9D9", "#471C6E"]
 };
@@ -80,53 +80,37 @@ HarborMapVis.prototype.addLocationMarkers = function() {
 
     vis.map.removeLayer(vis.locMarkers);
 
+    // TODO: Go through all data instead of just the first 1000 values and store that data into a separate file instead of having to parse it every time the page loads
     // vis.harborData.forEach(function(location) {
 
-        for (var i = 0; i < 1000; i++) {
-            // console.log(vis.harborData[i]);
-            if (vis.harborData[i]["coords"]) {
-                let tColor = colorScale(vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
-                // console.log(tColor, vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
-                var loc = L.circle(vis.harborData[i]["coords"], 300, {
-                    fillColor: tColor,
-                    // stroke attributes
-                    color: "black",
-                    weight: 0.5
-                }).bindPopup(vis.harborData[i]["loc_name"]);
-                vis.locMarkers.addLayer(loc);
+    for (var i = 0; i < 1000; i++) {
+        console.log(vis.harborData[i]);
+        if (vis.harborData[i]["coords"]) {
+            let tColor;
+            let selectionVal = vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"];
+            if (isNaN(selectionVal)) {
+                tColor = "#bfbfbf";
+            } else {
+                tColor = colorScale(selectionVal);
             }
-        }
+            // console.log(tColor, vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
 
+            var popupContent =  "<strong>Sample Site: </strong>" + vis.harborData[i]["Site"] + "<br/>";
+            popupContent += "<strong>Fecal Coliform (#/100 mL) - Top: </strong>" + vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"] + "<br/>";
+
+            var loc = L.circle(vis.harborData[i]["coords"], 375, {
+                fillColor: tColor,
+                // stroke attributes
+                color: "black",
+                weight: 0.5
+            }).bindPopup(popupContent);
+            vis.locMarkers.addLayer(loc);
+        }
+    }
 
         vis.locMarkers.addTo(vis.map);
     // });
 
-
-
-
-
-    // var sampleLocations = vis.svg.selectAll("circle")
-    //     .data(vis.harborData.filter(function(d, i) {
-    //         console.log(d);
-    //         return i < 1000;
-    //     }))
-    //     .enter()
-    //     .append("circle")
-    //     .style("stroke", "black")
-    //     // .style("opacity", .6)
-    //     .style("fill", "blue")
-    //     .attr("r", 5);
-    //
-    // vis.map.on("viewreset", update);
-    // update();
-    // function update() {
-    //     sampleLocations.attr("transform",
-    //         function(d) {
-    //             return "translate("+
-    //                 vis.map.latLngToLayerPoint(d["coords"]).x + "," + vis.map.latLngToLayerPoint(d["coords"]).y +")";
-    //         }
-    //     );
-    // }
 };
 
 
