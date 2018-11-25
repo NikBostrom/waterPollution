@@ -184,7 +184,7 @@ h2 {
     background-color: #000C14;
 }
 
-/* Line chart styles */
+/* Chesapeake Bay and Line Chart styles */
 
 .DCline {
     fill: none;
@@ -227,6 +227,8 @@ h2 {
     stroke: cyan;
     stroke-width: 1.5px;
 }
+
+
 /*
 Specify size of the map container for leaflet
  */

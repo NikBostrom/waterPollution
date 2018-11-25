@@ -229,19 +229,57 @@
         </div>
     </div>
 
-    <div class="row">
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="ranking-type">Show</label>
-                <select class="form-control" id="ranking-type" onchange="updateVisualization();">
-                    <option value="Nitrogen">Nitrogen</option>
-                    <option value="Phosphorous">Phosphorous</option>
-                    <option value="TSS">TSS</option>
-                </select>
-            </div>
-        </form>
-        <div class="col-md-12" id="newguy">
 
+    <div class="chesapeakeimprovement">
+        <div>
+            <h1>
+                Changes in the Chesapeake Bay
+            </h1>
+            <h3>People who Care Striving for Improvement</h3>
+        </div>
+    </div>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="ranking-type">Show</label>
+            <select class="form-control" id="ranking-type" onchange="updateChesapeake();">
+                <option value="Nitrogen">Nitrogen</option>
+                <option value="Phosphorous">Phosphorous</option>
+                <option value="TSS">TSS</option>
+            </select>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-9" id="chesapeakeChart"></div>
+        <div class="col-md-3" id="chesapeakeTable">
+            <table>
+                <tr>
+                    <th>Region Colors</th>
+                </tr>
+                <tr>
+                    <td style="color:orange">Pennsylvania</td>
+                </tr>
+                <tr>
+                    <td style="color:hotpink">Virginia</td>
+                </tr>
+                <tr>
+                    <td style="color:blue">Maryland</td>
+                </tr>
+                <tr>
+                    <td style="color:purple">New York</td>
+                </tr>
+                <tr>
+                    <td style="color:#5D77FF">West Virginia</td>
+                </tr>
+                <tr>
+                    <td style="color:red">Delaware</td>
+                </tr>
+                <tr>
+                    <td style="color:#1C9A3D">Washington, D.C.</td>
+                </tr>
+                <tr>
+                    <td style="color:#ffe800">Target Goal by 2025</td>
+                </tr>
+            </table>
         </div>
     </div>
 
