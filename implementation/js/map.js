@@ -110,23 +110,25 @@ function updateChoropleth(geoJSON, stateData, vis) {
     vis.svg.selectAll(".legend").remove();
     let newData = geoJSON;
     let labels = [];
-
-    console.log(newData.features)
-
-    console.log(stateData)
+    //COMMD OUT
+    // console.log(newData.features)
+    //COMMD OUT
+    // console.log(stateData);
 
     // --> Choropleth implementation
     newData.features.forEach(function(d) {
         // console.log(vis.all_states[d.properties.NAME])
-        console.log(stateData[vis.all_states[d.properties.NAME]])
+
+        //COMMD OUT
+        // console.log(stateData[vis.all_states[d.properties.NAME]])
         // console.log(d.properties.NAME.substr(0, 2).toUpperCase())
         if(stateData[vis.all_states[d.properties.NAME]]){
             d.properties.data = stateData[vis.all_states[d.properties.NAME]];
             d.properties.value = d.properties.data["avg_" + vis.type];
         }
     })
-
-    console.log(newData)
+    //COMMD OUT
+    // console.log(newData);
 
     vis.svg.append("path")
         .attr("class", "state-borders")
