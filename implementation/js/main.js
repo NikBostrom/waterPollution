@@ -106,14 +106,6 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
     //     }
     // });
     // console.log(chesapeakeData);
-    
-    
-    
-
-    // Instantiation of Visualizations
-    var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
-
-    var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
 
     // var chesapeakeVis = new LineChart("chesapeakeBay", chesapeakeData)
 

@@ -98,12 +98,12 @@ MapVis.prototype.updateChoropleth = function() {
                             .node().options[d3.select("#measurable")
                             .node().selectedIndex].text}: ${d.properties.data["avg_" + vis.type].toFixed(2)}`;
                 } else {
-                    return `No data for ${d.properties.data ? d.properties.data.Country : "this country"}.`;
+                    return `No data for ${d.properties.data ? d.properties.data.Country : "this state"}.`;
                 }
 
             }
             else {
-                return `No data for ${d.properties.data ? d.properties.data.Country : "this country"}.`;
+                return `No data for ${d.properties.data ? d.properties.data.Country : "this state"}.`;
             }
         });
 
