@@ -9,9 +9,8 @@
  */
 
 /*
-TO DOs:
-Add tooltips
-Pie charts by region
+TODO: Add tooltips
+TODO: Pie charts by region
  */
 
 SymbVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState){
@@ -40,13 +39,22 @@ SymbVis.prototype.initVis = function() {
     // SVG drawing area
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
         .attr("width", vis.width)
-        .attr("height", vis.height);
+        .attr("height", vis.height)
+        .on("click", vis.stopped, true);;
 
-    vis.g = vis.svg.append("g"); // change 'g.' back to 'svg.'?
+    vis.svg.append("rect")
+        .attr("class", "background")
+        .attr("width", vis.width)
+        .attr("height", vis.height)
+        .attr("fill", "white")
+        .on("click", vis.reset);
+
+    vis.g = vis.svg.append("g");
 
     // Set up map
     vis.projection = d3.geoAlbersUsa()
-        .scale(1100);
+        .scale(1100)
+        .translate([vis.width/2, vis.height/2]);
 
     vis.path = d3.geoPath()
         .projection(vis.projection);
@@ -68,18 +76,14 @@ SymbVis.prototype.initVis = function() {
     vis.active = d3.select(null);
 
     vis.zoom = d3.zoom()
-        // these are v3 attributes
-        // .translate([0, 0])
-        // .scale(1)
-        // .scaleExtent([1,8])
-        // .on("zoom", vis.zoomed);
-        .on("zoom", function() {
-            vis.svg.attr("transform", d3.event.transform)
-        });
+        .scaleExtent([1,8])
+        .on("zoom", vis.zoomed);
+        // .on("zoom", function() {
+        //     vis.svg.attr("transform", d3.event.transform)
+        // });
 
     vis.svg
-        .call(vis.zoom);
-        // .call(vis.zoom.event);
+        .call(vis.zoom); // delete this line to disable free zooming
 
     // Filter, aggregate, modify data
     vis.wrangleData();
@@ -151,6 +155,7 @@ SymbVis.prototype.updateVis = function() {
         .enter()
         .append("path")
         .attr("d", vis.path)
+        .attr("class", "state")
         .on("click", vis.clicked);
 
     // Draw pie charts
@@ -174,12 +179,27 @@ SymbVis.prototype.updateVis = function() {
         .attr("style", "fill-opacity: 0.8")
 };
 
-SymbVis.prototype.clicked = function() {
+SymbVis.prototype.clicked = function(d) {
     var vis = this;
+    console.log(d);
+    console.log(vis.active);
+    console.log(vis.active.node())
 
     if (vis.active.node() === this) return vis.reset();
     vis.active.classed("active", false);
     vis.active = d3.select(this).classed("active", true);
+
+    vis.bounds = vis.path.bounds(d),
+        vis.dx = vis.bounds[1][0] - vis.bounds[0][0],
+        vis.dy = vis.bounds[1][1] - vis.bounds[0][1],
+        vis.x = (vis.bounds[0][0] + vis.bounds[1][0]) / 2,
+        vis.y = (vis.bounds[0][1] + vis.bounds[1][1]) / 2,
+        vis.scale = Math.max(1, Math.min(8, 0.9 / Math.max(vis.dx / vis.width, vis.dy / vis.height))),
+        vis.translate = [vis.width / 2 - vis.scale * vis.x, vis.height / 2 - vis.scale * vis.y];
+
+    vis.svg.transition()
+        .duration(750)
+        .call(vis.zoom.transform, d3.zoomIdentity.translate(vis.translate[0], vis.translate[1]).scale(vis.scale) );
 
 
 };
@@ -192,13 +212,18 @@ SymbVis.prototype.reset = function() {
 
     vis.svg.transition()
         .duration(750)
-        .call(zoom.translate([0,0]).scale(1).event);
+        .call(vis.zoom.transform, d3.zoomIdentity);
 };
-//
-// SymbVis.prototype.zoomed = function() {
-//     var vis = this;
-//
-//     // vis.g.style("stroke-width", 1.5 / d3.event.scale + "px");
-//     vis.g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-//
-// };
+
+SymbVis.prototype.zoomed = function() {
+    var vis = this;
+
+    // vis.g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+    vis.g.attr("transform", d3.event.transform);
+};
+
+SymbVis.prototype.stopped = function() {
+    var vis = this;
+
+    if (d3.event.defaultPrevented) d3.event.stopPropagation();
+};

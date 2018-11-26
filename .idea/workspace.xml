@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90faf73e-8c94-42ab-81f8-9ff40ecc7cb4" name="Default Changelist" comment="" />
+    <list default="true" id="90faf73e-8c94-42ab-81f8-9ff40ecc7cb4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -11,97 +13,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="688230061">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="csv" value="1" />
-          <entry key="html" value="2" />
-          <entry key="js" value="3" />
-          <entry key="json" value="7" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="HTML" value="2" />
-          <entry key="JSON" value="7" />
-          <entry key="JavaScript" value="3" />
-          <entry key="PLAIN_TEXT" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="html" value="28" />
-          <entry key="js" value="345" />
-          <entry key="json" value="11" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="HTML" value="28" />
-          <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="345" />
-        </counts>
-      </usages-collector>
-    </session>
-    <session id="-181208115">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.1" value="3" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="4" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="css" value="127" />
-          <entry key="html" value="1262" />
-          <entry key="js" value="10056" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="CSS" value="127" />
-          <entry key="HTML" value="1262" />
-          <entry key="JavaScript" value="10056" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="css" value="1" />
-          <entry key="csv" value="1" />
-          <entry key="html" value="1" />
-          <entry key="js" value="8" />
-          <entry key="json" value="10" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="CSS" value="1" />
-          <entry key="CSV" value="1" />
-          <entry key="HTML" value="1" />
-          <entry key="JSON" value="9" />
-          <entry key="JavaScript" value="8" />
-          <entry key="tsconfig" value="1" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1806">
-              <caret line="126" column="40" selection-start-line="126" selection-start-column="40" selection-end-line="126" selection-end-column="40" />
+            <state relative-caret-position="1980">
+              <caret line="132" column="7" selection-start-line="132" selection-start-column="7" selection-end-line="132" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -109,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="77" column="11" selection-start-line="77" selection-start-column="11" selection-end-line="77" selection-end-column="11" />
+            <state relative-caret-position="242">
+              <caret line="189" column="31" selection-start-line="189" selection-start-column="31" selection-end-line="189" selection-end-column="31" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -121,7 +39,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1377">
+            <state relative-caret-position="1110">
               <caret line="81" column="60" selection-start-line="81" selection-start-column="60" selection-end-line="81" selection-end-column="60" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -133,7 +51,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="548">
               <caret line="67" selection-start-line="67" selection-end-line="69" />
             </state>
           </provider>
@@ -142,8 +60,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/getData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+            <state relative-caret-position="150">
+              <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -179,6 +97,12 @@
       <find>cleanedData</find>
       <find>abbToState2</find>
       <find>abbToState</find>
+      <find>translate</find>
+      <find>zoom</find>
+      <find>vis.svg</find>
+      <find>&quot;fill&quot;</find>
+      <find>null</find>
+      <find>active.node</find>
     </findStrings>
     <replaceStrings>
       <replace>this.worldData</replace>
@@ -212,16 +136,11 @@
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="x" value="724" />
+    <option name="y" value="23" />
+    <option name="width" value="716" />
+    <option name="height" value="805" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -229,7 +148,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -246,21 +164,17 @@
               <item name="waterPollution" type="b2602c69:ProjectViewProjectNode" />
               <item name="waterPollution" type="462c0819:PsiDirectoryNode" />
               <item name="implementation" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="waterPollution" type="b2602c69:ProjectViewProjectNode" />
-              <item name="waterPollution" type="462c0819:PsiDirectoryNode" />
-              <item name="implementation" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -293,17 +207,27 @@
       <workItem from="1542588119679" duration="7909000" />
       <workItem from="1542599843743" duration="3932000" />
       <workItem from="1543119462369" duration="2499000" />
+      <workItem from="1543189887830" duration="4055000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38582000" />
+    <option name="totallyTimeSpent" value="42637000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="724" y="23" width="716" height="805" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24465811" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.3352518" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -312,7 +236,7 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32959327" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32879046" />
       <window_info anchor="bottom" id="Terminal" order="9" />
@@ -343,9 +267,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/implementation/data/json.json" />
@@ -397,13 +318,6 @@
     <entry file="file://$PROJECT_DIR$/implementation/data/usStatesOutline-5m.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1806">
-          <caret line="126" column="40" selection-start-line="126" selection-start-column="40" selection-end-line="126" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/data/us_states.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -411,16 +325,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="67" selection-start-line="67" selection-end-line="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
+        <state relative-caret-position="1110">
           <caret line="81" column="60" selection-start-line="81" selection-start-column="60" selection-end-line="81" selection-end-column="60" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -430,15 +337,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/getData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        <state relative-caret-position="150">
+          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1980">
+          <caret line="132" column="7" selection-start-line="132" selection-start-column="7" selection-end-line="132" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="67" selection-start-line="67" selection-end-line="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="77" column="11" selection-start-line="77" selection-start-column="11" selection-end-line="77" selection-end-column="11" />
+        <state relative-caret-position="242">
+          <caret line="189" column="31" selection-start-line="189" selection-start-column="31" selection-end-line="189" selection-end-column="31" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
