@@ -40,7 +40,7 @@ SymbVis.prototype.initVis = function() {
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
         .attr("width", vis.width)
         .attr("height", vis.height)
-        .on("click", vis.stopped, true);;
+        .on("click", vis.stopped, true);
 
     vis.svg.append("rect")
         .attr("class", "background")
@@ -54,7 +54,7 @@ SymbVis.prototype.initVis = function() {
     // Set up map
     vis.projection = d3.geoAlbersUsa()
         .scale(1100)
-        .translate([vis.width/2, vis.height/2]);
+        .translate([vis.width*4/7, vis.height/2]);
 
     vis.path = d3.geoPath()
         .projection(vis.projection);
@@ -70,7 +70,12 @@ SymbVis.prototype.initVis = function() {
         .sort(null) // alter to sort alphabetically by field
         .value(function(d) { return d; });
 
-    vis.color = d3.schemeCategory10;
+    // Ordinal color scale
+    vis.assessTypes = ['GOOD', 'IMPAIRED', 'THREATENED', 'NOT_ASSESSED'];
+    vis.colorScale = d3.scaleOrdinal()
+        .domain(vis.assessTypes)
+        .range(['#386CB0', '#FFFF99', '#FDC086', '#666666']);
+    // console.log(vis.colorScale(vis.assessTypes[0]));
 
     // Zoom
     vis.active = d3.select(null);
@@ -92,7 +97,7 @@ SymbVis.prototype.initVis = function() {
 SymbVis.prototype.wrangleData = function() {
     var vis = this;
 
-    console.log(vis.data);
+    // console.log(vis.data);
     // Nest data by state
     vis.byState = d3.nest()
     // .key(function(d) { return d.Region })
@@ -117,8 +122,7 @@ SymbVis.prototype.wrangleData = function() {
     // console.log(vis.byState);
 
     // Combine nested data with lat/long of center
-    // console.log(vis.stateCentroids.features);
-    vis.assessTypes = ['GOOD', 'IMPAIRED', 'THREATENED', 'NOT_ASSESSED'];
+    // console.log(vis.stateCentroids.features)
     vis.wrangledData = [];
 
     for (i = 0; i < vis.stateCentroids.features.length; i++) {
@@ -175,8 +179,23 @@ SymbVis.prototype.updateVis = function() {
 
     vis.pies.append('path')
         .attr('d', vis.arc)
-        .attr("fill", function(d, i) { return vis.color[i]; })
-        .attr("style", "fill-opacity: 0.8")
+        .attr("fill", function(d, i) {
+            return vis.colorScale(vis.assessTypes[i])
+        })
+        .attr("style", "fill-opacity: 0.8");
+
+    // Create legend
+    vis.g.append("g")
+        .attr("class", "legendOrdinal")
+        .attr("transform", "translate(20, 40)");
+
+    vis.legendOrdinal = d3.legendColor()
+        .title("Water Assessment Status")
+        .labels(['Good', 'Impaired', 'Threatened', 'Not Assessed'])
+        .scale(vis.colorScale);
+
+    vis.g.select(".legendOrdinal")
+        .call(vis.legendOrdinal);
 };
 
 SymbVis.prototype.clicked = function(d) {
