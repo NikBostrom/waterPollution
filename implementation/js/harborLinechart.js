@@ -22,7 +22,7 @@ HarborLinechartVis.prototype.initVis = function() {
     vis.width = 600 - vis.margin.left - vis.margin.right;
     vis.height = 500 - vis.margin.top - vis.margin.bottom;
 
-    console.log(vis.harborData);
+    // console.log(vis.harborData);
 
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
@@ -159,7 +159,7 @@ HarborLinechartVis.prototype.updateVis = function(selection) {
         .y(function(d) { return vis.yScale(d[selection]); })
         .curve(d3.curveLinear);
 
-    console.log(vis.filteredData);
+    // console.log(vis.filteredData);
 
     vis.linePath.datum(vis.filteredData)
         .style("opacity", 0.0)

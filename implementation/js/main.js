@@ -91,7 +91,7 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
         d3.csv("data/harbor_sampling_ytd_2017.csv", function(error, _nyH2017) {
             if(error) throw error;
             nyHarborData = _nyH2017;
-            console.log(_nyH2017);
+            // console.log(_nyH2017);
             createHarborVis(_nyHarborDataMessy, nyHarborData);
         });
     });
@@ -219,7 +219,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 
     }
 
-    console.log(nyHarborData);
+    // console.log(nyHarborData);
 
     // Add location data to the harbor data
     for (var i = 0; i < nyHarborData.length; i++) {
@@ -243,21 +243,21 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     // console.log(nyHarborData);
 
     var harborMapVis = new HarborMapVis("harbor-map", locations, nyHarborData);
-    console.log(nyHarborData);
+    // console.log(nyHarborData);
     var harborLinechartVis = new HarborLinechartVis("harbor-linechart", locations, nyHarborData);
 
 
     var harborEventHandler = {};
     var selectionBox = d3.select("#harbor-select-box");
-    console.log(d3.select("#harbor-select-box").property("value"));
-    console.log(d3.select("#ranking-type").property("value"));
+    // console.log(d3.select("#harbor-select-box").property("value"));
+    // console.log(d3.select("#ranking-type").property("value"));
 
     selectionBox.on("change", function() {
         $(harborEventHandler).trigger("harbor-filter-selection-changed", )
     });
 
     $(harborEventHandler).bind("harbor-filter-selection-changed", function(_event) {
-        console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
+        // console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
         harborMapVis.updateVis(selectionBox.property("value"));
         harborLinechartVis.updateVis(selectionBox.property("value"));
     })

@@ -82,10 +82,7 @@ SymbVis.prototype.initVis = function() {
 
     vis.zoom = d3.zoom()
         .scaleExtent([1,8])
-        .on("zoom", vis.zoomed);
-        // .on("zoom", function() {
-        //     vis.svg.attr("transform", d3.event.transform)
-        // });
+        .on("zoom", function() {vis.zoomed()});
 
     vis.svg
         .call(vis.zoom); // delete this line to disable free zooming
@@ -145,7 +142,7 @@ SymbVis.prototype.wrangleData = function() {
         });
         vis.wrangledData.push(state);
     }
-    console.log(vis.wrangledData);
+    // console.log(vis.wrangledData);
 
     vis.updateVis()
 };
@@ -160,10 +157,10 @@ SymbVis.prototype.updateVis = function() {
         .append("path")
         .attr("d", vis.path)
         .attr("class", "state")
-        .on("click", vis.clicked);
+        .on("click", function(d) {vis.clicked(d)});
 
     // Draw pie charts
-    console.log(vis.wrangledData);
+    // console.log(vis.wrangledData);
     vis.points = vis.g.selectAll("g")
         .data(vis.wrangledData)
         .enter()
@@ -201,10 +198,11 @@ SymbVis.prototype.updateVis = function() {
 SymbVis.prototype.clicked = function(d) {
     var vis = this;
     console.log(d);
+    console.log(vis);
     console.log(vis.active);
-    console.log(vis.active.node())
+    console.log(vis.active.node());
 
-    if (vis.active.node() === this) return vis.reset();
+    if (vis.active.node() === this) {return vis.reset()};
     vis.active.classed("active", false);
     vis.active = d3.select(this).classed("active", true);
 
@@ -237,7 +235,7 @@ SymbVis.prototype.reset = function() {
 SymbVis.prototype.zoomed = function() {
     var vis = this;
 
-    // vis.g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+    vis.g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
     vis.g.attr("transform", d3.event.transform);
 };
 
