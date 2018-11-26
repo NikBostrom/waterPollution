@@ -230,7 +230,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     // console.log(nyHarborData);
 
     var harborMapVis = new HarborMapVis("harbor-map", locations, nyHarborData);
-    // var harborLinechartVis = new HarborLinechartVis("harbor-linechart", locations, nyHarborData);
+    var harborLinechartVis = new HarborLinechartVis("harbor-linechart", locations, nyHarborData);
 
 
     var harborEventHandler = {};
