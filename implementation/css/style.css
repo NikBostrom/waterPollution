@@ -228,6 +228,16 @@ h2 {
     stroke-width: 1.5px;
 }
 
+.chesapeakeimprovement {
+    text-align: center;
+}
+
+#dirtyEstuary {
+    border: black;
+    border-style: solid;
+    /*padding-bottom: -5px;*/
+}
+
 
 /*
 Specify size of the map container for leaflet
