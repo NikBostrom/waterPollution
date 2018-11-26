@@ -1,5 +1,8 @@
 
 /* YOUR CSS STYLES */
+.state {
+    stroke: grey;
+}
 
 /* Legend Position Style */
 .legend {
