@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90faf73e-8c94-42ab-81f8-9ff40ecc7cb4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/main.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -15,32 +15,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1980">
-              <caret line="132" column="7" selection-start-line="132" selection-start-column="7" selection-end-line="132" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="189" column="31" selection-start-line="189" selection-start-column="31" selection-end-line="189" selection-end-column="31" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="-505">
+              <caret line="54" column="32" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/js/map.js">
+        <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1110">
-              <caret line="81" column="60" selection-start-line="81" selection-start-column="60" selection-end-line="81" selection-end-column="60" />
+            <state relative-caret-position="134">
+              <caret line="189" column="31" selection-start-line="189" selection-start-column="31" selection-end-line="189" selection-end-column="31" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -51,8 +39,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="67" selection-start-line="67" selection-end-line="69" />
+            <state relative-caret-position="-1180">
+              <caret line="10" column="43" lean-forward="true" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -60,8 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/getData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+            <state relative-caret-position="60">
+              <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -102,7 +90,9 @@
       <find>vis.svg</find>
       <find>&quot;fill&quot;</find>
       <find>null</find>
+      <find>map.js</find>
       <find>active.node</find>
+      <find>map-vis</find>
     </findStrings>
     <replaceStrings>
       <replace>this.worldData</replace>
@@ -130,9 +120,9 @@
         <option value="$PROJECT_DIR$/implementation/data/us-state-centroids.json" />
         <option value="$PROJECT_DIR$/implementation/data/us_states.json" />
         <option value="$PROJECT_DIR$/implementation/js/map.js" />
-        <option value="$PROJECT_DIR$/implementation/js/main.js" />
         <option value="$PROJECT_DIR$/implementation/js/getData.js" />
         <option value="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" />
+        <option value="$PROJECT_DIR$/implementation/js/main.js" />
       </list>
     </option>
   </component>
@@ -159,6 +149,12 @@
               <item name="waterPollution" type="b2602c69:ProjectViewProjectNode" />
               <item name="waterPollution" type="462c0819:PsiDirectoryNode" />
               <item name="implementation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="waterPollution" type="b2602c69:ProjectViewProjectNode" />
+              <item name="waterPollution" type="462c0819:PsiDirectoryNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="waterPollution" type="b2602c69:ProjectViewProjectNode" />
@@ -212,7 +208,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42637000" />
+    <option name="totallyTimeSpent" value="43238000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -224,7 +220,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="724" y="23" width="716" height="805" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3352518" />
@@ -325,44 +321,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/js/getData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="81" column="60" selection-start-line="81" selection-start-column="60" selection-end-line="81" selection-end-column="60" />
+        <state relative-caret-position="-1017">
+          <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/js/getData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1980">
-          <caret line="132" column="7" selection-start-line="132" selection-start-column="7" selection-end-line="132" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="67" selection-start-line="67" selection-end-line="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
+        <state relative-caret-position="134">
           <caret line="189" column="31" selection-start-line="189" selection-start-column="31" selection-end-line="189" selection-end-column="31" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1180">
+          <caret line="10" column="43" lean-forward="true" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-505">
+          <caret line="54" column="32" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="32" />
         </state>
       </provider>
     </entry>

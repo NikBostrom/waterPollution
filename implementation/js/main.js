@@ -8,7 +8,7 @@ queue()
     .defer(d3.json, "data/usStatesOutline-5m.json")
     .defer(d3.json, "data/world-110m.json")
     .defer(d3.json,"data/waterdata.json")
-    .defer(d3.csv,"data/assess_nation.csv") // assess_nation.csv
+    .defer(d3.csv,"data/assess_nation.csv")
     .defer(d3.json,"data/us_states.json")
     .defer(d3.json, "data/us-state-centroids.json")
     .await(createVis);
