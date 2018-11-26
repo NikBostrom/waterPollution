@@ -8,9 +8,10 @@ queue()
     .defer(d3.json, "data/usStatesOutline-5m.json")
     .defer(d3.json, "data/world-110m.json")
     .defer(d3.json,"data/waterdata.json")
-    .defer(d3.csv,"data/assess_region1.csv") // assess_nation.csv
+    .defer(d3.csv,"data/assess_nation.csv") // assess_nation.csv
     .defer(d3.json,"data/us_states.json")
     // .defer(d3.csv,"data/chesapeakeBayLoads.csv")
+    .defer(d3.json, "data/us-state-centroids.json")
     .await(createVis);
 
 /*
@@ -39,7 +40,8 @@ state_data = {
 region_data = {};
 state_data = {};
 nyHarborData = [];
-function createVis(error, water_conditions, us, world, water_quality, water_assess, states) {
+
+function createVis(error, water_conditions, usOutline, world, water_quality, waterAssess, states, stateCentroids) {
     if(error) throw error;
 
     // clean water-conditions data
@@ -60,18 +62,11 @@ function createVis(error, water_conditions, us, world, water_quality, water_asse
     createDataSet(water_data, state_data, "State");
     createDataSet(water_data, region_data, "Region");
 
-    //COMMD OUT
-    // console.log(water_data);
-
     getAverage(state_data);
     getAverage(region_data);
 
-    //COMMD OUT
-    // console.log(state_data);
-    // console.log(region_data);
-
     // Clean assessment data
-    water_assess.map(function(d) {
+    waterAssess.map(function(d) {
         d.Cycle = +d.Cycle;
         d.Region = +d.Region;
         d['Water Size'] = +d['Water Size'];
@@ -84,7 +79,7 @@ function createVis(error, water_conditions, us, world, water_quality, water_asse
         .key(function(d) { return d['Water Status']})
         // .rollup(function(leaves) { console.log(leaves); return {"state": leaves[0].State, "count": leaves.length}; })
         .rollup(function(leaves) { return leaves.length })
-        .entries(water_assess); // for array
+        .entries(waterAssess); // for array
         // .object(water_assess); // for object
     //COMMD OUT
     // console.log(waterAssessByState);
@@ -118,9 +113,25 @@ function createVis(error, water_conditions, us, world, water_quality, water_asse
     // Instantiation of Visualizations
     var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
 
-    var mapVis = new MapVis("map-vis", water_data, us, state_data, states);
+    var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
 
     // var chesapeakeVis = new LineChart("chesapeakeBay", chesapeakeData)
+
+    // Create JSON with states as keys and abbreviations for values
+    function swap(json) {
+        var ret = {};
+        for (var key in json) {
+            ret[json[key]] = key;
+        }
+        return ret;
+    }
+    var abbToState = swap(states);
+    // console.log(stateToAbb);
+
+    // var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
+    var symbVis = new SymbVis("symb-vis", waterAssess, usOutline, stateCentroids, states, abbToState);
+    var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
+
 }
 
 function createDataSet(water_data, new_data, key) {
