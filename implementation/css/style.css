@@ -1,5 +1,8 @@
 
 /* YOUR CSS STYLES */
+.state {
+    stroke: grey;
+}
 
 /* Legend Position Style */
 .legend {
@@ -227,6 +230,21 @@ h2 {
     stroke: cyan;
     stroke-width: 1.5px;
 }
+
+.chesapeakeimprovement {
+    text-align: center;
+}
+
+#dirtyEstuary {
+    border: black;
+    border-style: solid;
+    /*padding-bottom: -5px;*/
+}
+#positivity {
+    border-bottom: none;
+}
+
+
 
 
 /*
