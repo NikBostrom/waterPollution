@@ -92,9 +92,11 @@ function createVis(error, water_conditions, us, world, water_quality, water_asse
     // NY Harbor Data - Takes a long time to load - process asynchronously
     d3.csv("data/harbor-water-quality.csv", function(error, _nyHarborDataMessy) {
         if(error) throw error;
+        // console.log(_nyHarborDataMessy);
         d3.csv("data/harbor_sampling_ytd_2017.csv", function(error, _nyH2017) {
             if(error) throw error;
             nyHarborData = _nyH2017;
+            console.log(_nyH2017);
             createHarborVis(_nyHarborDataMessy, nyHarborData);
         });
     });
@@ -144,9 +146,9 @@ function createDataSet(water_data, new_data, key) {
 function getAverage(data) {
 
     Object.keys(data).forEach(function(d, i) {
-        data[d].avg_Total_Nitrogen = average(data[d].Total_Nitrogen)
-        data[d].avg_Total_Phosphorus = average(data[d].Total_Phosphorus)
-        data[d].avg_Turbidity = average(data[d].Turbidity)
+        data[d].avg_Total_Nitrogen = average(data[d].Total_Nitrogen);
+        data[d].avg_Total_Phosphorus = average(data[d].Total_Phosphorus);
+        data[d].avg_Turbidity = average(data[d].Turbidity);
 
     });
     return data;
@@ -190,7 +192,8 @@ locations = [];
 
 function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     // Get all sampling lcoations
-    for (var i = 0; i < 1000; i++) {
+    var parseDate = d3.timeParse("%m/%d/%Y");
+    for (var i = 0; i < _nyHarborDataMessy.length; i++) {
         // _nyHarborDataMessy.map(function (location) {
 
         var locsThusFar = locations.map(function (l) {
@@ -204,15 +207,19 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
             locations.push(tLocation);
         }
 
-        let tVal = +nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"];
-        if (!isNaN(tVal)) {
-            // console.log("a number!", tVal);
-            nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"] = tVal;
-        }
+        // let tVal = +nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"];
+        // if (!isNaN(tVal)) {
+        //     // console.log("a number!", tVal);
+        //     nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"] = tVal;
+        // }
+
+
     }
 
+    console.log(nyHarborData);
+
     // Add location data to the harbor data
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < nyHarborData.length; i++) {
         let tVal = +nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"];
         if (!isNaN(tVal)) {
             // console.log("a number!", tVal);
@@ -223,6 +230,9 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
                 nyHarborData[i].coords = locations[j]["coords"];
             }
         }
+
+        let tDateVal = parseDate(nyHarborData[i]["Date"]);
+        nyHarborData[i]["Date"] = tDateVal;
     }
 
 
@@ -230,6 +240,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     // console.log(nyHarborData);
 
     var harborMapVis = new HarborMapVis("harbor-map", locations, nyHarborData);
+    console.log(nyHarborData);
     var harborLinechartVis = new HarborLinechartVis("harbor-linechart", locations, nyHarborData);
 
 
@@ -245,7 +256,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     $(harborEventHandler).bind("harbor-filter-selection-changed", function(_event) {
         console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
         harborMapVis.updateVis(selectionBox.property("value"));
-        // harborLinechartVis.updateVis(selectionBox.property("value"));
+        harborLinechartVis.updateVis(selectionBox.property("value"));
     })
 
 

@@ -22,6 +22,8 @@ HarborLinechartVis.prototype.initVis = function() {
     vis.width = 600 - vis.margin.left - vis.margin.right;
     vis.height = 500 - vis.margin.top - vis.margin.bottom;
 
+    console.log(vis.harborData);
+
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
@@ -120,13 +122,19 @@ HarborLinechartVis.prototype.updateVis = function(selection) {
     var vis = this;
     // vis.filterTime();
 
+    vis.filteredData = vis.harborData.filter(function(d) {return d[selection] !== "NS";});
+    vis.filteredData.sort(function(a, b) { return a["Date"] - b["Date"]; });
+    console.log(vis.filteredData);
     // Dynamically update the domains based on user selection
     vis.xScale.domain(d3.extent(vis.filteredData, function (d) {
-        return d.YEAR;
+        return d["Date"];
     }));
     // console.log(xScale(data[1].YEAR));
     vis.yScale.domain([0, d3.max(vis.filteredData, function (d) {
-        return d[selection];
+        if (!isNaN(d[selection])) {
+            // console.log(d[selection]);
+            return d[selection];
+        }
     })]);
 
     // Add x-axis
@@ -147,9 +155,11 @@ HarborLinechartVis.prototype.updateVis = function(selection) {
 
     // Draw line
     vis.line = d3.line()
-        .x(function(d) { return vis.xScale(d.YEAR); })
+        .x(function(d) { return vis.xScale(d["Date"]); })
         .y(function(d) { return vis.yScale(d[selection]); })
         .curve(d3.curveLinear);
+
+    console.log(vis.filteredData);
 
     vis.linePath.datum(vis.filteredData)
         .style("opacity", 0.0)
@@ -166,32 +176,32 @@ HarborLinechartVis.prototype.updateVis = function(selection) {
         });
 
     // Circles for data points
-    var circles = svg.selectAll("circle")
-        .data(vis.filteredData, function (d) { return d.YEAR; });
-    // Enter selection
-    circles.enter()
-        .append("circle")
-        // Update selection (merge with enter selection)
-        .merge(circles)
-        .style("opacity", 0.5)
-        .style("fill", transitionColor)
-        .style("stroke", transitionColor)
-        .transition()
-        .duration(transitionDuration)
-        .attr("cx", function(d) { return vis.xScale(d.YEAR); })
-        .attr("cy", function(d) { return vis.yScale(d[selection]); })
-        .attr("r", 4)
-        .attr("fill", "white")
-        .attr("stroke", mainColor)
-        .on("end", function() {
-            d3.select(this)
-                .style("opacity", 1.0)
-                .style("fill", mainColor)
-                .style("stroke", mainColor);
-        })
-
-    // Exit selection
-    circles.exit().remove();
+    // var circles = vis.svg.selectAll("circle")
+    //     .data(vis.filteredData, function (d) { return d["Date"]; });
+    // // Enter selection
+    // circles.enter()
+    //     .append("circle")
+    //     // Update selection (merge with enter selection)
+    //     .merge(circles)
+    //     .style("opacity", 0.5)
+    //     .style("fill", transitionColor)
+    //     .style("stroke", transitionColor)
+    //     .transition()
+    //     .duration(transitionDuration)
+    //     .attr("cx", function(d) { return vis.xScale(d["Date"]); })
+    //     .attr("cy", function(d) { return vis.yScale(d[selection]); })
+    //     .attr("r", 4)
+    //     .attr("fill", "white")
+    //     .attr("stroke", mainColor)
+    //     .on("end", function() {
+    //         d3.select(this)
+    //             .style("opacity", 1.0)
+    //             .style("fill", mainColor)
+    //             .style("stroke", mainColor);
+    //     })
+    //
+    // // Exit selection
+    // circles.exit().remove();
 
     // Add tooltips
     // addTooltips();
