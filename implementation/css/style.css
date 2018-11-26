@@ -237,6 +237,11 @@ h2 {
     border-style: solid;
     /*padding-bottom: -5px;*/
 }
+#positivity {
+    border-bottom: none;
+}
+
+
 
 
 /*
