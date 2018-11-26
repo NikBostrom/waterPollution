@@ -74,7 +74,7 @@ SymbVis.prototype.initVis = function() {
     vis.assessTypes = ['GOOD', 'IMPAIRED', 'THREATENED', 'NOT_ASSESSED'];
     vis.colorScale = d3.scaleOrdinal()
         .domain(vis.assessTypes)
-        .range(d3.schemeCategory10);
+        .range(['#386CB0', '#FFFF99', '#FDC086', '#666666']);
     // console.log(vis.colorScale(vis.assessTypes[0]));
 
     // Zoom

@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90faf73e-8c94-42ab-81f8-9ff40ecc7cb4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/implementation/js/d3-legend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -41,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="189" column="43" selection-start-line="189" selection-start-column="43" selection-end-line="189" selection-end-column="43" />
+            <state relative-caret-position="346">
+              <caret line="76" column="57" selection-start-line="76" selection-start-column="57" selection-end-line="76" selection-end-column="57" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -264,7 +260,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48532000" />
+    <option name="totallyTimeSpent" value="50045000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="724" y="23" width="716" height="805" extended-state="0" />
@@ -436,8 +432,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="189" column="43" selection-start-line="189" selection-start-column="43" selection-end-line="189" selection-end-column="43" />
+        <state relative-caret-position="346">
+          <caret line="76" column="57" selection-start-line="76" selection-start-column="57" selection-end-line="76" selection-end-column="57" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
