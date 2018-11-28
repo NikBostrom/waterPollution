@@ -19,7 +19,7 @@ HarborLinechartVis.prototype.initVis = function() {
     var vis = this;
 
     // SVG drawing area
-    vis.margin = {top: 40, right: 40, bottom: 100, left: 80};
+    vis.margin = {top: 40, right: 40, bottom: 100, left: 70};
 
     vis.width = 600 - vis.margin.left - vis.margin.right;
     vis.height = 500 - vis.margin.top - vis.margin.bottom;
@@ -91,6 +91,7 @@ var transitionDuration = 800;
 var mainColor = "black";
 var transitionColor = "#00664d";
 
+// Render visualization
 HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSelection) {
     var vis = this;
     // vis.filterTime();
@@ -162,96 +163,6 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
                 .style("opacity", 1.0)
                 .style("stroke", mainColor);
         });
-}
-
-// Render visualization
-HarborLinechartVis.prototype.updateVis2 = function(selection) {
-    var vis = this;
-    // vis.filterTime();
-
-    vis.filteredData = vis.harborData.filter(function(d) {return d[selection] !== "NS";});
-    vis.filteredData.sort(function(a, b) { return a["Date"] - b["Date"]; });
-    console.log(vis.filteredData);
-    // Dynamically update the domains based on user selection
-    vis.xScale.domain(d3.extent(vis.filteredData, function (d) {
-        return d["Date"];
-    }));
-    // console.log(xScale(data[1].YEAR));
-    vis.yScale.domain([0, d3.max(vis.filteredData, function (d) {
-        if (!isNaN(d[selection])) {
-            // console.log(d[selection]);
-            return d[selection];
-        }
-    })]);
-
-    // Add x-axis
-    vis.svg.select(".x-axis-group")
-        .transition()
-        .duration(transitionDuration)
-        .call(vis.xAxis);
-    // Add y-axis
-    vis.svg.select(".y-axis-group")
-        .transition()
-        .duration(transitionDuration)
-        .call(vis.yAxis);
-
-    // Update y-axis label
-    vis.yAxisLabel.text(function () {
-        return $("#select-box :selected").text();
-    });
-
-    // Draw line
-    vis.line = d3.line()
-        .x(function(d) { return vis.xScale(d["Date"]); })
-        .y(function(d) { return vis.yScale(d[selection]); })
-        .curve(d3.curveLinear);
-
-    // console.log(vis.filteredData);
-
-    vis.linePath.datum(vis.filteredData)
-        .style("opacity", 0.0)
-        .transition()
-        .duration(transitionDuration)
-        .attr("d", vis.line)
-        .attr("fill", "none")
-        // .attr("class", "line")
-        .attr("stroke", mainColor)
-        .on("end", function() {
-            d3.select(this)
-                .style("opacity", 1.0)
-                .style("stroke", mainColor);
-        });
-
-    // Circles for data points
-    // var circles = vis.svg.selectAll("circle")
-    //     .data(vis.filteredData, function (d) { return d["Date"]; });
-    // // Enter selection
-    // circles.enter()
-    //     .append("circle")
-    //     // Update selection (merge with enter selection)
-    //     .merge(circles)
-    //     .style("opacity", 0.5)
-    //     .style("fill", transitionColor)
-    //     .style("stroke", transitionColor)
-    //     .transition()
-    //     .duration(transitionDuration)
-    //     .attr("cx", function(d) { return vis.xScale(d["Date"]); })
-    //     .attr("cy", function(d) { return vis.yScale(d[selection]); })
-    //     .attr("r", 4)
-    //     .attr("fill", "white")
-    //     .attr("stroke", mainColor)
-    //     .on("end", function() {
-    //         d3.select(this)
-    //             .style("opacity", 1.0)
-    //             .style("fill", mainColor)
-    //             .style("stroke", mainColor);
-    //     })
-    //
-    // // Exit selection
-    // circles.exit().remove();
-
-    // Add tooltips
-    // addTooltips();
 }
 
 // function addTooltips() {

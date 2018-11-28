@@ -271,3 +271,6 @@ Specify size of the map container for leaflet
     text-align: center;
     display: inline-block;
 }
+#harbor-select-box {
+    margin-left: 15px;
+}
