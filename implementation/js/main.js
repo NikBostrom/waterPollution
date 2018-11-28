@@ -12,7 +12,7 @@ queue()
     .defer(d3.json,"data/us_states.json")
     // .defer(d3.csv,"data/chesapeakeBayLoads.csv")
     .defer(d3.json, "data/us-state-centroids.json")
-    .defer(d3.json, "data/TestRegionsUsStatesOutline-5m.json")
+    .defer(d3.json, "data/regionsOutline.json")
     .await(createVis);
 
 /*

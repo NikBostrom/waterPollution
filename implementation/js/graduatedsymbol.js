@@ -126,7 +126,7 @@ SymbVis.prototype.wrangleData = function() {
         var d = vis.stateCentroids.features[i];
         // console.log(d);
         var state = {};
-        state["name"] = d.properties.name;
+        state["key"] = d.properties.name;
         state["center"] = d.geometry.coordinates;
         state['values'] = [];
         vis.assessTypes.forEach(function(type) {
@@ -142,7 +142,7 @@ SymbVis.prototype.wrangleData = function() {
         });
         vis.wrangledData.push(state);
     }
-    // console.log(vis.wrangledData);
+    console.log(vis.wrangledData);
 
     vis.updateVis()
 };

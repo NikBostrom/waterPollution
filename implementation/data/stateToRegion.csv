@@ -1,50 +1,50 @@
 State,Region
-Maine,01
-New Hampshire,01
-Vermont,01
-Massachusetts,01
-Rhode Island,01
-Connecticut,01
-New York,02
-New Jersey,02
-Pennsylvania,03
-Delaware,03
-Maryland,03
-Virginia,03
-West Virginia,03
-Kentucky,04
-North Carolina,04
-South Carolina,04
-Tennessee,04
-Missouri,04
-Alabama,04
-Georgia,04
-Florida,04
-Minnesota,05
-Wisconsin,05
-Michigan,05
-Illinois,05
-Indiana,05
-Ohio,05
-Arkansas,06
-Louisiana,06
-Oklahoma,06
-Texas,06
-Nex Mexico,06
-Nebraska,07
-Iowa,07
-Kansas,07
-Missouri,07
-Montana,08
-North Dakota,08
-South Dakota,08
-Wyoming,08
-Colorado,08
-Utah,08
-California,09
-Nevada,09
-Arizona,09
-Hawaii,09
+Maine,1
+New Hampshire,1
+Vermont,1
+Massachusetts,1
+Rhode Island,1
+Connecticut,1
+New York,2
+New Jersey,2
+Pennsylvania,3
+Delaware,3
+Maryland,3
+Virginia,3
+West Virginia,3
+Kentucky,4
+North Carolina,4
+South Carolina,4
+Tennessee,4
+Mississippi,4
+Alabama,4
+Georgia,4
+Florida,4
+Minnesota,5
+Wisconsin,5
+Michigan,5
+Illinois,5
+Indiana,5
+Ohio,5
+Arkansas,6
+Louisiana,6
+Oklahoma,6
+Texas,6
+Nex Mexico,6
+Nebraska,7
+Iowa,7
+Kansas,7
+Missouri,7
+Montana,8
+North Dakota,8
+South Dakota,8
+Wyoming,8
+Colorado,8
+Utah,8
+California,9
+Nevada,9
+Arizona,9
+Hawaii,9
 Washington,10
 Oregon,10
 Idaho,10

@@ -1,4 +1,4 @@
-var fs = require("fs");
+// var fs = require("fs");
 d3.csv("data/stateToRegion.csv", function(data1) {
     // console.log(data1);
     // var found = data1.find(function(state) {
@@ -23,9 +23,7 @@ d3.csv("data/stateToRegion.csv", function(data1) {
             }
         });
         console.log(data);
-        fs.writeFile('data/regionsOutline.json', data, (err) => {
-            if (err) throw err;
-            console.log('The file has been saved!');
-        });
+        console.log(JSON.stringify(data));
+        // download(data, 'data/regionsOutline.json', 'text/plain');
     });
 });

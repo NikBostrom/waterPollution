@@ -8,6 +8,7 @@
  * @param _abbToState       -- state for each 2-letter abbreviation
  */
 
+// TODO: Add state outlines on top of regions
 // TODO: Add legend back in
 // TODO: Add DC to states, OR CHANGE DC TO REGION 11
 
@@ -122,7 +123,7 @@ RegionsVis.prototype.wrangleData = function() {
     //     var d = vis.stateCentroids.features[i];
     //     // console.log(d);
     //     var state = {};
-    //     state["name"] = d.properties.name;
+    //     state["key"] = d.properties.name;
     //     state["center"] = d.geometry.coordinates;
     //     state['values'] = [];
     //     vis.assessTypes.forEach(function(type) {
@@ -140,15 +141,43 @@ RegionsVis.prototype.wrangleData = function() {
     // }
     // // console.log(vis.wrangledData);
 
-
-    // Create regions JSON
-
     // Define center state for each region
-    // vis.EPARegions = {
-    //     "1":
-    // }
+    vis.EPARegions = [
+        {"Region": "1", "Center": "New Hampshire"},
+        {"Region": "2", "Center": "New York"},
+        {"Region": "3", "Center": "Maryland"},
+        {"Region": "4", "Center": "Georgia"},
+        {"Region": "5", "Center": "Indiana"},
+        {"Region": "6", "Center": "Texas"},
+        {"Region": "7", "Center": "Nebraska"},
+        {"Region": "8", "Center": "Wyoming"},
+        {"Region": "9", "Center": "Nevada"},
+        {"Region": "10", "Center": "Idaho"}
+    ];
 
     // Combine data nested by region with lat/long of center state
+    vis.byRegion.forEach(function(d) {
+
+        // Find center state
+        var tempCenterStateObj = vis.EPARegions.find(function(element) {
+            return element.Region === d.key
+        });
+        // console.log(centerStateObj);
+
+        // Get coordinates of center state centroid
+        var tempCenterStateCoords = vis.stateCentroids.features.find(function(element) {
+            return element.properties.name === tempCenterStateObj.Center
+        });
+        var centerStateCoords = tempCenterStateCoords.geometry.coordinates;
+        // console.log(centerStateCoords);
+
+        // Store coordinates in nested data
+        d.center = centerStateCoords;
+        // console.log(d);
+    });
+
+    // Store wrangled data
+    vis.wrangledData = vis.byRegion;
 
     vis.updateVis()
 };
@@ -157,18 +186,33 @@ RegionsVis.prototype.updateVis = function() {
     var vis = this;
 
     // Draw regional geographic features
-    console.log(vis.stateOutlines.features);
-    console.log(vis.mergedStates.features);
-
-    // Draw geographic features
     vis.g.selectAll("path")
-        .datum(vis.mergedStates.features)
+        .data(vis.mergedStates.features)
         .enter()
         .append("path")
         .attr("d", vis.path)
-        .attr("class", "state");
+        .attr("class", "region");
 
     // Draw regional pie charts
+    vis.points = vis.g.selectAll("g")
+        .data(vis.wrangledData)
+        .enter()
+        .append("g")
+        .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
+        .attr("class", "pie");
+
+    vis.pies = vis.points.selectAll(".pie")
+        .data(function(d) {return vis.pie(d.values)})
+        .enter()
+        .append('g')
+        .attr('class', 'arc');
+
+    vis.pies.append('path')
+        .attr('d', vis.arc)
+        .attr("fill", function(d, i) {
+            return vis.colorScale(vis.assessTypes[i])
+        })
+        .attr("style", "fill-opacity: 0.8");
 
     // // Draw geographic features
     // vis.g.selectAll("path")
