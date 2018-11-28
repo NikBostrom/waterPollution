@@ -4,11 +4,12 @@
  * @param _locationData				-- the list of locations where measurements in the NU Harbor were taken
  */
 
-HarborMapVis = function(_parentElement, _harborData){
+HarborMapVis = function(_parentElement, _harborData, _harborEventHandler){
     this.parentElement = _parentElement;
     // this.locations = _locationData;
     this.harborData = _harborData;
     this.mapPosition = [40.696284, -73.933518];
+    this.eventHandler = _harborEventHandler;
 
     this.initVis();
 };
@@ -119,14 +120,23 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
             // console.log(tColor, vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
 
             var popupContent =  "<strong>Sample Site: </strong>" + vis.harborData[i]["Site"] + "<br/>";
-            popupContent += "<strong>Fecal Coliform (#/100 mL) - Top: </strong>" + vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"] + "<br/>";
+            popupContent += "<strong>" + selection + ": </strong>" + vis.harborData[i][selection][0]["Value"] + "<br/>";
 
             var loc = L.circle(vis.harborData[i]["coords"], 375, {
                 fillColor: tColor,
                 // stroke attributes
                 color: "black",
                 weight: 0.5
-            }).bindPopup(popupContent);
+            }).on("click", function(e) {
+                    // console.log(e.target.properties);
+                    $(vis.eventHandler).trigger("sample-location-clicked-on-map", e.target.properties);
+                })
+                .bindPopup(popupContent);
+
+            // Add custom properties to Leaflet markers to be passed on click
+            loc.properties = {};
+            loc.properties.Site = vis.harborData[i]["Site"];
+
             vis.locMarkers.addLayer(loc);
         }
     }
