@@ -73,7 +73,7 @@ RegionsVis.prototype.initVis = function() {
     vis.colorScale = d3.scaleOrdinal()
         .domain(vis.assessTypes)
         .range(['#386CB0', '#FFFF99', '#FDC086', '#666666']);
-    // console.log(vis.colorScale(vis.assessTypes[0]));
+    vis.regionColorScale = d3.schemeCategory10;
 
     // Filter, aggregate, modify data
     vis.wrangleData();
@@ -152,7 +152,7 @@ RegionsVis.prototype.wrangleData = function() {
         {"Region": "7", "Center": "Nebraska"},
         {"Region": "8", "Center": "Wyoming"},
         {"Region": "9", "Center": "Nevada"},
-        {"Region": "10", "Center": "Idaho"}
+        {"Region": "10", "Center": "Washington"}
     ];
 
     // Combine data nested by region with lat/long of center state
@@ -165,37 +165,25 @@ RegionsVis.prototype.wrangleData = function() {
         // console.log(centerStateObj);
 
         // Get coordinates of center state centroid
-        var tempCenterStateCoords = vis.stateCentroids.features.find(function(element) {
+        var centerStateCoords = vis.stateCentroids.features.find(function(element) {
             return element.properties.name === tempCenterStateObj.Center
         });
-        var centerStateCoords = tempCenterStateCoords.geometry.coordinates;
-        // console.log(centerStateCoords);
 
         // Store coordinates in nested data
-        d.center = centerStateCoords;
-        d.values = [];
+        d.center = centerStateCoords.geometry.coordinates;
+        var tempVals = [];
 
-        // TODO: FIX BELOW - Convert values from array of objects {key, value} to an array
         vis.assessTypes.forEach(function(type) {
-            var idx = vis.d.values.findIndex(x => x.key===type);
+            var idx = d.values.findIndex(x => x.key===type);
             if (idx === -1) {
-                d.values.push(0);
+                tempVals.push(0);
             }
             else {
-                d.values.push(vis.d.values[idx].value)
+                tempVals.push(d.values[idx].value)
             }
-            // console.log(vis.byState[i].values);
-            // var idx = vis.byState[i].values.findIndex(x => x.key===type);
-            //         // console.log(idx);
-            //         if (idx === -1) {
-            //             state['values'].push(0);
-            //         }
-            //         else {
-            //             state['values'].push(vis.byState[i].values[idx].value);
-            //         }
         });
-
-        console.log(d);
+        d.values = tempVals;
+        // console.log(d);
     });
 
     // Store wrangled data
@@ -214,7 +202,13 @@ RegionsVis.prototype.updateVis = function() {
         .enter()
         .append("path")
         .attr("d", vis.path)
-        .attr("class", "region");
+        .attr("class", "region")
+        .attr("fill", function(d) {
+            // convert region to number
+            var region = +d.properties.EPA_REGION;
+            if (region > 0) {return vis.regionColorScale[region-1]}
+            else {return "white"}
+        });
 
     console.log(vis.wrangledData);
     // Draw regional pie charts
