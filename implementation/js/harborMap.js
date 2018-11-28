@@ -4,10 +4,10 @@
  * @param _locationData				-- the list of locations where measurements in the NU Harbor were taken
  */
 
-HarborMapVis = function(_parentElement, _locationData, _harborData2017){
+HarborMapVis = function(_parentElement, _harborData){
     this.parentElement = _parentElement;
-    this.locations = _locationData;
-    this.harborData = _harborData2017;
+    // this.locations = _locationData;
+    this.harborData = _harborData;
     this.mapPosition = [40.696284, -73.933518];
 
     this.initVis();
@@ -56,12 +56,12 @@ HarborMapVis.prototype.initVis = function() {
 
 
     // var t = d3
-    vis.updateVis($("#harbor-select-box :selected").val());
+    // vis.updateVis($("#harbor-select-box :selected").val());
 };
 
 HarborMapVis.prototype.updateVis = function(selection) {
     var vis = this;
-    console.log(selection);
+    // console.log(selection);
     vis.addLocationMarkers(selection);
 }
 
@@ -88,6 +88,7 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
     let colorScale = d3.scaleLinear()
         .domain(d3.extent(vis.harborData, function(d) {
             // console.log(d);
+            // TODO - Change to be the seelct-box selected value
             return +d["Fecal Coliform (#/100 mL) - Top"];
         }))
         .range(colorSet);

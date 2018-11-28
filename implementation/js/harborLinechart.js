@@ -4,11 +4,13 @@
  * @param _locationData				-- the list of locations where measurements in the NU Harbor were taken
  */
 
-HarborLinechartVis = function(_parentElement, _locationData, _harborData2017){
+HarborLinechartVis = function(_parentElement, _harborData){
     this.parentElement = _parentElement;
-    this.locations = _locationData;
-    this.harborData = _harborData2017;
+    // this.locations = _locationData;
+    this.harborData = _harborData;
     this.filteredData = this.harborData;
+
+    console.log(this.filteredData);
 
     this.initVis();
 };
@@ -64,8 +66,7 @@ HarborLinechartVis.prototype.initVis = function() {
     // Add upper boundary line
     vis.linePath = vis.svg.append("path");
 
-
-    vis.updateVis($("#harbor-select-box :selected").val());
+    vis.updateVis($("#harbor-select-box :selected").val(), "CIC2");
 }
 
 // Slider
@@ -90,35 +91,73 @@ var transitionDuration = 800;
 var mainColor = "black";
 var transitionColor = "#00664d";
 
-// Load CSV file
-// function loadData() {
-//     var vis = this;
-    // d3.csv("data/fifa-world-cup.csv", function(error, csv) {
-    //
-    //     csv.forEach(function(d){
-    //         // Convert string to 'date object'
-    //         d.YEAR = parseDate(d.YEAR);
-    //
-    //         // Convert numeric values to 'numbers'
-    //         d.TEAMS = +d.TEAMS;
-    //         d.MATCHES = +d.MATCHES;
-    //         d.GOALS = +d.GOALS;
-    //         d.AVERAGE_GOALS = +d.AVERAGE_GOALS;
-    //         d.AVERAGE_ATTENDANCE = +d.AVERAGE_ATTENDANCE;
-    //     });
-    //
-    //     // Store csv data in global variable
-    //     data = csv;
-    //     filteredData = data;
+HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSelection) {
+    var vis = this;
+    // vis.filterTime();
 
-        // Draw the visualization for the first time
-        // vis.updateVis();
-    // });
-// }
+    // vis.filteredData = vis.harborData.filter(function(d) {return d[selection] !== "NS";});
+    vis.filteredData = vis.harborData.filter(function(loc) {
+        return loc["Site"] === locationSelection;
+    })[0][measureSelection];
+    // vis.filteredData.sort(function(a, b) { return a["Date"] - b["Date"]; });
+    console.log(vis.filteredData);
 
+
+    // Dynamically update the domains based on user selection
+    vis.xScale.domain(d3.extent(vis.filteredData, function (d) {
+        // console.log(d);
+        // console.log(d["Date"]);
+        return d["Date"];
+    }));
+
+    vis.yScale.domain([0, d3.max(vis.filteredData, function (d) {
+        if (!isNaN(d["Value"])) {
+            // console.log(d["Value"]);
+            return d["Value"];
+        }
+    })]);
+
+    // Add x-axis
+    vis.svg.select(".x-axis-group")
+        .transition()
+        .duration(transitionDuration)
+        .call(vis.xAxis);
+    // Add y-axis
+    vis.svg.select(".y-axis-group")
+        .transition()
+        .duration(transitionDuration)
+        .call(vis.yAxis);
+
+    // Update y-axis label
+    vis.yAxisLabel.text(function () {
+        return $("#select-box :selected").text();
+    });
+
+    // Draw line
+    vis.line = d3.line()
+        .x(function(d) { return vis.xScale(d["Date"]); })
+        .y(function(d) { return vis.yScale(d["Value"]); })
+        .curve(d3.curveLinear);
+
+    // console.log(vis.filteredData);
+
+    vis.linePath.datum(vis.filteredData)
+        .style("opacity", 0.0)
+        .transition()
+        .duration(transitionDuration)
+        .attr("d", vis.line)
+        .attr("fill", "none")
+        // .attr("class", "line")
+        .attr("stroke", mainColor)
+        .on("end", function() {
+            d3.select(this)
+                .style("opacity", 1.0)
+                .style("stroke", mainColor);
+        });
+}
 
 // Render visualization
-HarborLinechartVis.prototype.updateVis = function(selection) {
+HarborLinechartVis.prototype.updateVis2 = function(selection) {
     var vis = this;
     // vis.filterTime();
 

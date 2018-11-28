@@ -175,7 +175,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 
     var harborMapVis = new HarborMapVis("harbor-map", harborLocations, nyHarborData);
     // console.log(nyHarborData);
-    var harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations, nyHarborData);
+    var harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations);
 
 
     var harborEventHandler = {};
@@ -184,13 +184,13 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     // console.log(d3.select("#ranking-type").property("value"));
 
     selectionBox.on("change", function() {
-        $(harborEventHandler).trigger("harbor-filter-selection-changed", )
+        $(harborEventHandler).trigger("harbor-filter-selection-changed")
     });
 
     $(harborEventHandler).bind("harbor-filter-selection-changed", function(_event) {
         // console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
-        harborMapVis.updateVis(selectionBox.property("value"));
-        harborLinechartVis.updateVis(selectionBox.property("value"));
+        // harborMapVis.updateVis(selectionBox.property("value"));
+        // harborLinechartVis.updateVis(selectionBox.property("value"), "CIC2");
     })
 
 
