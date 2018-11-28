@@ -56,7 +56,7 @@ HarborMapVis.prototype.initVis = function() {
 
 
     // var t = d3
-    // vis.updateVis($("#harbor-select-box :selected").val());
+    vis.updateVis($("#harbor-select-box :selected").val());
 };
 
 HarborMapVis.prototype.updateVis = function(selection) {
@@ -87,26 +87,30 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
 
     let colorScale = d3.scaleLinear()
         .domain(d3.extent(vis.harborData, function(d) {
-            // console.log(d);
-            // TODO - Change to be the seelct-box selected value
-            return +d["Fecal Coliform (#/100 mL) - Top"];
+            console.log(d);
+            // console.log(selection);
+            // TODO - Change to be the select-box selected value
+            return +d[selection];
         }))
         .range(colorSet);
 
-    // console.log(colorScale(location["Fecal Coliform (#/100 mL) - Top"]));
 
-    colorScale(location["Fecal Coliform (#/100 mL) - Top"]);
+    // colorScale(location["Fecal Coliform (#/100 mL) - Top"]);
 
     vis.map.removeLayer(vis.locMarkers);
 
     // TODO: Go through all data instead of just the first 1000 values and store that data into a separate file instead of having to parse it every time the page loads
     // vis.harborData.forEach(function(location) {
 
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < vis.harborData.length; i++) {
         // console.log(vis.harborData[i]);
         if (vis.harborData[i]["coords"]) {
             let tColor;
-            let selectionVal = vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"];
+            // TODO: Change the 0 below to the date if time allows for animated time movement / a slider
+            let selectionVal = vis.harborData[i][selection][0]["Value"];
+            if (vis.harborData[i]["Site"] === "CIC2") {
+                console.log(selectionVal);
+            }
             if (isNaN(selectionVal)) {
                 tColor = "#bfbfbf";
             } else {
