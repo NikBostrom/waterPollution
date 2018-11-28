@@ -19,10 +19,11 @@ HarborLinechartVis.prototype.initVis = function() {
     var vis = this;
 
     // SVG drawing area
-    vis.margin = {top: 40, right: 40, bottom: 100, left: 70};
+    vis.margin = {top: 40, right: 40, bottom: 100, left: 75};
 
     vis.width = 600 - vis.margin.left - vis.margin.right;
-    vis.height = 500 - vis.margin.top - vis.margin.bottom;
+
+    vis.height = 600 - vis.margin.top - vis.margin.bottom;
 
     // console.log(vis.harborData);
 
@@ -30,7 +31,8 @@ HarborLinechartVis.prototype.initVis = function() {
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+        .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")")
+        .attr("id", "harbor-linechart-svg-group");
 
 
     // Date parser
