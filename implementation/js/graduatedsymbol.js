@@ -173,6 +173,7 @@ SymbVis.prototype.updateVis = function() {
         .enter()
         .append('g')
         .attr('class', 'arc');
+    console.log(vis.pies);
 
     vis.pies.append('path')
         .attr('d', vis.arc)

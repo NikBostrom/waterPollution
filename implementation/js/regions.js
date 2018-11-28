@@ -173,11 +173,34 @@ RegionsVis.prototype.wrangleData = function() {
 
         // Store coordinates in nested data
         d.center = centerStateCoords;
-        // console.log(d);
+        d.values = [];
+
+        // TODO: FIX BELOW - Convert values from array of objects {key, value} to an array
+        vis.assessTypes.forEach(function(type) {
+            var idx = vis.d.values.findIndex(x => x.key===type);
+            if (idx === -1) {
+                d.values.push(0);
+            }
+            else {
+                d.values.push(vis.d.values[idx].value)
+            }
+            // console.log(vis.byState[i].values);
+            // var idx = vis.byState[i].values.findIndex(x => x.key===type);
+            //         // console.log(idx);
+            //         if (idx === -1) {
+            //             state['values'].push(0);
+            //         }
+            //         else {
+            //             state['values'].push(vis.byState[i].values[idx].value);
+            //         }
+        });
+
+        console.log(d);
     });
 
     // Store wrangled data
     vis.wrangledData = vis.byRegion;
+    console.log(vis.wrangledData);
 
     vis.updateVis()
 };
@@ -193,6 +216,7 @@ RegionsVis.prototype.updateVis = function() {
         .attr("d", vis.path)
         .attr("class", "region");
 
+    console.log(vis.wrangledData);
     // Draw regional pie charts
     vis.points = vis.g.selectAll("g")
         .data(vis.wrangledData)
@@ -206,6 +230,7 @@ RegionsVis.prototype.updateVis = function() {
         .enter()
         .append('g')
         .attr('class', 'arc');
+    console.log(vis.pies);
 
     vis.pies.append('path')
         .attr('d', vis.arc)

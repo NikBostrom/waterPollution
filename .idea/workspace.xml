@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90faf73e-8c94-42ab-81f8-9ff40ecc7cb4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/implementation/data/stateToRegion.csv" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/data/stateToRegion.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/js/addRegions.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/addRegions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/data/RegionsUsStatesOutline-5m.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/data/TestRegionsUsStatesOutline-5m.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/implementation/js/regions.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/regions.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -22,7 +20,7 @@
     <session id="-181208115">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.opened" value="2" />
@@ -46,7 +44,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="118" />
-          <entry key="js" value="3989" />
+          <entry key="js" value="4555" />
           <entry key="json" value="282" />
         </counts>
       </usages-collector>
@@ -54,7 +52,7 @@
         <counts>
           <entry key="HTML" value="118" />
           <entry key="JSON" value="282" />
-          <entry key="JavaScript" value="3989" />
+          <entry key="JavaScript" value="4555" />
         </counts>
       </usages-collector>
     </session>
@@ -73,8 +71,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/js/regions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="189" column="39" selection-start-line="189" selection-start-column="39" selection-end-line="189" selection-end-column="39" />
+            <state relative-caret-position="375">
+              <caret line="177" column="29" selection-start-line="177" selection-start-column="29" selection-end-line="177" selection-end-column="29" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -85,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="128" column="18" selection-start-line="128" selection-start-column="18" selection-end-line="128" selection-end-column="18" />
+            <state relative-caret-position="323">
+              <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -121,15 +119,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/data/RegionsUsStatesOutline-5m.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187629">
-              <caret line="31" column="29536" selection-start-line="31" selection-start-column="29536" selection-end-line="31" selection-end-column="29536" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -143,7 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>vis.color</find>
       <find>legend</find>
       <find>.scale</find>
       <find>&quot;GOOD&quot;</find>
@@ -173,6 +161,7 @@
       <find>FILTER</find>
       <find>find</find>
       <find>name</find>
+      <find>assessTyp</find>
     </findStrings>
     <replaceStrings>
       <replace>this.worldData</replace>
@@ -248,6 +237,12 @@
               <item name="waterPollution" type="b2602c69:ProjectViewProjectNode" />
               <item name="waterPollution" type="462c0819:PsiDirectoryNode" />
               <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="waterPollution" type="b2602c69:ProjectViewProjectNode" />
+              <item name="waterPollution" type="462c0819:PsiDirectoryNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -311,12 +306,12 @@
       <workItem from="1543119462369" duration="2499000" />
       <workItem from="1543189887830" duration="5277000" />
       <workItem from="1543379063383" duration="1980000" />
-      <workItem from="1543414556710" duration="13946000" />
+      <workItem from="1543414556710" duration="14825000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69372000" />
+    <option name="totallyTimeSpent" value="70251000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -582,8 +577,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="128" column="18" selection-start-line="128" selection-start-column="18" selection-end-line="128" selection-end-column="18" />
+        <state relative-caret-position="323">
+          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -592,8 +587,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/regions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="189" column="39" selection-start-line="189" selection-start-column="39" selection-end-line="189" selection-end-column="39" />
+        <state relative-caret-position="375">
+          <caret line="177" column="29" selection-start-line="177" selection-start-column="29" selection-end-line="177" selection-end-column="29" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
