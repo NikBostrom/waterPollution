@@ -61,9 +61,9 @@ HarborMapVis.prototype.initVis = function() {
 
 HarborMapVis.prototype.updateVis = function(selection) {
     var vis = this;
-    console.log(selection);
+    // console.log(selection);
     vis.addLocationMarkers(selection);
-}
+};
 
 HarborMapVis.prototype.addLocationMarkers = function(selection) {
     var vis = this;
