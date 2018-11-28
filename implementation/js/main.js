@@ -191,8 +191,8 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 
     $(harborEventHandler).bind("harbor-filter-selection-changed", function(_event) {
         // console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
-        // harborMapVis.updateVis(selectionBox.property("value"));
-        // harborLinechartVis.updateVis(selectionBox.property("value"), "CIC2");
+        harborMapVis.updateVis(selectionBox.property("value"));
+        harborLinechartVis.updateVis(selectionBox.property("value"), null);
     });
     $(harborEventHandler).bind("sample-location-clicked-on-map", function(_event, markerProperties) {
         console.log(markerProperties);

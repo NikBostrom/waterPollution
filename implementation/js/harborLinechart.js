@@ -96,9 +96,13 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
     // vis.filterTime();
 
     // vis.filteredData = vis.harborData.filter(function(d) {return d[selection] !== "NS";});
-    vis.filteredData = vis.harborData.filter(function(loc) {
-        return loc["Site"] === locationSelection;
-    })[0][measureSelection];
+    if (locationSelection !== null) {
+        vis.filteredData = vis.harborData.filter(function(loc) {
+            return loc["Site"] === locationSelection;
+        })[0][measureSelection].filter(function(loc) {
+            return (!isNaN(loc["Value"]));
+        });
+    }
     // vis.filteredData.sort(function(a, b) { return a["Date"] - b["Date"]; });
     console.log(vis.filteredData);
 
@@ -136,6 +140,7 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
     // Draw line
     vis.line = d3.line()
         .x(function(d) { return vis.xScale(d["Date"]); })
+        // The data is filtered for NaN values on measure-selection, so the line can be drawn here without checking for NaN
         .y(function(d) { return vis.yScale(d["Value"]); })
         .curve(d3.curveLinear);
 
