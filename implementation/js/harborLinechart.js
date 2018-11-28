@@ -19,7 +19,7 @@ HarborLinechartVis.prototype.initVis = function() {
     var vis = this;
 
     // SVG drawing area
-    vis.margin = {top: 40, right: 40, bottom: 100, left: 60};
+    vis.margin = {top: 40, right: 40, bottom: 100, left: 80};
 
     vis.width = 600 - vis.margin.left - vis.margin.right;
     vis.height = 500 - vis.margin.top - vis.margin.bottom;
@@ -133,9 +133,12 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
         .call(vis.yAxis);
 
     // Update y-axis label
-    vis.yAxisLabel.text(function () {
-        return $("#select-box :selected").text();
-    });
+    // vis.yAxisLabel.text(function () {
+    //     return $("#select-box :selected").text();
+    // });
+
+    vis.yAxisLabel.text(measureSelection);
+
 
     // Draw line
     vis.line = d3.line()

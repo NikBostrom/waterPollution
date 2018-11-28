@@ -243,8 +243,9 @@ h2 {
 #positivity {
     border-bottom: none;
 }
-
-
+.y-axis-label {
+    text-anchor: middle;
+}
 
 
 /*
