@@ -167,84 +167,15 @@ function getSum(total, num) {
 
 
 
-    // (3) Create event handler
-    // var MyEventHandler = {};
-
-    // (4) Create visualization instances
-
-
-    // var countVis = new CountVis("countvis", allData, MyEventHandler);
-//     // *** TO-DO ***
-//     //  pass event handler to CountVis, at constructor of CountVis above
-//
-//     // *** TO-DO ***
-//     var ageVis = new AgeVis("agevis", allData);
-//     var prioVis = new PrioVis("priovis", allData, metaData);
-//
-//
-//     // (5) Bind event handler
-//
-//     // *** TO-DO ***
-//     $(MyEventHandler).bind("selectionChanged", function(event, rangeStart, rangeEnd){
-//         ageVis.onSelectionChange(rangeStart, rangeEnd);
-//         prioVis.onSelectionChange(rangeStart, rangeEnd);
-//         countVis.onSelectionChange(rangeStart, rangeEnd);
-//     });
-//
-locations = [];
-
 function createHarborVis(_nyHarborDataMessy, nyHarborData) {
-    // Get all sampling lcoations
-    var parseDate = d3.timeParse("%m/%d/%Y");
-    for (var i = 0; i < _nyHarborDataMessy.length; i++) {
-        // _nyHarborDataMessy.map(function (location) {
-
-        var locsThusFar = locations.map(function (l) {
-            return l["loc_name"];
-        });
-        // console.log(locsThusFar);
-        if (locsThusFar.includes(_nyHarborDataMessy[i]["Sampling Location"]) === false) {
-            tLocation = {};
-            tLocation["loc_name"] = _nyHarborDataMessy[i]["Sampling Location"];
-            tLocation["coords"] = [+_nyHarborDataMessy[i]["Lat"], +_nyHarborDataMessy[i]["Long"]];
-            locations.push(tLocation);
-        }
-
-        // let tVal = +nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"];
-        // if (!isNaN(tVal)) {
-        //     // console.log("a number!", tVal);
-        //     nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"] = tVal;
-        // }
-
-
-    }
-
-    // console.log(nyHarborData);
-
-    // Add location data to the harbor data
-    for (var i = 0; i < nyHarborData.length; i++) {
-        let tVal = +nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"];
-        if (!isNaN(tVal)) {
-            // console.log("a number!", tVal);
-            nyHarborData[i]["Fecal Coliform (#/100 mL) - Top"] = tVal;
-        }
-        for (var j = 0; j < locations.length; j++) {
-            if (locations[j]["loc_name"] === nyHarborData[i]["Site"]) {
-                nyHarborData[i].coords = locations[j]["coords"];
-            }
-        }
-
-        let tDateVal = parseDate(nyHarborData[i]["Date"]);
-        nyHarborData[i]["Date"] = tDateVal;
-    }
-
+    wrangleHarborData(_nyHarborDataMessy, nyHarborData);
 
     // console.log(locations);
     // console.log(nyHarborData);
 
-    var harborMapVis = new HarborMapVis("harbor-map", locations, nyHarborData);
+    var harborMapVis = new HarborMapVis("harbor-map", harborLocations, nyHarborData);
     // console.log(nyHarborData);
-    var harborLinechartVis = new HarborLinechartVis("harbor-linechart", locations, nyHarborData);
+    var harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations, nyHarborData);
 
 
     var harborEventHandler = {};
