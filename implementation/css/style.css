@@ -155,11 +155,14 @@ body {
 /*}*/
 
 .placeholder {
-    padding: 100px;
-    border: black;
-    border-style: solid;
+    padding: 20px;
+    /*border: black;*/
+    /*border-style: solid;*/
 }
 
+.story-text {
+    margin-left: 4%;
+}
 
 /*Site colors*/
 

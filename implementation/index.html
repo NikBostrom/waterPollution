@@ -16,7 +16,7 @@
         <div class="hero-text">
 
             <h1>
-                Water Woes in the Midwest
+                Water Woes in America
             </h1>
             <h3>How Humans Are Destroying Aquatic Ecosystems</h3>
             </div>
@@ -25,7 +25,7 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-lg-12 placeholder">
+            <div class="col-lg-4 story-text">
                 <p class="">
                     Nitrogen and phosphorus are natural parts of aquatic ecosystems, and according to the
                     <a href="https://www.epa.gov/nutrientpollution/problem">
@@ -64,109 +64,95 @@
 
                 </p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div id="symb-vis"></div>
-            </div>
-        </div>
-        <div class="row">
+        <!--</div>-->
+        <!--<div class="row">-->
             <div class="col-lg-6">
-                <p class="placeholder">We can see that <em>each of these states has an average total nitrogen level per
-                    lake much greater than the noted average concentration to protect freshwater aquatic life</em>, and
-                    also <em>greater than the suggested concentration to protect marine aquatic life</em>. As we noted before,
-                    this contributes to algal bloom, which has the potential to starve the marine life of nutrients
-                    and even oxygen, causing fish kills and bacterial growth in the water that can make humans very sick.
-                <br>
-                    From our choropleth map detailing average state pollutant levels across three measurable pollutants,
-                    we gleaned that the state of Nebraska was clearly not at a satisfactory level, especially in terms
-                    of the nitrogen concentration and turbidity. The states of North Dakota and South Dakota also had
-                    very high levels of pollutants relative to other states, and these three states far outweigh the
-                    rest in terms of need for change as of 2007.
-
-                    <!--This choropleth map shows the average concentration per state of each pollutant across all of the state's lakes.-->
-                    <!--The darker regions show heavier pollutant concentrations, the lighter regions show lesser pollutant concentrations,-->
-                    <!--and the colors represent the different pollutants- total nitrogen, total phosphorus, and turbidity.-->
-                </p>
-
-            </div>
-            <!--<div class="col-lg-6">-->
-                <!--<p class="placeholder">Explanation of phosphorus, nitrogen, turbidity</p>-->
-            <!--</div>-->
-        </div>
-        <div class="row">
-            <div class="">
                 <select class="form-control" id="measurable">
                     <option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>
                     <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
                     <option value="Turbidity">Turbidity (NTU)</option>
                 </select>
+                <p style="text-align: left; padding-left: 15%; padding-top: 3%">Total Concentration of Pollutant</p>
+                <div id="map-vis"></div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 story-text">
+            </div>
+            <div id="country-bar" class="col-lg-6 placeholder"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Murky Waters</h2>
+                <div id="symb-vis"></div>
+            </div>
+            <!--<div class="col-lg-4 story-text">-->
+            <!--</div>-->
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <!--<div id="time-period-min"></div>-->
                 <!--<div id="time-period-max"></div>-->
-                <div id="map-vis"></div>
-                    <h2>Something clever to segue into Nebraska</h2>
-                    <p class="">From <a href="http://netnebraska.org/article/news/water-woes-widespread-across-nebraska">this article</a>, published by NET News in 2013,
-                    we gain the follwing insights into progression of the situation in the midwest with respect to water quality:</p>
-                    <ul>
-                        <li>Park managers in Nebraska began using “expensive chemicals”around 2007 to combat invasive species, in the form of aerial spraying. The spraying began in 2007, and continued at least until the writing of this article.
-                        </li>
-                        <li>Dan Lyle, a helicopter pilot and aerial sprayer in the area on restrictions on using the chemicals around municipal water sources - “That’s just as a safety factor to be sure that there’s no additional chemical in their water. It’s not that it’s not safe. It’s just that they do that to try and hedge on the safe side.”
-                        </li>
-                        <li>It was estimated at that time that more than $1 million per year would be allocated for this spraying to take place and combat the invasive plant species. The species are said to “choke” the water of its nutrients
-                        </li>
-                        <li>In another nearby Nebraskan city, Hastings, the city faces water pollution from a different source: <strong>over-application of nitrogen fertilizer</strong>. Marty Stange, environmental supervisor for Hastings Utilities, said <strong>plumes of groundwater with nitrate concentrations above federal limits will reach the city’s drinking water wells in about two years.</strong> </li>
-                        <li>There are a number of Nebraskan problems for which the article claims that money is the solution:
-                            <ul>
-                                <li>Aerial spraying, $1 million a year
-                                </li>
-                                <li>Treat all the water in the state, $100 million</li>
-                                <li> Aquifer storage restoration system, $46 million</li>
-                                <li>Replacing the 2,800 miles of old cast iron water pipe in Omaha, $25 million</li>
-                                <li>Rock Creek irrigation system, $130 million</li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <h2>What If We Had the Data?</h2>
+                <p></p>
+                    <!--<p class="">From <a href="http://netnebraska.org/article/news/water-woes-widespread-across-nebraska">this article</a>, published by NET News in 2013,-->
+                    <!--we gain the follwing insights into progression of the situation in the midwest with respect to water quality:</p>-->
+                    <!--<ul>-->
+                        <!--<li>Park managers in Nebraska began using “expensive chemicals”around 2007 to combat invasive species, in the form of aerial spraying. The spraying began in 2007, and continued at least until the writing of this article.-->
+                        <!--</li>-->
+                        <!--<li>Dan Lyle, a helicopter pilot and aerial sprayer in the area on restrictions on using the chemicals around municipal water sources - “That’s just as a safety factor to be sure that there’s no additional chemical in their water. It’s not that it’s not safe. It’s just that they do that to try and hedge on the safe side.”-->
+                        <!--</li>-->
+                        <!--<li>It was estimated at that time that more than $1 million per year would be allocated for this spraying to take place and combat the invasive plant species. The species are said to “choke” the water of its nutrients-->
+                        <!--</li>-->
+                        <!--<li>In another nearby Nebraskan city, Hastings, the city faces water pollution from a different source: <strong>over-application of nitrogen fertilizer</strong>. Marty Stange, environmental supervisor for Hastings Utilities, said <strong>plumes of groundwater with nitrate concentrations above federal limits will reach the city’s drinking water wells in about two years.</strong> </li>-->
+                        <!--<li>There are a number of Nebraskan problems for which the article claims that money is the solution:-->
+                            <!--<ul>-->
+                                <!--<li>Aerial spraying, $1 million a year-->
+                                <!--</li>-->
+                                <!--<li>Treat all the water in the state, $100 million</li>-->
+                                <!--<li> Aquifer storage restoration system, $46 million</li>-->
+                                <!--<li>Replacing the 2,800 miles of old cast iron water pipe in Omaha, $25 million</li>-->
+                                <!--<li>Rock Creek irrigation system, $130 million</li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                    <!--</ul>-->
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p class="placeholder">
-                    Senator Tom Carlson of Nebraska (unquoted) “said projects like those are good for complying with the interstate compact. But Carlson said they don’t necessarily help Nebraska reach water sustainability. He defines that as on average, across the state, not using more water than the supply provides. Carlson suggests sustainability requires a timetable for reducing water use. Not everyone agrees. Jasper Fanning, manager of southwest Nebraska’s Upper Republican Natural Resources District, said people should use less water. But Fanning doesn’t like the idea of a timetable. “I think choosing an arbitrary timeline for that is somewhat reckless, because you impose an economic cost, and you don’t know what technologies are going to come,” Fanning said.”
+        <!--<div class="row">-->
+            <!--<div class="col-md-12">-->
+                <!--<p class="placeholder">-->
+                    <!--&lt;!&ndash;Senator Tom Carlson of Nebraska (unquoted) “said projects like those are good for complying with the interstate compact. But Carlson said they don’t necessarily help Nebraska reach water sustainability. He defines that as on average, across the state, not using more water than the supply provides. Carlson suggests sustainability requires a timetable for reducing water use. Not everyone agrees. Jasper Fanning, manager of southwest Nebraska’s Upper Republican Natural Resources District, said people should use less water. But Fanning doesn’t like the idea of a timetable. “I think choosing an arbitrary timeline for that is somewhat reckless, because you impose an economic cost, and you don’t know what technologies are going to come,” Fanning said.”&ndash;&gt;-->
 
-                </p>
-                <!--&lt;!&ndash;<div id="timeslider-vis"></div>&ndash;&gt;-->
+                <!--</p>-->
+                <!--&lt;!&ndash;&lt;!&ndash;<div id="timeslider-vis"></div>&ndash;&gt;&ndash;&gt;-->
 
-                <!--&lt;!&ndash;<label for="timeslider-hover-val">Last Hovered Slider Value:</label>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div id="timeslider-hover-val"></div>&ndash;&gt;-->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 placeholder">
-                <p class="">
-                    Questions raised:
-                    <ul>
-                        <li> Who is over-applying nitrogen-based fertilizer?
-                        </li>
-                        <li> What have been the effects to-date of the aerial spraying and continual use of nitrogen-based fertilizer?
-                        </li>
-                        <li> What has the government (Carson especially) done, not done yet, or refused to do regarding the pollution situation and other water issues coming up in the state?
-                        </li>
-                        <li> How can the best solutions be gained for the best price? Who should be in charge?
-                        </li>
-                    </ul>
-                </p>
-            </div>
-        </div>
-    <div class="row">
-        <div class="col-md-12 placeholder">
-            <h2><a href="https://www.epa.gov/nutrientpollution/where-occurs-lakes-and-rivers">Case studies that worked:</a></h2>
-        </div>
-    </div>
+                <!--&lt;!&ndash;&lt;!&ndash;<label for="timeslider-hover-val">Last Hovered Slider Value:</label>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<div id="timeslider-hover-val"></div>&ndash;&gt;&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+            <!--<div class="col-md-12 placeholder">-->
+                <!--<p class="">-->
+                    <!--Questions raised:-->
+                    <!--<ul>-->
+                        <!--<li> Who is over-applying nitrogen-based fertilizer?-->
+                        <!--</li>-->
+                        <!--<li> What have been the effects to-date of the aerial spraying and continual use of nitrogen-based fertilizer?-->
+                        <!--</li>-->
+                        <!--<li> What has the government (Carson especially) done, not done yet, or refused to do regarding the pollution situation and other water issues coming up in the state?-->
+                        <!--</li>-->
+                        <!--<li> How can the best solutions be gained for the best price? Who should be in charge?-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-12 placeholder">-->
+            <!--<h2><a href="https://www.epa.gov/nutrientpollution/where-occurs-lakes-and-rivers">Case studies that worked:</a></h2>-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="row">
         <form class="form-inline" id="harbor-vis-form">
             <div class="form-group">
@@ -191,8 +177,8 @@
         </form>
     </div>
     <div class="row" id="harbor-vis">
-        <div class="col-6" id="harbor-map"></div>
-        <div class="col-6" id="harbor-linechart"></div>
+        <div class="col-lg-6" id="harbor-map"></div>
+        <div class="col-lg-6" id="harbor-linechart"></div>
     </div>
     <div class="row">
         <div class="col-md-12 placeholder">
