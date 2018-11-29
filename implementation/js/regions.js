@@ -6,21 +6,25 @@
  * @param _stateCentroids   -- lat/longs of state centroids
  * @param _stateToAbb       -- 2-letter abbreviations for each state
  * @param _abbToState       -- state for each 2-letter abbreviation
+ * @param _mergedStates     -- regionsOutline.json
+ * @param _statesWithRegion -- usStatesOutline json with regions
  */
 
 // TODO: Add state outlines on top of regions
 // TODO: Add legend back in
 // TODO: Add DC to states, OR CHANGE DC TO REGION 11
 
-RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates){
+RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion){
     this.parentElement = _parentElement;
     this.data = _data;
-    this.stateOutlines = _stateOutlines;
+    this.stateFeatures = _stateOutlines.features;
     this.stateCentroids = _stateCentroids;
     this.stateToAbb = _stateToAbb;
     this.abbToState = _abbToState;
-    this.mergedStates = _mergedStates;
+    this.regionFeatures = _mergedStates.features;
+    this.stateRegionFeatures = _statesWithRegion.features;
     this.initVis();
+
 };
 
 /*
@@ -198,7 +202,7 @@ RegionsVis.prototype.updateVis = function() {
 
     // Draw regional geographic features
     vis.g.selectAll("path")
-        .data(vis.mergedStates.features)
+        .data(vis.regionFeatures)
         .enter()
         .append("path")
         .attr("d", vis.path)
@@ -208,7 +212,8 @@ RegionsVis.prototype.updateVis = function() {
             var region = +d.properties.EPA_REGION;
             if (region > 0) {return vis.regionColorScale[region-1]}
             else {return "white"}
-        });
+        })
+        .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)});
 
     console.log(vis.wrangledData);
     // Draw regional pie charts
@@ -224,18 +229,17 @@ RegionsVis.prototype.updateVis = function() {
         .enter()
         .append('g')
         .attr('class', 'arc');
-    console.log(vis.pies);
 
     vis.pies.append('path')
         .attr('d', vis.arc)
         .attr("fill", function(d, i) {
             return vis.colorScale(vis.assessTypes[i])
         })
-        .attr("style", "fill-opacity: 0.8");
+        .attr("style", "fill-opacity: 1");
 
     // // Draw geographic features
     // vis.g.selectAll("path")
-    //     .data(vis.stateOutlines.features)
+    //     .data(vis.stateFeatures)
     //     .enter()
     //     .append("path")
     //     .attr("d", vis.path)
@@ -278,17 +282,52 @@ RegionsVis.prototype.updateVis = function() {
 };
 
 RegionsVis.prototype.regionZoom = function(id) {
+    var vis = this;
+
     // Define region
+    vis.regionFocus = vis.regionFeatures.find(function(d) {return d.properties.EPA_REGION === id});
 
     // Filter out states not belonging to that region
+    vis.regionStates = vis.stateRegionFeatures.filter(function(d) {
+        return d.properties.EPA_REGION === id;
+    });
 
     // Define transition
+    vis.t = d3.transition().duration(800);
 
     // Define statePaths
+    vis.statePaths = svg.selectAll(".state")
+        .data(vis.regionStates, function(d) { return d.properties.EPA_REGION });
 
     // Define enterStatePaths
+    vis.enterStatePaths = vis.statePaths.enter().append("path")
+        .attr("class", "state")
+        .attr("d", vis.path);
 
-    // Define statePies?
+    // Define statePies
+
+    // need state data (wrangled?)
+
+    // // Draw regional pie charts
+    // vis.points = vis.g.selectAll("g")
+    //     .data(vis.wrangledData)
+    //     .enter()
+    //     .append("g")
+    //     .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
+    //     .attr("class", "pie");
+    //
+    // vis.pies = vis.points.selectAll(".pie")
+    //     .data(function(d) {return vis.pie(d.values)})
+    //     .enter()
+    //     .append('g')
+    //     .attr('class', 'arc');
+    //
+    // vis.pies.append('path')
+    //     .attr('d', vis.arc)
+    //     .attr("fill", function(d, i) {
+    //         return vis.colorScale(vis.assessTypes[i])
+    //     })
+    //     .attr("style", "fill-opacity: 1");
 
     // Change projection
 

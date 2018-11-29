@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90faf73e-8c94-42ab-81f8-9ff40ecc7cb4" name="Default Changelist" comment="" />
+    <list default="true" id="90faf73e-8c94-42ab-81f8-9ff40ecc7cb4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/implementation/data/regionsOutline.json" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/data/regionsOutline.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/data/stateToRegion.csv" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/data/stateToRegion.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/data/usStatesOutlineWithRegion.json" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/data/usStatesOutlineWithRegion.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/js/regions.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/regions.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -10,6 +16,36 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-181208115">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.33" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="json" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JSON" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="js" value="1169" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JavaScript" value="1169" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -25,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/js/regions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="154" column="46" selection-start-line="154" selection-start-column="46" selection-end-line="154" selection-end-column="46" />
+            <state relative-caret-position="327">
+              <caret line="308" column="34" selection-start-line="308" selection-start-column="34" selection-end-line="308" selection-end-column="34" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -37,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2055">
-              <caret line="145" selection-start-line="145" selection-end-line="145" />
+            <state relative-caret-position="278">
+              <caret line="84" column="42" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="42" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -49,26 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1920">
-              <caret line="128" column="26" selection-start-line="128" selection-start-column="26" selection-end-line="128" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/js/addRegions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/testing.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+            <state relative-caret-position="2159">
+              <caret line="127" column="141" selection-start-line="127" selection-start-column="141" selection-end-line="127" selection-end-column="141" />
             </state>
           </provider>
         </entry>
@@ -86,10 +104,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>legend</find>
-      <find>.scale</find>
-      <find>&quot;GOOD&quot;</find>
-      <find>&quot;Good&quot;</find>
       <find>'Good</find>
       <find>good</find>
       <find>map-vis</find>
@@ -116,6 +130,10 @@
       <find>find</find>
       <find>name</find>
       <find>assessTyp</find>
+      <find>mergedStates</find>
+      <find>zoomed</find>
+      <find>stateOutlines</find>
+      <find>statesWithRegion</find>
     </findStrings>
     <replaceStrings>
       <replace>this.worldData</replace>
@@ -147,21 +165,26 @@
         <option value="$PROJECT_DIR$/implementation/data/RegionsUsStatesOutline-5m.json" />
         <option value="$PROJECT_DIR$/implementation/testing.html" />
         <option value="$PROJECT_DIR$/implementation/js/getData.js" />
-        <option value="$PROJECT_DIR$/implementation/js/main.js" />
         <option value="$PROJECT_DIR$/implementation/data/regionsOutline.json" />
         <option value="$PROJECT_DIR$/implementation/js/addRegions.js" />
         <option value="$PROJECT_DIR$/implementation/index.html" />
-        <option value="$PROJECT_DIR$/implementation/data/usStatesOutlineWithRegion.json" />
         <option value="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" />
+        <option value="$PROJECT_DIR$/implementation/data/usStatesOutlineWithRegion.json" />
+        <option value="$PROJECT_DIR$/implementation/js/main.js" />
         <option value="$PROJECT_DIR$/implementation/js/regions.js" />
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="723" />
-    <option name="y" value="23" />
-    <option name="width" value="717" />
-    <option name="height" value="807" />
+    <option name="x" value="953" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -229,7 +252,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="map.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/implementation/js/map.js" working-dir="$PROJECT_DIR$">
+    <configuration name="map.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/implementation/js/map.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -257,11 +280,12 @@
       <workItem from="1543379063383" duration="1980000" />
       <workItem from="1543414556710" duration="14825000" />
       <workItem from="1543440963458" duration="1650000" />
+      <workItem from="1543460658366" duration="2555000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71901000" />
+    <option name="totallyTimeSpent" value="74456000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -273,10 +297,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="723" y="23" width="717" height="807" extended-state="0" />
+    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.33158448" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33119658" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -317,6 +341,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="got a line chart working" />
     <MESSAGE value="fixing merge" />
@@ -346,9 +373,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -394,9 +418,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
           <caret line="127" column="37" lean-forward="true" selection-start-line="127" selection-start-column="37" selection-end-line="127" selection-end-column="37" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -404,9 +425,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="65" column="2" selection-start-line="65" selection-start-column="2" selection-end-line="65" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#6#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -433,11 +451,7 @@
     <entry file="file://$PROJECT_DIR$/implementation/data/MergedUsStatesOutline-5m.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/data/TestRegionsUsStatesOutline-5m.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14794" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/data/TestRegionsUsStatesOutline-5m.json" />
     <entry file="file://$PROJECT_DIR$/implementation/js/getData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -460,42 +474,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/data/regionsOutline.json" />
-    <entry file="file://$PROJECT_DIR$/implementation/data/RegionsUsStatesOutline-5m.json">
+    <entry file="file://$PROJECT_DIR$/implementation/data/RegionsUsStatesOutline-5m.json" />
+    <entry file="file://$PROJECT_DIR$/implementation/data/usStatesOutlineWithRegion.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187629">
-          <caret line="31" column="29536" selection-start-line="31" selection-start-column="29536" selection-end-line="31" selection-end-column="29536" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/data/usStatesOutlineWithRegion.json" />
-    <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2055">
-          <caret line="145" selection-start-line="145" selection-end-line="145" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1920">
-          <caret line="128" column="26" selection-start-line="128" selection-start-column="26" selection-end-line="128" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/js/addRegions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
+        <state relative-caret-position="745">
+          <caret column="2156823" selection-start-column="2156823" selection-end-column="2156823" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/testing.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
+        <state relative-caret-position="357">
           <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/js/addRegions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -506,10 +503,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="84" column="42" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="42" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2159">
+          <caret line="127" column="141" selection-start-line="127" selection-start-column="141" selection-end-line="127" selection-end-column="141" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/regions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="154" column="46" selection-start-line="154" selection-start-column="46" selection-end-line="154" selection-end-column="46" />
+        <state relative-caret-position="327">
+          <caret line="308" column="34" selection-start-line="308" selection-start-column="34" selection-end-line="308" selection-end-column="34" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

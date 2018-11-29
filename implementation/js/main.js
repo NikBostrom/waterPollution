@@ -13,6 +13,7 @@ queue()
     // .defer(d3.csv,"data/chesapeakeBayLoads.csv")
     .defer(d3.json, "data/us-state-centroids.json")
     .defer(d3.json, "data/regionsOutline.json")
+    .defer(d3.json, "data/usStatesOutlineWithRegion.json")
     .await(createVis);
 
 /*
@@ -42,7 +43,7 @@ region_data = {};
 state_data = {};
 nyHarborData = [];
 
-function createVis(error, water_conditions, usOutline, world, water_quality, waterAssess, states, stateCentroids, mergedStates) {
+function createVis(error, water_conditions, usOutline, world, water_quality, waterAssess, states, stateCentroids, mergedStates, statesWithRegion) {
     if(error) throw error;
 
     // clean water-conditions data
@@ -124,7 +125,7 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
     // console.log(stateToAbb);
 
     // var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
-    var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates);
+    var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion);
     var symbVis = new SymbVis("symb-vis", waterAssess, usOutline, stateCentroids, states, abbToState);
     var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
 
