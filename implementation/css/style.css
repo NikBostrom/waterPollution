@@ -30,10 +30,6 @@ body {
     margin-right: 4%;
 }
 
-.sections {
-    margin-top: 5%;
-}
-
 .imgs {
     width: 80%;
 }
@@ -80,7 +76,7 @@ body {
 }
 
 #measurable {
-    width: 70%;
+    width: 90%;
     text-align: center;
 }
 
@@ -88,9 +84,6 @@ body {
     display: inline;
 }
 
-svg {
-    margin-left: 8%;
-}
 
 h1 {
     margin: 3%;
@@ -121,7 +114,7 @@ body {
 
 /*Map Styles*/
 #map-vis {
-    margin-bottom: 25px;
+    /*margin-bottom: 25px;*/
 }
 
 /*Timeslider Styles*/
@@ -149,19 +142,10 @@ body {
     text-align: center;
 }
 
-/*#value-span,*/
-/*#value-input {*/
-    /*width: 50%;*/
-    /*float: left;*/
-    /*display: block;*/
-    /*text-align: center;*/
-    /*margin: 0;*/
-/*}*/
-
 .placeholder {
     padding: 20px;
-    /*border: black;*/
-    /*border-style: solid;*/
+    border: black;
+    border-style: solid;
 }
 
 .story-text {
@@ -178,8 +162,13 @@ body {
     opacity: 0.2;
 }
 
+.spacing {
+    margin-top: 3%;
+}
+
 p {
     color: #0745af;
+    /*margin-top: %;*/
 }
 
 .text {
@@ -187,7 +176,7 @@ p {
 }
 
 h2 {
-
+    margin-top: 2%;
 }
 
 .dark-block {
