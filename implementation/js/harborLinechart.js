@@ -21,7 +21,7 @@ HarborLinechartVis.prototype.initVis = function() {
     // SVG drawing area
     vis.margin = {top: 40, right: 40, bottom: 100, left: 75};
 
-    vis.width = 600 - vis.margin.left - vis.margin.right;
+    vis.width = $(`#${vis.parentElement}`).width() - vis.margin.left - vis.margin.right;
 
     vis.height = 600 - vis.margin.top - vis.margin.bottom;
 

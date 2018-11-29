@@ -33,6 +33,8 @@
                     </a>,
                 </p>
                 <blockquote>
+                    <p>
+
                     “[Nitrogen and Phosphorus] support the growth of algae and aquatic plants, which provide
                     food and habitat for fish, shellfish and smaller organisms that live
                     in water… <br> Too much nitrogen and phosphorus in the water causes algae
@@ -45,6 +47,7 @@
                     toxins and bacterial growth that <strong>can make people sick if they come into contact
                     with polluted water, consume tainted fish or shellfish, or drink contaminated water.</strong>”
                     (emphasis added)
+                    </p>
                 </blockquote>
                 <p> Lakes are valued as water sources and for fishing, water transport, recreation, and tourism, so we can see
                      that more than just an ecosystem is at risk when our lakes become contaminated.
@@ -72,18 +75,20 @@
                     <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
                     <option value="Turbidity">Turbidity (NTU)</option>
                 </select>
-                <p style="text-align: left; padding-left: 15%; padding-top: 3%">Total Concentration of Pollutant</p>
+                <p style="text-align: left; padding-top: 3%">Total Concentration of Pollutant</p>
                 <div id="map-vis"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-4 story-text">
             </div>
-            <div id="country-bar" class="col-lg-6 placeholder"></div>
+            <div id="country-bar" class="col-lg-6"></div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <h2>Murky Waters</h2>
+            <div class="col-lg-10">
+                <h2 class="story-text">Murky Waters</h2>
+                <p class="story-text">In viewing the first choropleth map, we found that there was a major pollution problem in lakes in the midwest in 2007, but did not have data from the lakes over the last decade to trace those pollution levels over time. After visualizing and understanding these findings, we found a more comprehensive data set and found that there are lots of bodies of water across the country that are impaired, threatened, or are not being monitored at all. This presented us with the question, if we have tangible, accurate data showing the real, adverse effects of pollution on these bodies of water, is it enough to make a significant change?
+                </p>
                 <div id="symb-vis"></div>
             </div>
             <!--<div class="col-lg-4 story-text">-->
@@ -93,8 +98,9 @@
             <div class="col-lg-12">
                 <!--<div id="time-period-min"></div>-->
                 <!--<div id="time-period-max"></div>-->
-                    <h2>What If We Had the Data?</h2>
-                <p></p>
+                    <h2 class="story-text">What If We Had the Data?</h2>
+                    <p class="story-text">This question led us to take a look at various case studies of how different specific locations used the presence of data to solve their pollution problems. We look at the process followed by the New York Harbor and Chesapeake Bay area to show how they were able to find solutions for their pollutant issues.
+                    </p>
                     <!--<p class="">From <a href="http://netnebraska.org/article/news/water-woes-widespread-across-nebraska">this article</a>, published by NET News in 2013,-->
                     <!--we gain the follwing insights into progression of the situation in the midwest with respect to water quality:</p>-->
                     <!--<ul>-->
@@ -119,35 +125,7 @@
                 </div>
             </div>
         </div>
-        <!--<div class="row">-->
-            <!--<div class="col-md-12">-->
-                <!--<p class="placeholder">-->
-                    <!--&lt;!&ndash;Senator Tom Carlson of Nebraska (unquoted) “said projects like those are good for complying with the interstate compact. But Carlson said they don’t necessarily help Nebraska reach water sustainability. He defines that as on average, across the state, not using more water than the supply provides. Carlson suggests sustainability requires a timetable for reducing water use. Not everyone agrees. Jasper Fanning, manager of southwest Nebraska’s Upper Republican Natural Resources District, said people should use less water. But Fanning doesn’t like the idea of a timetable. “I think choosing an arbitrary timeline for that is somewhat reckless, because you impose an economic cost, and you don’t know what technologies are going to come,” Fanning said.”&ndash;&gt;-->
 
-                <!--</p>-->
-                <!--&lt;!&ndash;&lt;!&ndash;<div id="timeslider-vis"></div>&ndash;&gt;&ndash;&gt;-->
-
-                <!--&lt;!&ndash;&lt;!&ndash;<label for="timeslider-hover-val">Last Hovered Slider Value:</label>&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;&lt;!&ndash;<div id="timeslider-hover-val"></div>&ndash;&gt;&ndash;&gt;-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row">-->
-            <!--<div class="col-md-12 placeholder">-->
-                <!--<p class="">-->
-                    <!--Questions raised:-->
-                    <!--<ul>-->
-                        <!--<li> Who is over-applying nitrogen-based fertilizer?-->
-                        <!--</li>-->
-                        <!--<li> What have been the effects to-date of the aerial spraying and continual use of nitrogen-based fertilizer?-->
-                        <!--</li>-->
-                        <!--<li> What has the government (Carson especially) done, not done yet, or refused to do regarding the pollution situation and other water issues coming up in the state?-->
-                        <!--</li>-->
-                        <!--<li> How can the best solutions be gained for the best price? Who should be in charge?-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</p>-->
-            <!--</div>-->
-        <!--</div>-->
     <!--<div class="row">-->
         <!--<div class="col-md-12 placeholder">-->
             <!--<h2><a href="https://www.epa.gov/nutrientpollution/where-occurs-lakes-and-rivers">Case studies that worked:</a></h2>-->
@@ -182,44 +160,45 @@
     </div>
     <div class="row">
         <div class="col-md-12 placeholder">
+            <p>
             Draw conclusions and make final assessments
-        </div>
-    </div>
-        <div class="row">
-            <div class="col-md-6">
-                <p>Bar chart of statuses of bodies of water by state</p>
-                <div id="glyph-vis"></div>
-            </div>
-            <div class="col-md-6">
-                <p class="placeholder">Selected state with most polluted bodies of water plotted</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <p class="placeholder">
-                    Explanation of above chart
-                    (Not all states are the same, and not all pollutants are the same)
-                </p>
-            </div>
-            <div class="col-md-6" id="chesapeakeBay">
-                <p class="placeholder">
-                    Explanation of above chart
-                    (Not all states are the same, and not all pollutants are the same)
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p class="placeholder">Impact of pollutants on environment</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p class="placeholder">Call to action</p>
-            </div>
-        </div>
-    </div>
 
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Bar chart of statuses of bodies of water by state</p>
+            <div id="glyph-vis"></div>
+        </div>
+        <div class="col-md-6">
+            <p class="placeholder">Selected state with most polluted bodies of water plotted</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="placeholder">
+                Explanation of above chart
+                (Not all states are the same, and not all pollutants are the same)
+            </p>
+        </div>
+        <div class="col-md-6" id="chesapeakeBay">
+            <p class="placeholder">
+                Explanation of above chart
+                (Not all states are the same, and not all pollutants are the same)
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p class="placeholder">Impact of pollutants on environment</p>
+        </div>
+    </div>
+        <!--<div class="row">-->
+            <!--<div class="col-md-12">-->
+                <!--<p class="placeholder">Call to action</p>-->
+            <!--</div>-->
+        <!--</div>-->
 
     <div class="chesapeakeimprovement">
         <div>
@@ -230,24 +209,24 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <p class="placeholder">
-                Although there are many places where a large amount of work needs to be done, there are some <br>
-                places in which remediation work has already started. Chesapeake Bay has been a major area of <br>
-                concern for many years. According to the EPA, “Nitrogen and phosphorus have always been a part of<br>
-                the Chesapeake Bay ecosystem, but have increased to excessive levels over the last few decades. <br>
-                Prior to substantial human activity in the region, most nitrogen and phosphorus was absorbed or <br>
-                retained by natural forest and wetland vegetation. However, the activities of over 13.6 million <br>
+        <div class="col-lg-6">
+            <p class="story-text">
+                Although there are many places where a large amount of work needs to be done, there are some
+                places in which remediation work has already started. Chesapeake Bay has been a major area of
+                concern for many years. According to the EPA, “Nitrogen and phosphorus have always been a part of
+                the Chesapeake Bay ecosystem, but have increased to excessive levels over the last few decades.
+                Prior to substantial human activity in the region, most nitrogen and phosphorus was absorbed or
+                retained by natural forest and wetland vegetation. However, the activities of over 13.6 million
                 people in the watershed have overwhelmed the Chesapeake Bay with excess amounts of nutrients.”
             </p>
         </div>
-        <div class="col-md-6">
-            <img src="imgs/dirtyChesapeake.jpg" alt="Dirty Chesapeake" class="placeholder" width="600" height="537">
+        <div class="col-lg-6">
+            <img src="imgs/dirtyChesapeake.jpg" alt="Dirty Chesapeake" width="600">
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 chesapeakeimprovement">
-            <p class="placeholder" id="positivity">
+            <p class="story-text" id="positivity">
                 Luckily, there has been a push for change.  The Chesapeake Bay is the largest estuary in the <br>
                 United States, and as such, it needs to be protected from any anthropogenic harm.  In recent years, <br>
                 there have been initiatives to lower the concentrations of the nutrients back to healthy levels. <br>

@@ -12,7 +12,7 @@
 }
 
 .col-lg-6 {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 body, html {
@@ -21,9 +21,13 @@ body, html {
 
 body {
     background-color: #E6E7E8;
+    color: #0745af;
+
 }
 
 .row {
+    margin-left: 4%;
+    margin-right: 4%;
 }
 
 .sections {
@@ -161,7 +165,7 @@ body {
 }
 
 .story-text {
-    margin-left: 4%;
+    /*margin-left: 4%;*/
 }
 
 /*Site colors*/
