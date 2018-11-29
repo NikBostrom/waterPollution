@@ -108,41 +108,58 @@ SymbVis.prototype.wrangleData = function() {
 
     // Filter out non-states
     vis.byState = vis.byState.filter(function(d) {return d.key in vis.abbToState});
-    // Sort alphabetically by full state name
-    vis.byState = vis.byState.sort(function(a, b) {
-        var state1 = vis.abbToState[a.key];
-        var state2 = vis.abbToState[b.key];
-        if (state1 < state2) {return -1}
-        if (state1 > state2) {return 1}
-        return 0;
-    });
-    // console.log(vis.byState);
+    // // Sort alphabetically by full state name
+    // vis.byState = vis.byState.sort(function(a, b) {
+    //     var state1 = vis.abbToState[a.key];
+    //     var state2 = vis.abbToState[b.key];
+    //     if (state1 < state2) {return -1}
+    //     if (state1 > state2) {return 1}
+    //     return 0;
+    // });
+    console.log(vis.byState);
+    console.log(vis.stateCentroids.features);
 
     // Combine nested data with lat/long of center
-    // console.log(vis.stateCentroids.features)
-    vis.wrangledData = [];
 
-    for (i = 0; i < vis.stateCentroids.features.length; i++) {
-        var d = vis.stateCentroids.features[i];
-        // console.log(d);
-        var state = {};
-        state["key"] = d.properties.name;
-        state["center"] = d.geometry.coordinates;
-        state['values'] = [];
-        vis.assessTypes.forEach(function(type) {
-            // console.log(vis.byState[i].values);
-            var idx = vis.byState[i].values.findIndex(x => x.key===type);
-            // console.log(idx);
-            if (idx === -1) {
-                state['values'].push(0);
-            }
-            else {
-                state['values'].push(vis.byState[i].values[idx].value);
-            }
+    vis.byState.forEach(function(d) {
+        console.log(d);
+
+        // Find state name
+        var state = vis.abbToState[d.key];
+
+        // Get coordinates of centroid
+        var coords = vis.stateCentroids.features.find(function(element) {
+            return element.properties.name === state
         });
-        vis.wrangledData.push(state);
-    }
-    console.log(vis.wrangledData);
+
+        // Store coordinates
+        // element.geometry.coordinates
+    });
+
+    // console.log(vis.stateCentroids.features);
+    // vis.wrangledData = [];
+    //
+    // for (i = 0; i < vis.stateCentroids.features.length; i++) {
+    //     var d = vis.stateCentroids.features[i];
+    //     console.log(d);
+    //     var state = {};
+    //     state["key"] = d.properties.name;
+    //     state["center"] = d.geometry.coordinates;
+    //     state['values'] = [];
+    //     vis.assessTypes.forEach(function(type) {
+    //         // console.log(vis.byState[i].values);
+    //         var idx = vis.byState[i].values.findIndex(x => x.key===type);
+    //         // console.log(idx);
+    //         if (idx === -1) {
+    //             state['values'].push(0);
+    //         }
+    //         else {
+    //             state['values'].push(vis.byState[i].values[idx].value);
+    //         }
+    //     });
+    //     vis.wrangledData.push(state);
+    // }
+    // console.log(vis.wrangledData);
 
     vis.updateVis()
 };

@@ -190,10 +190,6 @@ RegionsVis.prototype.wrangleData = function() {
         // console.log(d);
     });
 
-    // Store wrangled data
-    vis.wrangledData = vis.byRegion;
-    console.log(vis.wrangledData);
-
     vis.updateVis()
 };
 
@@ -215,10 +211,10 @@ RegionsVis.prototype.updateVis = function() {
         })
         .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)});
 
-    console.log(vis.wrangledData);
+    console.log(vis.byRegion);
     // Draw regional pie charts
     vis.points = vis.g.selectAll("g")
-        .data(vis.wrangledData)
+        .data(vis.byRegion)
         .enter()
         .append("g")
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
@@ -296,7 +292,7 @@ RegionsVis.prototype.regionZoom = function(id) {
     vis.t = d3.transition().duration(800);
 
     // Define statePaths
-    vis.statePaths = svg.selectAll(".state")
+    vis.statePaths = vis.svg.selectAll(".state")
         .data(vis.regionStates, function(d) { return d.properties.EPA_REGION });
 
     // Define enterStatePaths
