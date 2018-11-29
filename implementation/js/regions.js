@@ -86,30 +86,6 @@ RegionsVis.prototype.initVis = function() {
 RegionsVis.prototype.wrangleData = function() {
     var vis = this;
 
-    // // console.log(vis.data);
-    // // Nest data by state
-    // vis.byState = d3.nest()
-    //     // .key(function(d) { return d.Region })
-    //     .key(function(d) { return d.State })
-    //     .key(function(d) { return d['Water Status']})
-    //     .rollup(function(leaves) { return leaves.length })
-    //     .entries(vis.data); // for array
-    // // .object(vis.data); // for object
-    //
-    // console.log(vis.byState);
-
-    // // Filter out non-states
-    // vis.byState = vis.byState.filter(function(d) {return d.key in vis.abbToState});
-    // // Sort alphabetically by full state name
-    // vis.byState = vis.byState.sort(function(a, b) {
-    //     var state1 = vis.abbToState[a.key];
-    //     var state2 = vis.abbToState[b.key];
-    //     if (state1 < state2) {return -1}
-    //     if (state1 > state2) {return 1}
-    //     return 0;
-    // });
-    // console.log(vis.byState);
-
     // Nest data by region
     vis.byRegion = d3.nest()
         .key(function(d) { return d.Region })
@@ -118,32 +94,6 @@ RegionsVis.prototype.wrangleData = function() {
         .entries(vis.data);
 
     console.log(vis.byRegion);
-
-    // // Combine data nested by state with lat/long of center
-    // // console.log(vis.stateCentroids.features)
-    // vis.wrangledData = [];
-    //
-    // for (i = 0; i < vis.stateCentroids.features.length; i++) {
-    //     var d = vis.stateCentroids.features[i];
-    //     // console.log(d);
-    //     var state = {};
-    //     state["key"] = d.properties.name;
-    //     state["center"] = d.geometry.coordinates;
-    //     state['values'] = [];
-    //     vis.assessTypes.forEach(function(type) {
-    //         // console.log(vis.byState[i].values);
-    //         var idx = vis.byState[i].values.findIndex(x => x.key===type);
-    //         // console.log(idx);
-    //         if (idx === -1) {
-    //             state['values'].push(0);
-    //         }
-    //         else {
-    //             state['values'].push(vis.byState[i].values[idx].value);
-    //         }
-    //     });
-    //     vis.wrangledData.push(state);
-    // }
-    // // console.log(vis.wrangledData);
 
     // Define center state for each region
     vis.EPARegions = [
@@ -175,8 +125,9 @@ RegionsVis.prototype.wrangleData = function() {
 
         // Store coordinates in nested data
         d.center = centerStateCoords.geometry.coordinates;
-        var tempVals = [];
 
+        // Convert values from object to array
+        var tempVals = [];
         vis.assessTypes.forEach(function(type) {
             var idx = d.values.findIndex(x => x.key===type);
             if (idx === -1) {
@@ -190,6 +141,57 @@ RegionsVis.prototype.wrangleData = function() {
         // console.log(d);
     });
 
+    // Nest data by state
+    vis.byState = d3.nest()
+    // .key(function(d) { return d.Region })
+        .key(function(d) { return d.State })
+        .key(function(d) { return d['Water Status']})
+        .rollup(function(leaves) { return leaves.length })
+        .entries(vis.data); // for array
+
+    // Filter out non-states
+    vis.byState = vis.byState.filter(function(d) {return d.key in vis.abbToState});
+    // Sort alphabetically by full state name
+    vis.byState = vis.byState.sort(function(a, b) {
+        var state1 = vis.abbToState[a.key];
+        var state2 = vis.abbToState[b.key];
+        if (state1 < state2) {return -1}
+        if (state1 > state2) {return 1}
+        return 0;
+    });
+
+    // Combine nested data with lat/long of center
+    vis.byState.forEach(function(d) {
+        // console.log(d);
+
+        // Find state name
+        var state = vis.abbToState[d.key];
+        d.key = state;
+
+        // Get coordinates of centroid
+        var coords = vis.stateCentroids.features.find(function(element) {
+            return element.properties.name === state
+        });
+
+        // Store coordinates in nested data
+        d.center = coords.geometry.coordinates;
+
+        // Convert values from object to array and store in nested data
+        var tempVals = [];
+        vis.assessTypes.forEach(function(type) {
+            var idx = d.values.findIndex(x => x.key===type);
+            if (idx === -1) {
+                tempVals.push(0);
+            }
+            else {
+                tempVals.push(d.values[idx].value)
+            }
+        });
+        d.values = tempVals;
+        // console.log(d);
+    });
+    console.log(vis.byState);
+
     vis.updateVis()
 };
 
@@ -197,7 +199,7 @@ RegionsVis.prototype.updateVis = function() {
     var vis = this;
 
     // Draw regional geographic features
-    vis.g.selectAll("path")
+    vis.regionPaths = vis.g.selectAll("path")
         .data(vis.regionFeatures)
         .enter()
         .append("path")
@@ -213,20 +215,20 @@ RegionsVis.prototype.updateVis = function() {
 
     console.log(vis.byRegion);
     // Draw regional pie charts
-    vis.points = vis.g.selectAll("g")
+    vis.regionPoints = vis.g.selectAll("g")
         .data(vis.byRegion)
         .enter()
         .append("g")
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
         .attr("class", "pie");
 
-    vis.pies = vis.points.selectAll(".pie")
+    vis.regionPies = vis.regionPoints.selectAll(".pie")
         .data(function(d) {return vis.pie(d.values)})
         .enter()
         .append('g')
         .attr('class', 'arc');
 
-    vis.pies.append('path')
+    vis.regionPies.append('path')
         .attr('d', vis.arc)
         .attr("fill", function(d, i) {
             return vis.colorScale(vis.assessTypes[i])
@@ -298,27 +300,25 @@ RegionsVis.prototype.regionZoom = function(id) {
     // Define enterStatePaths
     vis.enterStatePaths = vis.statePaths.enter().append("path")
         .attr("class", "state")
-        .attr("d", vis.path);
+        .attr("d", vis.path)
+        .style('opacity', 0)
+        .on('click', function() {vis.usZoom()});
 
-    // Define statePies
-
-    // need state data (wrangled?)
-
-    // // Draw regional pie charts
-    // vis.points = vis.g.selectAll("g")
-    //     .data(vis.wrangledData)
+    // // Define statePies
+    // vis.statePoints = vis.g.selectAll("g")
+    //     .data(vis.byState)
     //     .enter()
     //     .append("g")
-    //     .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
-    //     .attr("class", "pie");
+    //     .attr("transform", function(d) {return "translate(" + vis.project(d.center) + ")"})
+    //     .attr("class", "pie state-pie");
     //
-    // vis.pies = vis.points.selectAll(".pie")
+    // vis.statePies = vis.statePoints.selectAll(".pie")
     //     .data(function(d) {return vis.pie(d.values)})
     //     .enter()
     //     .append('g')
     //     .attr('class', 'arc');
     //
-    // vis.pies.append('path')
+    // vis.statePies.append('path')
     //     .attr('d', vis.arc)
     //     .attr("fill", function(d, i) {
     //         return vis.colorScale(vis.assessTypes[i])
@@ -326,24 +326,59 @@ RegionsVis.prototype.regionZoom = function(id) {
     //     .attr("style", "fill-opacity: 1");
 
     // Change projection
+    vis.padding = 20;
+    vis.projection.fitExtent(
+        [[vis.padding, vis.padding], [vis.width - vis.padding, vis.height - vis.padding]],
+        vis.regionFocus
+    );
 
-    // Transition statePaths
+    // Transition regionPaths
+    vis.regionPaths.transition(vis.t)
+        .attr('d', vis.path)
+        .style('fill', '#444');
 
     // Transition enterStatePaths
+    vis.enterStatePaths.transition(vis.t)
+        .attr('d', vis.path)
+        .style('opacity', 1);
 
     // Transition state pie charts?
 
     // Exit statePaths
+    vis.statePaths.exit().transition(vis.t)
+        .attr('d', vis.path)
+        .style('opacity', 0)
+        .remove();
 
     // Exit statePies?
 };
 
 RegionsVis.prototype.usZoom = function() {
+    var vis = this;
     // Define transition
 
-    // Scale projection
+    // Scale/translate projection back to normal
+    vis.projection
+        .scale(1100)
+        .translate([vis.width*4/7, vis.height/2]);
 
-    // Transition back to region paths and pie charts
+    // Transition back to region paths
+    vis.regionPaths.transition(vis.t)
+        .attr('d', vis.path)
+        .attr("fill", function(d) {
+            // convert region to number
+            var region = +d.properties.EPA_REGION;
+            if (region > 0) {return vis.regionColorScale[region-1]}
+            else {return "white"}
+        });
+
+    // Transition back to pie charts
 
     // Remove state data
-}
+    vis.svg.selectAll('.state')
+        .data([])
+        .exit().transition(vis.t)
+        .attr('d', vis.path)
+        .style('opacity', 0)
+        .remove();
+};

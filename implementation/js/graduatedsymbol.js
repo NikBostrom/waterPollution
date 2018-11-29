@@ -108,58 +108,41 @@ SymbVis.prototype.wrangleData = function() {
 
     // Filter out non-states
     vis.byState = vis.byState.filter(function(d) {return d.key in vis.abbToState});
-    // // Sort alphabetically by full state name
-    // vis.byState = vis.byState.sort(function(a, b) {
-    //     var state1 = vis.abbToState[a.key];
-    //     var state2 = vis.abbToState[b.key];
-    //     if (state1 < state2) {return -1}
-    //     if (state1 > state2) {return 1}
-    //     return 0;
-    // });
-    console.log(vis.byState);
-    console.log(vis.stateCentroids.features);
+
+    // console.log(vis.byState);
+    // console.log(vis.stateCentroids.features);
 
     // Combine nested data with lat/long of center
-
     vis.byState.forEach(function(d) {
-        console.log(d);
+        // console.log(d);
 
         // Find state name
         var state = vis.abbToState[d.key];
+        d.key = state;
 
         // Get coordinates of centroid
         var coords = vis.stateCentroids.features.find(function(element) {
             return element.properties.name === state
         });
 
-        // Store coordinates
-        // element.geometry.coordinates
-    });
+        // Store coordinates in nested data
+        d.center = coords.geometry.coordinates;
 
-    // console.log(vis.stateCentroids.features);
-    // vis.wrangledData = [];
-    //
-    // for (i = 0; i < vis.stateCentroids.features.length; i++) {
-    //     var d = vis.stateCentroids.features[i];
-    //     console.log(d);
-    //     var state = {};
-    //     state["key"] = d.properties.name;
-    //     state["center"] = d.geometry.coordinates;
-    //     state['values'] = [];
-    //     vis.assessTypes.forEach(function(type) {
-    //         // console.log(vis.byState[i].values);
-    //         var idx = vis.byState[i].values.findIndex(x => x.key===type);
-    //         // console.log(idx);
-    //         if (idx === -1) {
-    //             state['values'].push(0);
-    //         }
-    //         else {
-    //             state['values'].push(vis.byState[i].values[idx].value);
-    //         }
-    //     });
-    //     vis.wrangledData.push(state);
-    // }
-    // console.log(vis.wrangledData);
+        // Convert values from object to array and store in nested data
+        var tempVals = [];
+        vis.assessTypes.forEach(function(type) {
+            var idx = d.values.findIndex(x => x.key===type);
+            if (idx === -1) {
+                tempVals.push(0);
+            }
+            else {
+                tempVals.push(d.values[idx].value)
+            }
+        });
+        d.values = tempVals;
+        // console.log(d);
+    });
+    // console.log(vis.byState);
 
     vis.updateVis()
 };
@@ -177,9 +160,9 @@ SymbVis.prototype.updateVis = function() {
         .on("click", function(d) {vis.clicked(d)});
 
     // Draw pie charts
-    // console.log(vis.wrangledData);
+    // console.log(vis.byState);
     vis.points = vis.g.selectAll("g")
-        .data(vis.wrangledData)
+        .data(vis.byState)
         .enter()
         .append("g")
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
@@ -190,7 +173,7 @@ SymbVis.prototype.updateVis = function() {
         .enter()
         .append('g')
         .attr('class', 'arc');
-    console.log(vis.pies);
+    // console.log(vis.pies);
 
     vis.pies.append('path')
         .attr('d', vis.arc)
