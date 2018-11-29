@@ -33,8 +33,8 @@ MapVis.prototype.initVis = function() {
 
     vis.margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-    vis.width = 1000 - vis.margin.left - vis.margin.right;
-    vis.height = 600 - vis.margin.top - vis.margin.bottom;
+    vis.width = $(`#${vis.parentElement}`).width() - vis.margin.left - vis.margin.right;
+    vis.height = 550 - vis.margin.top - vis.margin.bottom;
 
     // SVG drawing area
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
@@ -43,7 +43,7 @@ MapVis.prototype.initVis = function() {
 
     // Set up map
     vis.projection = d3.geoAlbersUsa()
-        .translate([vis.width/1.95, vis.height/3.75])
+        .translate([vis.width/1.95, vis.height/3.95])
         .scale(600);
 
     vis.path = d3.geoPath()
@@ -181,7 +181,7 @@ MapVis.prototype.updateChoropleth = function() {
         .attr("width", w - 100)
         .attr("height", h)
         .style("fill", "url(#gradient)")
-        .attr("transform", "translate(100,10)");
+        .attr("transform", "translate(-20,10)");
 
     let domain = d3.extent(vis.stateOutlines.features, d => d.properties.value);
 
@@ -193,6 +193,6 @@ MapVis.prototype.updateChoropleth = function() {
 
     key.append("g")
         .attr("class", "y axis")
-        .attr("transform", "translate(141,10)")
+        .attr("transform", "translate(21,10)")
         .call(yAxis)
 };
