@@ -10,8 +10,9 @@
  * @param _statesWithRegion -- usStatesOutline json with regions
  */
 
-// TODO: Add state outlines on top of regions
 // TODO: Add legend on the side
+// TODO: check behavior if directly transitioning between regions. or disable clicking on other regions
+// TODO: Add state outlines on top of regions
 // TODO: Fix centers of regions?
 
 RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion){
