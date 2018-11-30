@@ -84,8 +84,8 @@ SymbVis.prototype.initVis = function() {
         .scaleExtent([1,8])
         .on("zoom", function() {vis.zoomed()});
 
-    vis.svg
-        .call(vis.zoom); // delete this line to disable free zooming
+    // vis.svg
+    //     .call(vis.zoom); // delete this line to disable free zooming
 
     // Filter, aggregate, modify data
     vis.wrangleData();
@@ -101,8 +101,7 @@ SymbVis.prototype.wrangleData = function() {
         .key(function(d) { return d.State })
         .key(function(d) { return d['Water Status']})
         .rollup(function(leaves) { return leaves.length })
-        .entries(vis.data); // for array
-        // .object(vis.data); // for object
+        .entries(vis.data);
 
     // console.log(vis.abbToState);
 
@@ -161,14 +160,14 @@ SymbVis.prototype.updateVis = function() {
 
     // Draw pie charts
     // console.log(vis.byState);
-    vis.points = vis.g.selectAll("g")
+    vis.points = vis.g.selectAll("g.pie")
         .data(vis.byState)
         .enter()
         .append("g")
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
         .attr("class", "pie");
 
-    vis.pies = vis.points.selectAll(".pie")
+    vis.pies = vis.points.selectAll("g.pie")
         .data(function(d) {return vis.pie(d.values)})
         .enter()
         .append('g')

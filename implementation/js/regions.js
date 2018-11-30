@@ -254,7 +254,7 @@ RegionsVis.prototype.regionZoom = function(id) {
     var vis = this;
 
     // Define transition
-    vis.t = d3.transition().duration(800);
+    vis.t = d3.transition().duration(1800);
 
     // Remove regionPies
     vis.svg.selectAll('.pie')
@@ -287,8 +287,8 @@ RegionsVis.prototype.regionZoom = function(id) {
         .data(vis.byState)
         .enter()
         .append("g")
-        .attr("transform", function(d) {return "translate(" + vis.project(d.center) + ")"})
-        .attr("class", "pie state-pie");
+        .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
+        .attr("class", "pie");
 
     vis.statePies = vis.statePoints.selectAll(".pie")
         .data(function(d) {return vis.pie(d.values)})
@@ -347,7 +347,7 @@ RegionsVis.prototype.usZoom = function() {
     // Transition back to region paths
     vis.regionPaths.transition(vis.t)
         .attr('d', vis.path)
-        .attr("fill", function(d) {
+        .style("fill", function(d) {
             // convert region to number
             var region = +d.properties.EPA_REGION;
             if (region > 0) {return vis.regionColorScale[region-1]}

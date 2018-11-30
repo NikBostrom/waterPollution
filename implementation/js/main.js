@@ -122,7 +122,6 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
         return ret;
     }
     var abbToState = swap(states);
-    // console.log(stateToAbb);
 
     // var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
     var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion);
