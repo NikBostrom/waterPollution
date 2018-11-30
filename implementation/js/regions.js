@@ -11,8 +11,7 @@
  */
 
 // TODO: Add state outlines on top of regions
-// TODO: Add legend back in
-// TODO: Add DC to states, OR CHANGE DC TO REGION 11
+// TODO: Add legend on the side
 
 RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion){
     this.parentElement = _parentElement;
@@ -56,7 +55,7 @@ RegionsVis.prototype.initVis = function() {
     // Set up map
     vis.projection = d3.geoAlbersUsa()
         .scale(1100)
-        .translate([vis.width*4/7, vis.height/2]);
+        .translate([vis.width/2, vis.height/2]);
 
     vis.path = d3.geoPath()
         .projection(vis.projection);
@@ -214,6 +213,8 @@ RegionsVis.prototype.updateVis = function() {
         .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)});
 
     console.log(vis.byRegion);
+
+    // TODO: Factor drawing pie charts into usZoom function
     // Draw regional pie charts
     vis.regionPoints = vis.g.selectAll("g")
         .data(vis.byRegion)
@@ -235,36 +236,6 @@ RegionsVis.prototype.updateVis = function() {
         })
         .attr("style", "fill-opacity: 1");
 
-    // // Draw geographic features
-    // vis.g.selectAll("path")
-    //     .data(vis.stateFeatures)
-    //     .enter()
-    //     .append("path")
-    //     .attr("d", vis.path)
-    //     .attr("class", "state");
-    //
-    // // Draw pie charts
-    // // console.log(vis.wrangledData);
-    // vis.points = vis.g.selectAll("g")
-    //     .data(vis.wrangledData)
-    //     .enter()
-    //     .append("g")
-    //     .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
-    //     .attr("class", "pie");
-    //
-    // vis.pies = vis.points.selectAll(".pie")
-    //     .data(function(d) {return vis.pie(d.values)})
-    //     .enter()
-    //     .append('g')
-    //     .attr('class', 'arc');
-    //
-    // vis.pies.append('path')
-    //     .attr('d', vis.arc)
-    //     .attr("fill", function(d, i) {
-    //         return vis.colorScale(vis.assessTypes[i])
-    //     })
-    //     .attr("style", "fill-opacity: 0.8");
-
     // // Create legend
     // vis.g.append("g")
     //     .attr("class", "legendOrdinal")
@@ -282,6 +253,16 @@ RegionsVis.prototype.updateVis = function() {
 RegionsVis.prototype.regionZoom = function(id) {
     var vis = this;
 
+    // Define transition
+    vis.t = d3.transition().duration(800);
+
+    // Remove regionPies
+    vis.svg.selectAll('.pie')
+        .data([])
+        .exit().transition(vis.t)
+        .style('opacity', 0)
+        .remove();
+
     // Define region
     vis.regionFocus = vis.regionFeatures.find(function(d) {return d.properties.EPA_REGION === id});
 
@@ -289,9 +270,6 @@ RegionsVis.prototype.regionZoom = function(id) {
     vis.regionStates = vis.stateRegionFeatures.filter(function(d) {
         return d.properties.EPA_REGION === id;
     });
-
-    // Define transition
-    vis.t = d3.transition().duration(800);
 
     // Define statePaths
     vis.statePaths = vis.svg.selectAll(".state")
@@ -304,26 +282,26 @@ RegionsVis.prototype.regionZoom = function(id) {
         .style('opacity', 0)
         .on('click', function() {vis.usZoom()});
 
-    // // Define statePies
-    // vis.statePoints = vis.g.selectAll("g")
-    //     .data(vis.byState)
-    //     .enter()
-    //     .append("g")
-    //     .attr("transform", function(d) {return "translate(" + vis.project(d.center) + ")"})
-    //     .attr("class", "pie state-pie");
-    //
-    // vis.statePies = vis.statePoints.selectAll(".pie")
-    //     .data(function(d) {return vis.pie(d.values)})
-    //     .enter()
-    //     .append('g')
-    //     .attr('class', 'arc');
-    //
-    // vis.statePies.append('path')
-    //     .attr('d', vis.arc)
-    //     .attr("fill", function(d, i) {
-    //         return vis.colorScale(vis.assessTypes[i])
-    //     })
-    //     .attr("style", "fill-opacity: 1");
+    // Define statePies
+    vis.statePoints = vis.g.selectAll("g")
+        .data(vis.byState)
+        .enter()
+        .append("g")
+        .attr("transform", function(d) {return "translate(" + vis.project(d.center) + ")"})
+        .attr("class", "pie state-pie");
+
+    vis.statePies = vis.statePoints.selectAll(".pie")
+        .data(function(d) {return vis.pie(d.values)})
+        .enter()
+        .append('g')
+        .attr('class', 'arc');
+
+    vis.statePies.append('path')
+        .attr('d', vis.arc)
+        .attr("fill", function(d, i) {
+            return vis.colorScale(vis.assessTypes[i])
+        })
+        .attr("style", "fill-opacity: 1");
 
     // Change projection
     vis.padding = 20;
@@ -350,7 +328,11 @@ RegionsVis.prototype.regionZoom = function(id) {
         .style('opacity', 0)
         .remove();
 
-    // Exit statePies?
+    // // Exit statePies
+    // vis.statePies.exit().transition(vis.t)
+    //     .attr('d', vis.path)
+    //     .style('opacity', 0)
+    //     .remove();
 };
 
 RegionsVis.prototype.usZoom = function() {
@@ -360,7 +342,7 @@ RegionsVis.prototype.usZoom = function() {
     // Scale/translate projection back to normal
     vis.projection
         .scale(1100)
-        .translate([vis.width*4/7, vis.height/2]);
+        .translate([vis.width/2, vis.height/2]);
 
     // Transition back to region paths
     vis.regionPaths.transition(vis.t)
@@ -372,7 +354,29 @@ RegionsVis.prototype.usZoom = function() {
             else {return "white"}
         });
 
-    // Transition back to pie charts
+    // TODO: Add transitions back to pie charts
+
+    // Draw regional pie charts
+    vis.regionPoints = vis.g.selectAll("g")
+        .data(vis.byRegion)
+        .enter()
+        .append("g")
+        .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
+        .attr("class", "pie");
+
+    vis.regionPies = vis.regionPoints.selectAll(".pie")
+        .data(function(d) {return vis.pie(d.values)})
+        .enter()
+        .append('g')
+        .attr('class', 'arc');
+
+    vis.regionPies.append('path')
+        .attr('d', vis.arc)
+        .attr("fill", function(d, i) {
+            return vis.colorScale(vis.assessTypes[i])
+        })
+        .attr("style", "fill-opacity: 1");
+
 
     // Remove state data
     vis.svg.selectAll('.state')
