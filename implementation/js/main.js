@@ -74,18 +74,6 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
         d['Water Size'] = +d['Water Size'];
     });
 
-    // Nest data by state
-    var waterAssessByState = d3.nest()
-        // .key(function(d) { return d.Region })
-        .key(function(d) { return d.State })
-        .key(function(d) { return d['Water Status']})
-        // .rollup(function(leaves) { console.log(leaves); return {"state": leaves[0].State, "count": leaves.length}; })
-        .rollup(function(leaves) { return leaves.length })
-        .entries(waterAssess); // for array
-        // .object(water_assess); // for object
-    //COMMD OUT
-    // console.log(waterAssessByState);
-
     // NY Harbor Data - Takes a long time to load - process asynchronously
     d3.csv("data/harbor-water-quality.csv", function(error, _nyHarborDataMessy) {
         if(error) throw error;
