@@ -196,6 +196,21 @@
                 </select>
             </div>
         </form>
+        <form class="form-inline">
+            <div class="form-group" style="margin-left: 10%;">
+                <label for="ranking-type">Region: &nbsp;</label>
+                <select class="form-control" id="region-type" onchange="updateChesapeake();">
+                    <option value="All">All</option>
+                    <option value="DC">Washington, D.C.</option>
+                    <option value="DE">Delaware</option>
+                    <option value="MD">Maryland</option>
+                    <option value="NY">New York</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WV">West Virginia</option>
+                </select>
+            </div>
+        </form>
     </div>
     <div class="row">
         <div class="col-md-9 spacing" id="chesapeakeChart"></div>
