@@ -226,7 +226,7 @@ RegionsVis.prototype.updateVis = function() {
 
     // TODO: Factor drawing pie charts into usZoom function
     // Draw regional pie charts
-    vis.regionPoints = vis.g.selectAll("g")
+    vis.regionPoints = vis.g.selectAll(".region-pie")
         .data(vis.byRegion)
         .enter()
         .append("g")
@@ -267,7 +267,7 @@ RegionsVis.prototype.regionZoom = function(id) {
     vis.t = d3.transition().duration(800);
 
     // Remove regionPies
-    vis.g.selectAll('.pie')
+    vis.g.selectAll('.region-pie')
         .data([])
         .exit().transition(vis.t)
         .style('opacity', 0)
@@ -299,26 +299,16 @@ RegionsVis.prototype.regionZoom = function(id) {
         vis.regionFocus
     );
 
-    console.log(vis.byState);
-    // // TODO: Filter out state data not belonging to that region
-    // vis.regionByState = vis.byState.filter(function(d) {
-    //     console.log(vis.stateToRegion);
-    //     console.log(d.key);
-    //     return vis.stateToRegion.hasOwnProperty(id)
-    // });
-    // console.log(vis.regionByState);
+    // console.log(vis.byState);
 
-
-
-    console.log('vis.g.selectAll("g")');
-    console.log(vis.g.selectAll("g"));
-
-    console.log('vis.g.selectAll("g").data(vis.byState)');
-    console.log(vis.g.selectAll("g").data(vis.byState));
+    vis.regionByState = vis.byState.filter(function(d) {
+        return vis.stateToRegion[id].hasOwnProperty(d.key)
+    });
+    console.log(vis.regionByState);
 
     // Define statePies
     vis.statePoints = vis.g.selectAll(".state-pie") // 90 total pies because bound to 10 region g's?
-        .data(vis.byState)
+        .data(vis.regionByState)
         .enter()
         .append("g")
         .attr("transform", function(d) {
@@ -351,7 +341,7 @@ RegionsVis.prototype.regionZoom = function(id) {
 
     // Transition state pie charts?
 
-    // Exit statePaths
+    // Exit statePaths TODO: what is this???
     vis.statePaths.exit().transition(vis.t)
         .attr('d', vis.path)
         .style('opacity', 0)
@@ -385,8 +375,15 @@ RegionsVis.prototype.usZoom = function() {
 
     // TODO: Add transitions back to pie charts
 
+    // Remove statePies
+    vis.g.selectAll('.state-pie')
+        .data([])
+        .exit().transition(vis.t)
+        .style('opacity', 0)
+        .remove();
+
     // Draw regional pie charts
-    vis.regionPoints = vis.g.selectAll("g")
+    vis.regionPoints = vis.g.selectAll(".region-pie")
         .data(vis.byRegion)
         .enter()
         .append("g")
@@ -407,7 +404,7 @@ RegionsVis.prototype.usZoom = function() {
         .attr("style", "fill-opacity: 1");
 
 
-    // Remove state data
+    // Remove state data?
     vis.g.selectAll('.state')
         .data([])
         .exit().transition(vis.t)

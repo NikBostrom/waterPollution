@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="90faf73e-8c94-42ab-81f8-9ff40ecc7cb4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/implementation/js/regions.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/regions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/testing.html" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/runAddRegions.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,33 +27,51 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="2" />
+          <entry key="html" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="2" />
+          <entry key="HTML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="183" />
+          <entry key="js" value="293" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="183" />
+          <entry key="JavaScript" value="293" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2091">
-              <caret line="123" column="34" selection-start-line="123" selection-start-column="34" selection-end-line="123" selection-end-column="34" />
+            <state relative-caret-position="228">
+              <caret line="128" column="82" lean-forward="true" selection-start-line="128" selection-start-column="82" selection-end-line="128" selection-end-column="82" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="724">
+              <caret line="340" column="41" lean-forward="true" selection-start-line="340" selection-start-column="41" selection-end-line="340" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/runAddRegions.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -59,7 +79,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
+            <state relative-caret-position="70">
               <caret line="175" selection-start-line="175" selection-end-line="176" selection-end-column="38" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -77,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/js/regions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="318" column="23" selection-start-line="318" selection-start-column="23" selection-end-line="318" selection-end-column="23" />
+            <state relative-caret-position="278">
+              <caret line="303" column="35" selection-start-line="303" selection-start-column="28" selection-end-line="303" selection-end-column="35" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -111,9 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.clicked</find>
-      <find>SymbVis</find>
-      <find>region</find>
       <find>re</find>
       <find>alabama</find>
       <find>features</find>
@@ -141,6 +158,9 @@
       <find>filter out</find>
       <find>vis.svg</find>
       <find>&quot;pie&quot;</find>
+      <find>Remove</find>
+      <find>.pie</find>
+      <find>byState</find>
     </findStrings>
     <replaceStrings>
       <replace>this.worldData</replace>
@@ -174,14 +194,14 @@
         <option value="$PROJECT_DIR$/implementation/js/getData.js" />
         <option value="$PROJECT_DIR$/implementation/data/regionsOutline.json" />
         <option value="$PROJECT_DIR$/implementation/js/addRegions.js" />
-        <option value="$PROJECT_DIR$/implementation/index.html" />
         <option value="$PROJECT_DIR$/implementation/data/usStatesOutlineWithRegion.json" />
         <option value="$PROJECT_DIR$/implementation/testRegions.html" />
-        <option value="$PROJECT_DIR$/implementation/js/main.js" />
         <option value="$PROJECT_DIR$/implementation/testSymb.html" />
         <option value="$PROJECT_DIR$/implementation/03_stacked_bar.html" />
         <option value="$PROJECT_DIR$/implementation/js/graduatedsymbol.js" />
         <option value="$PROJECT_DIR$/implementation/js/regions.js" />
+        <option value="$PROJECT_DIR$/implementation/index.html" />
+        <option value="$PROJECT_DIR$/implementation/js/main.js" />
       </list>
     </option>
   </component>
@@ -191,7 +211,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -288,12 +308,12 @@
       <workItem from="1543528161584" duration="1625000" />
       <workItem from="1543532502294" duration="11062000" />
       <workItem from="1543549657911" duration="7657000" />
-      <workItem from="1543581862860" duration="2610000" />
+      <workItem from="1543581862860" duration="4453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97410000" />
+    <option name="totallyTimeSpent" value="99253000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -305,10 +325,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2905983" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14330874" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -490,31 +510,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/testing.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/addRegions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="69" column="41" lean-forward="true" selection-end-line="354" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2091">
-          <caret line="123" column="34" selection-start-line="123" selection-start-column="34" selection-end-line="123" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -541,7 +540,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/graduatedsymbol.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
+        <state relative-caret-position="70">
           <caret line="175" selection-start-line="175" selection-end-line="176" selection-end-column="38" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -551,11 +550,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/regions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="318" column="23" selection-start-line="318" selection-start-column="23" selection-end-line="318" selection-end-column="23" />
+        <state relative-caret-position="278">
+          <caret line="303" column="35" selection-start-line="303" selection-start-column="28" selection-end-line="303" selection-end-column="35" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/runAddRegions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="724">
+          <caret line="340" column="41" lean-forward="true" selection-start-line="340" selection-start-column="41" selection-end-line="340" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="128" column="82" lean-forward="true" selection-start-line="128" selection-start-column="82" selection-end-line="128" selection-end-column="82" />
         </state>
       </provider>
     </entry>
