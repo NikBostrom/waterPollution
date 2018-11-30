@@ -160,12 +160,37 @@ SymbVis.prototype.updateVis = function() {
 
     // Draw pie charts
     // console.log(vis.byState);
+
+    // console.log('vis.g.selectAll("g")');
+    // console.log(vis.g.selectAll("g"));
+    //
+    // console.log('svg.selectAll("rect").data(dataset, key)');
+    // console.log(svg.selectAll("rect").data(dataset, key));
+    //
+    // console.log('svg.selectAll("rect").data(dataset, key).enter()');
+    // console.log(svg.selectAll("rect").data(dataset, key).enter());
+    //
+    // console.log('svg.selectAll("rect").data(dataset, key).enter().append("rect")');
+    // console.log(svg.selectAll("rect").data(dataset, key).enter().append("rect"));
+
+    console.log('vis.g.selectAll("g")');
+    console.log(vis.g.selectAll("g"));
+
+    console.log('vis.g.selectAll("g").data(vis.byState)');
+    console.log(vis.g.selectAll("g").data(vis.byState));
+
     vis.points = vis.g.selectAll("g")
         .data(vis.byState)
         .enter()
         .append("g")
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
         .attr("class", "pie");
+
+    console.log('vis.points.selectAll(".pie")');
+    console.log(vis.points.selectAll(".pie"));
+
+    console.log('vis.points.selectAll(".pie").data(function(d) {return vis.pie(d.values)})');
+    console.log(vis.points.selectAll(".pie").data(function(d) {return vis.pie(d.values)}));
 
     vis.pies = vis.points.selectAll(".pie")
         .data(function(d) {return vis.pie(d.values)})

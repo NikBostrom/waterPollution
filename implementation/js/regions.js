@@ -231,9 +231,9 @@ RegionsVis.prototype.updateVis = function() {
         .enter()
         .append("g")
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
-        .attr("class", "pie");
+        .attr("class", "region-pie pie");
 
-    vis.regionPies = vis.regionPoints.selectAll(".pie")
+    vis.regionPies = vis.regionPoints.selectAll(".region-pie")
         .data(function(d) {return vis.pie(d.values)})
         .enter()
         .append('g')
@@ -292,10 +292,15 @@ RegionsVis.prototype.regionZoom = function(id) {
         .style('opacity', 0)
         .on('click', function() {vis.usZoom()});
 
-    vis.statePaths.selectAll(".state").append("circle");
+    // Change projection
+    vis.padding = 20;
+    vis.projection.fitExtent(
+        [[vis.padding, vis.padding], [vis.width - vis.padding, vis.height - vis.padding]],
+        vis.regionFocus
+    );
 
-    // // console.log(vis.byState);
-    // // Filter out state data not belonging to that region
+    console.log(vis.byState);
+    // // TODO: Filter out state data not belonging to that region
     // vis.regionByState = vis.byState.filter(function(d) {
     //     console.log(vis.stateToRegion);
     //     console.log(d.key);
@@ -303,40 +308,26 @@ RegionsVis.prototype.regionZoom = function(id) {
     // });
     // console.log(vis.regionByState);
 
+
+
+    console.log('vis.g.selectAll("g")');
+    console.log(vis.g.selectAll("g"));
+
+    console.log('vis.g.selectAll("g").data(vis.byState)');
+    console.log(vis.g.selectAll("g").data(vis.byState));
+
     // Define statePies
-    // vis.statePoints = vis.g.selectAll("g")
-
-
-    // vis.statePoints = $("#" + id).selectAll("g")
-    //     .data(vis.byState)
-    //     .enter()
-    //     .append("g");
-    // vis.statePoints.merge(vis.statePoints)
-    //     .attr("transform", function(d) {console.log(d); return "translate(" + vis.projection(d.center) + ")"})
-    //     .attr("class", "pie");
-
-    // -----
-
-    // vis.statePoints = vis..selectAll("g")
-    //     .data(vis.byState)
-    //     .enter()
-    //     .append("g");
-    // vis.statePoints.merge(vis.statePoints)
-    //     .attr("transform", function(d) {console.log(d); return "translate(" + vis.projection(d.center) + ")"})
-    //     .attr("class", "pie");
-
-
-    //-------
-    // TODO: get a better understanding of selection.data(function)
-    vis.statePoints = vis.g.selectAll(".pie") // 90 total pies because bound to 10 region g's?
+    vis.statePoints = vis.g.selectAll(".state-pie") // 90 total pies because bound to 10 region g's?
         .data(vis.byState)
         .enter()
         .append("g")
-        .attr("transform", function(d) {console.log(d); return "translate(" + vis.projection(d.center) + ")"})
-        .attr("class", "pie");
+        .attr("transform", function(d) {
+            // console.log(d);
+            return "translate(" + vis.projection(d.center) + ")"})
+        .attr("class", "state-pie pie");
 
-    vis.statePies = vis.statePaths.selectAll(".pie")
-        .data(function(d) { console.log(vis.pie(d.values)); return vis.pie(d.values)})
+    vis.statePies = vis.statePoints.selectAll(".state-pie")
+        .data(function(d) { return vis.pie(d.values)})
         .enter()
         .append('g')
         .attr('class', 'arc');
@@ -347,13 +338,6 @@ RegionsVis.prototype.regionZoom = function(id) {
             return vis.colorScale(vis.assessTypes[i])
         })
         .attr("style", "fill-opacity: 1");
-
-    // Change projection
-    vis.padding = 20;
-    vis.projection.fitExtent(
-        [[vis.padding, vis.padding], [vis.width - vis.padding, vis.height - vis.padding]],
-        vis.regionFocus
-    );
 
     // Transition regionPaths
     vis.regionPaths.transition(vis.t)
@@ -407,9 +391,9 @@ RegionsVis.prototype.usZoom = function() {
         .enter()
         .append("g")
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
-        .attr("class", "pie");
+        .attr("class", "region-pie pie");
 
-    vis.regionPies = vis.regionPoints.selectAll(".pie")
+    vis.regionPies = vis.regionPoints.selectAll(".region-pie")
         .data(function(d) {return vis.pie(d.values)})
         .enter()
         .append('g')
