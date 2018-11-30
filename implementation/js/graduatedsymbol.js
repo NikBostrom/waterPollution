@@ -160,14 +160,14 @@ SymbVis.prototype.updateVis = function() {
 
     // Draw pie charts
     // console.log(vis.byState);
-    vis.points = vis.g.selectAll("g.pie")
+    vis.points = vis.g.selectAll("g")
         .data(vis.byState)
         .enter()
         .append("g")
         .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
         .attr("class", "pie");
 
-    vis.pies = vis.points.selectAll("g.pie")
+    vis.pies = vis.points.selectAll(".pie")
         .data(function(d) {return vis.pie(d.values)})
         .enter()
         .append('g')

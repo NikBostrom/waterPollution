@@ -148,6 +148,13 @@ RegionsVis.prototype.wrangleData = function() {
         .rollup(function(leaves) { return leaves.length })
         .entries(vis.data); // for array
 
+    vis.stateToRegion = d3.nest()
+        .key(function(d) { return d.Region })
+        .key(function(d) { return vis.abbToState[d.State] })
+        .rollup(function(leaves) {return 0})
+        .object(vis.data);
+    console.log(vis.stateToRegion);
+
     // Filter out non-states
     vis.byState = vis.byState.filter(function(d) {return d.key in vis.abbToState});
     // Sort alphabetically by full state name
@@ -210,6 +217,9 @@ RegionsVis.prototype.updateVis = function() {
             if (region > 0) {return vis.regionColorScale[region-1]}
             else {return "white"}
         })
+        .attr("id", function(d) {
+            return d.properties.EPA_REGION
+        })
         .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)});
 
     console.log(vis.byRegion);
@@ -254,10 +264,10 @@ RegionsVis.prototype.regionZoom = function(id) {
     var vis = this;
 
     // Define transition
-    vis.t = d3.transition().duration(1800);
+    vis.t = d3.transition().duration(800);
 
     // Remove regionPies
-    vis.svg.selectAll('.pie')
+    vis.g.selectAll('.pie')
         .data([])
         .exit().transition(vis.t)
         .style('opacity', 0)
@@ -266,13 +276,13 @@ RegionsVis.prototype.regionZoom = function(id) {
     // Define region
     vis.regionFocus = vis.regionFeatures.find(function(d) {return d.properties.EPA_REGION === id});
 
-    // Filter out states not belonging to that region
+    // Filter out state features not belonging to that region
     vis.regionStates = vis.stateRegionFeatures.filter(function(d) {
         return d.properties.EPA_REGION === id;
     });
 
     // Define statePaths
-    vis.statePaths = vis.svg.selectAll(".state")
+    vis.statePaths = vis.g.selectAll(".state")
         .data(vis.regionStates, function(d) { return d.properties.EPA_REGION });
 
     // Define enterStatePaths
@@ -282,16 +292,51 @@ RegionsVis.prototype.regionZoom = function(id) {
         .style('opacity', 0)
         .on('click', function() {vis.usZoom()});
 
+    vis.statePaths.selectAll(".state").append("circle");
+
+    // // console.log(vis.byState);
+    // // Filter out state data not belonging to that region
+    // vis.regionByState = vis.byState.filter(function(d) {
+    //     console.log(vis.stateToRegion);
+    //     console.log(d.key);
+    //     return vis.stateToRegion.hasOwnProperty(id)
+    // });
+    // console.log(vis.regionByState);
+
     // Define statePies
-    vis.statePoints = vis.g.selectAll("g")
+    // vis.statePoints = vis.g.selectAll("g")
+
+
+    // vis.statePoints = $("#" + id).selectAll("g")
+    //     .data(vis.byState)
+    //     .enter()
+    //     .append("g");
+    // vis.statePoints.merge(vis.statePoints)
+    //     .attr("transform", function(d) {console.log(d); return "translate(" + vis.projection(d.center) + ")"})
+    //     .attr("class", "pie");
+
+    // -----
+
+    // vis.statePoints = vis..selectAll("g")
+    //     .data(vis.byState)
+    //     .enter()
+    //     .append("g");
+    // vis.statePoints.merge(vis.statePoints)
+    //     .attr("transform", function(d) {console.log(d); return "translate(" + vis.projection(d.center) + ")"})
+    //     .attr("class", "pie");
+
+
+    //-------
+    // TODO: get a better understanding of selection.data(function)
+    vis.statePoints = vis.g.selectAll(".pie") // 90 total pies because bound to 10 region g's?
         .data(vis.byState)
         .enter()
         .append("g")
-        .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
+        .attr("transform", function(d) {console.log(d); return "translate(" + vis.projection(d.center) + ")"})
         .attr("class", "pie");
 
-    vis.statePies = vis.statePoints.selectAll(".pie")
-        .data(function(d) {return vis.pie(d.values)})
+    vis.statePies = vis.statePaths.selectAll(".pie")
+        .data(function(d) { console.log(vis.pie(d.values)); return vis.pie(d.values)})
         .enter()
         .append('g')
         .attr('class', 'arc');
@@ -379,7 +424,7 @@ RegionsVis.prototype.usZoom = function() {
 
 
     // Remove state data
-    vis.svg.selectAll('.state')
+    vis.g.selectAll('.state')
         .data([])
         .exit().transition(vis.t)
         .attr('d', vis.path)
