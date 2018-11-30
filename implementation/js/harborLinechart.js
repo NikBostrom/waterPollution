@@ -109,7 +109,6 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
     // vis.filteredData.sort(function(a, b) { return a["Date"] - b["Date"]; });
     console.log(vis.filteredData);
 
-
     // Dynamically update the domains based on user selection
     vis.xScale.domain(d3.extent(vis.filteredData, function (d) {
         // console.log(d);
