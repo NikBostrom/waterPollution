@@ -88,7 +88,7 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
 
     let colorScale = d3.scaleLinear()
         .domain(d3.extent(vis.harborData, function(d) {
-            console.log(d);
+            // console.log(d);
             // console.log(selection);
             // TODO - Change to be the select-box selected value
             return +d[selection];
