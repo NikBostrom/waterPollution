@@ -133,7 +133,7 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
     var abbToState = swap(states);
 
 
-    var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion);
+    var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion, "assess-legend");
     var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
 
 

@@ -8,16 +8,15 @@
  * @param _abbToState       -- state for each 2-letter abbreviation
  * @param _mergedStates     -- regionsOutline.json
  * @param _statesWithRegion -- usStatesOutline json with regions
- * @param _legendElement    -- the HTML element in which to draw the legend
  */
 
-// TODO: Check out Felix's code
-// TODO: thick region border when hover
-// TODO: Add state outlines on top of regions
+// TODO: Add legend on the side
 // TODO: check behavior if directly transitioning between regions. or disable clicking on other regions
+// TODO: Add state outlines on top of regions
 // TODO: Fix centers of regions?
 
-RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion, _legendElement){
+
+RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion){
     this.parentElement = _parentElement;
     this.data = _data;
     this.stateFeatures = _stateOutlines.features;
@@ -26,7 +25,6 @@ RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _s
     this.abbToState = _abbToState;
     this.regionFeatures = _mergedStates.features;
     this.stateRegionFeatures = _statesWithRegion.features;
-    this.legendElement = _legendElement;
     this.initVis();
 
 };
@@ -40,27 +38,27 @@ RegionsVis.prototype.initVis = function() {
 
     // SVG variables
     vis.margin = { top: 0, right: 0, bottom: 0, left: 0 };
-
-    vis.width = 850 - vis.margin.left - vis.margin.right;
-    vis.height = 550 - vis.margin.top - vis.margin.bottom;
+    vis.width = 1000 - vis.margin.left - vis.margin.right;
+    vis.height = 600 - vis.margin.top - vis.margin.bottom;
 
     // SVG drawing area
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
         .attr("width", vis.width)
         .attr("height", vis.height);
 
-    // vis.svg.append("rect")
-    //     .attr("class", "background")
-    //     .attr("width", vis.width)
-    //     .attr("height", vis.height)
-    //     .attr("fill", "white");
+    vis.svg.append("rect")
+        .attr("class", "background")
+        .attr("width", vis.width)
+        .attr("height", vis.height)
+        .attr("fill", "white");
 
-    vis.g = vis.svg.append("g");
+    //vis.g = vis.svg.append("g");
 
     // Set up map
-    vis.projection = d3.geoAlbersUsa()
-        .scale(1100)
-        .translate([vis.width/2, vis.height/2]);
+    vis.projection = d3.geoAlbers()
+        .precision(0)
+        .scale(vis.height * 2).translate([vis.width / 2, vis.height / 2])
+
 
     vis.path = d3.geoPath()
         .projection(vis.projection);
@@ -82,6 +80,8 @@ RegionsVis.prototype.initVis = function() {
         .domain(vis.assessTypes)
         .range(['#386CB0', '#FFFF99', '#FDC086', '#666666']);
     vis.regionColorScale = d3.schemeCategory10;
+
+
 
     // Filter, aggregate, modify data
     vis.wrangleData();
@@ -209,83 +209,30 @@ RegionsVis.prototype.wrangleData = function() {
 RegionsVis.prototype.updateVis = function() {
     var vis = this;
 
-    // Draw regional geographic features
-    vis.regionPaths = vis.g.selectAll("path")
+    vis.regionPaths = vis.svg.selectAll(".region")
         .data(vis.regionFeatures)
-        .enter()
-        .append("path")
-        .attr("d", vis.path)
+        .enter().append("path")
         .attr("class", "region")
+        .attr("d", vis.path)
+        .attr("fill", function(d) {
+            // convert region to number
+            var region = +d.properties.EPA_REGION;
+            if (region > 0) {return vis.regionColorScale[region-1]}
+            else {return "white"}
+        })
         .attr("id", function(d) {
             return d.properties.EPA_REGION
         })
-        // .style("fill", function(d) {
-        //     // convert region to number
-        //     var region = +d.properties.EPA_REGION;
-        //     if (region > 0) {return vis.regionColorScale[region-1]}
-        //     else {return "white"}
-        // })
-        .style("fill", "#BEBEBE")
-        .style("stroke", "grey")
         .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)});
 
-    console.log(vis.byRegion);
-
-    // TODO: Factor drawing pie charts into usZoom function
-    // Draw regional pie charts
-    vis.regionPoints = vis.g.selectAll(".region-pie")
-        .data(vis.byRegion)
-        .enter()
-        .append("g")
-        .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
-        .attr("class", "region-pie pie");
-
-    vis.regionPies = vis.regionPoints.selectAll(".region-pie")
-        .data(function(d) {return vis.pie(d.values)})
-        .enter()
-        .append('g')
-        .attr('class', 'arc');
-
-    vis.regionPiePaths = vis.regionPies.append('path')
-        .attr('d', vis.arc)
-        .attr("fill", function(d, i) {
-            return vis.colorScale(vis.assessTypes[i])
-        })
-        .attr("style", "fill-opacity: 1")
-        .attr('class', 'region-pie-path pie-path');
-        // .style('opacity', 0);
-
-    // Define SVG for legend
-    vis.legendSvg = d3.select("#" + vis.legendElement).append("svg")
-        .attr("width", 150)
-        .attr("height", 120);
-
-    // Create legend
-    vis.legendSvg.append("g")
-        .attr("class", "legendOrdinal");
-        // .attr("transform", "translate(20, 40)");
-
-    vis.legendOrdinal = d3.legendColor()
-        .title("Water Assessment Status")
-        .labels(['Good', 'Impaired', 'Threatened', 'Not Assessed'])
-        .scale(vis.colorScale);
-
-    vis.legendSvg.select(".legendOrdinal")
-        .call(vis.legendOrdinal);
 };
 
+
 RegionsVis.prototype.regionZoom = function(id) {
+    console.log('regionZoom');
     var vis = this;
 
-    // Define transition
     vis.t = d3.transition().duration(1000);
-
-    // Remove regionPies
-    vis.g.selectAll('.region-pie')
-        .data([])
-        .exit().transition(vis.t)
-        .style('opacity', 0)
-        .remove();
 
     // Define region
     vis.regionFocus = vis.regionFeatures.find(function(d) {return d.properties.EPA_REGION === id});
@@ -295,17 +242,14 @@ RegionsVis.prototype.regionZoom = function(id) {
         return d.properties.EPA_REGION === id;
     });
 
-    // Define statePaths
-    vis.statePaths = vis.g.selectAll(".state")
+    var statePaths = vis.svg.selectAll('.state')
         .data(vis.regionStates, function(d) { return d.properties.EPA_REGION });
 
-    // Define enterStatePaths
-    vis.enterStatePaths = vis.statePaths.enter().append("path")
-        .attr("class", "state")
-        .attr("d", vis.path)
-        .style("fill", "#BEBEBE")
+    var enterStatePaths = statePaths.enter().append('path')
+        .attr('class', 'state')
+        .attr('d', vis.path)
         .style('opacity', 0)
-        .on('click', function() {vis.usZoom()});
+        .on('click', function () { vis.usZoom() })
 
     // Change projection
     vis.padding = 20;
@@ -314,136 +258,45 @@ RegionsVis.prototype.regionZoom = function(id) {
         vis.regionFocus
     );
 
-    // console.log(vis.byState);
-
-    // Filter out state data not in region
-    vis.regionByState = vis.byState.filter(function(d) {
-        return vis.stateToRegion[id].hasOwnProperty(d.key)
-    });
-    console.log(vis.regionByState);
-
-    // Define statePies
-    vis.statePoints = vis.g.selectAll(".state-pie")
-        .data(vis.regionByState)
-        .enter()
-        .append("g")
-        .attr("transform", function(d) {
-            // console.log(d);
-            return "translate(" + vis.projection(d.center) + ")"})
-        .attr("class", "state-pie pie");
-
-    vis.statePies = vis.statePoints.selectAll(".state-pie")
-        .data(function(d) { return vis.pie(d.values)})
-        .enter()
-        .append('g')
-        .attr('class', 'arc');
-
-    vis.statePiePaths = vis.statePies.append('path')
-        // .attr('d', vis.arc)
-        .attr("fill", function(d, i) {
-            return vis.colorScale(vis.assessTypes[i])
-        })
-        .attr("style", "fill-opacity: 1")
-        .attr('class', 'state-pie-path pie-path')
-        .style('opacity', 0);
-
-    // Transition regionPaths to grey
     vis.regionPaths.transition(vis.t)
         .attr('d', vis.path)
-        .style('fill', '#444');
+        .style('fill', '#444')
 
-    // Transition enterStatePaths into opacity
-    vis.enterStatePaths.transition(vis.t)
+    enterStatePaths.transition(vis.t)
         .attr('d', vis.path)
-        .style('opacity', 1);
+        .style('opacity', 1)
 
-    // Transition state pie charts into opacity
-    // TODO: either delay until zoom in is complete, or slide in during zoom
-    vis.statePiePaths.transition(vis.t)
-        .attr('d', vis.arc)
-        .style('opacity', 1);
-
-    // Exit statePaths (this doesn't seem completely necessary. exit is empty
-    vis.statePaths.exit().transition(vis.t)
+    statePaths.exit().transition(vis.t)
         .attr('d', vis.path)
         .style('opacity', 0)
-        .remove();
+        .remove()
 
-    // // Exit statePiePaths TODO: what would this do?
-    // vis.statePiePaths.exit().transition(vis.t)
-    //     .attr('d', vis.path)
-    //     .style('opacity', 0)
-    //     .remove();
 };
+
 
 RegionsVis.prototype.usZoom = function() {
+    console.log('usZoom');
     var vis = this;
 
-    // TODO: replace usZoom with updateVis?
+    var t = d3.transition().duration(1000)
 
-    // Scale/translate projection back to normal
-    vis.projection
-        .scale(1100)
-        .translate([vis.width/2, vis.height/2]);
+    vis.projection.scale(vis.height * 2).translate([vis.width / 2, vis.height / 2])
 
-    // Transition back to region paths
-    vis.regionPaths.transition(vis.t)
+    vis.regionPaths.transition(t)
         .attr('d', vis.path)
-        .attr("id", function(d) {
-            return d.properties.EPA_REGION
-        })
-        // .style("fill", function(d) {
-        //     // convert region to number
-        //     var region = +d.properties.EPA_REGION;
-        //     if (region > 0) {return vis.regionColorScale[region-1]}
-        //     else {return "white"}
-        // });
-        .style("fill", "#BEBEBE")
-        .style("stroke", "grey");
+        .style("fill", function(d) {
+            // convert region to number
+            var region = +d.properties.EPA_REGION;
+            if (region > 0) {return vis.regionColorScale[region-1]}
+            else {return "white"}
+        });
 
-    // TODO: Add transitions back to pie charts
-
-    // Remove statePies
-    vis.g.selectAll('.state-pie')
+    vis.svg.selectAll('.state')
         .data([])
-        .exit().transition(vis.t)
-        .style('opacity', 0)
-        .remove();
-
-    // Draw regional pie charts
-    vis.regionPoints = vis.g.selectAll(".region-pie")
-        .data(vis.byRegion)
-        .enter()
-        .append("g")
-        .attr("transform", function(d) {return "translate(" + vis.projection(d.center) + ")"})
-        .attr("class", "region-pie pie");
-
-    vis.regionPies = vis.regionPoints.selectAll(".region-pie")
-        .data(function(d) {return vis.pie(d.values)})
-        .enter()
-        .append('g')
-        .attr('class', 'arc');
-
-    vis.regionPiePaths = vis.regionPies.append('path')
-        // .attr('d', vis.arc)
-        .attr("fill", function(d, i) {
-            return vis.colorScale(vis.assessTypes[i])
-        })
-        .attr("style", "fill-opacity: 1")
-        .attr('class', 'region-pie-path pie-path')
-        .style('opacity', 0);
-
-    // Transition region pie charts into opacity
-    // TODO: either delay until zoom in is complete, or slide in during zoom
-    vis.regionPiePaths.transition(vis.t)
-        .attr('d', vis.arc)
-        .style('opacity', 1);
-
-    // Remove state data?
-    vis.g.selectAll('.state')
-        .data([])
-        .exit().transition(vis.t)
+        .exit().transition(t)
         .attr('d', vis.path)
         .style('opacity', 0)
-        .remove();
+        .remove()
+
 };
+
