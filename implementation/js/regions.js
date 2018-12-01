@@ -10,8 +10,10 @@
  * @param _statesWithRegion -- usStatesOutline json with regions
  */
 
-// TODO: Add state outlines on top of regions
 // TODO: Add legend on the side
+// TODO: check behavior if directly transitioning between regions. or disable clicking on other regions
+// TODO: Add state outlines on top of regions
+// TODO: Fix centers of regions?
 
 RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion){
     this.parentElement = _parentElement;
@@ -239,12 +241,14 @@ RegionsVis.prototype.updateVis = function() {
         .append('g')
         .attr('class', 'arc');
 
-    vis.regionPies.append('path')
+    vis.regionPiePaths = vis.regionPies.append('path')
         .attr('d', vis.arc)
         .attr("fill", function(d, i) {
             return vis.colorScale(vis.assessTypes[i])
         })
-        .attr("style", "fill-opacity: 1");
+        .attr("style", "fill-opacity: 1")
+        .attr('class', 'region-pie-path pie-path');
+        // .style('opacity', 0);
 
     // // Create legend
     // vis.g.append("g")
@@ -264,7 +268,7 @@ RegionsVis.prototype.regionZoom = function(id) {
     var vis = this;
 
     // Define transition
-    vis.t = d3.transition().duration(800);
+    vis.t = d3.transition().duration(1000);
 
     // Remove regionPies
     vis.g.selectAll('.region-pie')
@@ -301,13 +305,14 @@ RegionsVis.prototype.regionZoom = function(id) {
 
     // console.log(vis.byState);
 
+    // Filter out state data not in region
     vis.regionByState = vis.byState.filter(function(d) {
         return vis.stateToRegion[id].hasOwnProperty(d.key)
     });
     console.log(vis.regionByState);
 
     // Define statePies
-    vis.statePoints = vis.g.selectAll(".state-pie") // 90 total pies because bound to 10 region g's?
+    vis.statePoints = vis.g.selectAll(".state-pie")
         .data(vis.regionByState)
         .enter()
         .append("g")
@@ -322,33 +327,39 @@ RegionsVis.prototype.regionZoom = function(id) {
         .append('g')
         .attr('class', 'arc');
 
-    vis.statePies.append('path')
-        .attr('d', vis.arc)
+    vis.statePiePaths = vis.statePies.append('path')
+        // .attr('d', vis.arc)
         .attr("fill", function(d, i) {
             return vis.colorScale(vis.assessTypes[i])
         })
-        .attr("style", "fill-opacity: 1");
+        .attr("style", "fill-opacity: 1")
+        .attr('class', 'state-pie-path pie-path')
+        .style('opacity', 0);
 
-    // Transition regionPaths
+    // Transition regionPaths to grey
     vis.regionPaths.transition(vis.t)
         .attr('d', vis.path)
         .style('fill', '#444');
 
-    // Transition enterStatePaths
+    // Transition enterStatePaths into opacity
     vis.enterStatePaths.transition(vis.t)
         .attr('d', vis.path)
         .style('opacity', 1);
 
-    // Transition state pie charts?
+    // Transition state pie charts into opacity
+    // TODO: either delay until zoom in is complete, or slide in during zoom
+    vis.statePiePaths.transition(vis.t)
+        .attr('d', vis.arc)
+        .style('opacity', 1);
 
-    // Exit statePaths TODO: what is this???
+    // Exit statePaths (this doesn't seem completely necessary. exit is empty
     vis.statePaths.exit().transition(vis.t)
         .attr('d', vis.path)
         .style('opacity', 0)
         .remove();
 
-    // // Exit statePies
-    // vis.statePies.exit().transition(vis.t)
+    // // Exit statePiePaths TODO: what would this do?
+    // vis.statePiePaths.exit().transition(vis.t)
     //     .attr('d', vis.path)
     //     .style('opacity', 0)
     //     .remove();
@@ -396,13 +407,20 @@ RegionsVis.prototype.usZoom = function() {
         .append('g')
         .attr('class', 'arc');
 
-    vis.regionPies.append('path')
-        .attr('d', vis.arc)
+    vis.regionPiePaths = vis.regionPies.append('path')
+        // .attr('d', vis.arc)
         .attr("fill", function(d, i) {
             return vis.colorScale(vis.assessTypes[i])
         })
-        .attr("style", "fill-opacity: 1");
+        .attr("style", "fill-opacity: 1")
+        .attr('class', 'region-pie-path pie-path')
+        .style('opacity', 0);
 
+    // Transition region pie charts into opacity
+    // TODO: either delay until zoom in is complete, or slide in during zoom
+    vis.regionPiePaths.transition(vis.t)
+        .attr('d', vis.arc)
+        .style('opacity', 1);
 
     // Remove state data?
     vis.g.selectAll('.state')
