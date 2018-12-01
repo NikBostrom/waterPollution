@@ -1,29 +1,332 @@
+
+/* YOUR CSS STYLES */
+.state {
+    stroke: grey;
+}
+
+/* Legend Position Style */
+.legend {
+    position:absolute;
+    left:20px;
+    top:30px;
+}
+
+.col-lg-6 {
+    /*text-align: center;*/
+}
+
+body, html {
+    height: 100%;
+}
+
 body {
+    background-color: #E6E7E8;
+    color: #0745af;
+
+}
+
+.row {
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.imgs {
+    width: 80%;
+}
+
+/* The hero image */
+.hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image:
+            linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
+            url("../imgs/tom-gainor-737280-unsplash.jpg");
+
+
+    /* Set a specific height */
+    height: 100%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    margin-bottom: 4%;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
     text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 70%;
+}
+
+.d3-tip {
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#heading, .centered {
+    text-align: center;
+}
+
+#measurable {
+    width: 90%;
+    text-align: center;
+}
+
+.form-control {
+    display: inline;
+}
+
+
+h1 {
+    margin: 3%;
+    font-size: 4rem;
+    font-family: 'Oswald', sans-serif;
+}
+
+#unsplash-cred {
+    background-color:black;
+    color:white;
+    text-decoration:none;
+    padding:4px 6px;
+    font-size:12px;
+    font-weight:bold;
+    line-height:1.2;
+    display:inline-block;
+    border-radius:3px;
+    float: right;
+}
+
+blockquote {
+    margin-left: 30px;
+}
+
+body {
+    /*text-align: center;*/
 }
 
 /*Map Styles*/
 #map-vis {
-    margin-bottom: 25px;
+    /*margin-bottom: 25px;*/
 }
 
 /*Timeslider Styles*/
 #timeslider-vis {
     margin-bottom: 25px;
 }
+
 #showcase {
     margin: 0 20px;
     text-align: center;
 }
+
 #range {
     height: 300px;
     margin: 0 auto 30px;
 }
-/*#value-span,*/
-/*#value-input {*/
-    /*width: 50%;*/
-    /*float: left;*/
-    /*display: block;*/
-    /*text-align: center;*/
-    /*margin: 0;*/
-/*}*/
+
+.d3-tip {
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#heading, .centered {
+    text-align: center;
+}
+
+.placeholder {
+    padding: 20px;
+    border: black;
+    border-style: solid;
+}
+
+.story-text {
+    /*margin-left: 4%;*/
+}
+
+/*Site colors*/
+
+.title {
+    color: #0745af;
+}
+
+.light {
+    opacity: 0.2;
+}
+
+.spacing {
+    margin-top: 3%;
+}
+
+p {
+    color: #0745af;
+    /*margin-top: %;*/
+}
+
+.text {
+    color: #F8FCFF;
+}
+
+h2 {
+    margin-top: 2%;
+}
+
+.dark-block {
+    background-color: #000C14;
+}
+
+/* Chesapeake Bay and Line Chart styles */
+
+.DCline {
+    fill: none;
+    stroke: #1C9A3D;
+    stroke-width: 1.5px;
+}
+
+.DEline {
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5px;
+}
+
+.MDline {
+    fill: none;
+    stroke: blue;
+    stroke-width: 1.5px;
+}
+
+.NYline {
+    fill: none;
+    stroke: purple;
+    stroke-width: 1.5px;
+}
+
+.PAline {
+    fill: none;
+    stroke: orange;
+    stroke-width: 1.5px;
+}
+
+.VAline {
+    fill: none;
+    stroke: pink;
+    stroke-width: 1.5px;
+}
+
+.WVline {
+    fill: none;
+    stroke: cyan;
+    stroke-width: 1.5px;
+}
+
+.chesapeakeimprovement {
+    text-align: center;
+}
+
+#dirtyEstuary {
+    border: black;
+    border-style: solid;
+    /*padding-bottom: -5px;*/
+}
+#positivity {
+    border-bottom: none;
+}
+.y-axis-label {
+    text-anchor: middle;
+}
+
+
+/*
+Specify size of the map container for leaflet
+ */
+#harbor-map {
+    width: 90%;
+    height: 600px;
+}
+#harbor-linechart svg {
+    width: 90%;
+    height: 600px;
+}
+#harbor-linechart-svg-group {
+    width: 100%;
+    height: 600px;
+}
+#harbor-vis-form {
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: inline-block;
+}
+#harbor-select-box {
+    margin-left: 15px;
+}
+
+
+
+
+/* navigation bars */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    font-family: system-ui, sans-serif;
+
+    /* this breaks position sticky in Firefox */
+    /* overflow-x: hidden; */
+}
+header {
+    grid-column: 1 / 3;
+    background: #455A64;
+    color: white;
+    /*padding: 20rem;*/
+    text-align: center;
+    /* Set a specific height */
+    height: 100%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    margin-bottom: 50%;
+}
+
+nav {
+    white-space: nowrap;
+    background: #37474F;
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+/* Only stick if you can fit */
+@media (min-height: 300px) {
+    nav ul {
+        position: sticky;
+        top: 0;
+    }
+}
+nav ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+}
+nav ul li a.current {
+    background: black;
+}

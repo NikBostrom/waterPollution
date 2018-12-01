@@ -5,22 +5,49 @@ var dateParser = d3.timeParse("%Y-%m-%d");
 
 queue()
     .defer(d3.csv,"data/water_conditions.csv")
+    .defer(d3.json, "data/usStatesOutline-5m.json")
     .defer(d3.json, "data/world-110m.json")
     .defer(d3.json,"data/waterdata.json")
-    .defer(d3.json, "data/us-10m.json")
+    .defer(d3.csv,"data/assess_nation.csv") // assess_nation.csv
+    .defer(d3.json,"data/us_states.json")
+    // .defer(d3.csv,"data/chesapeakeBayLoads.csv")
+    .defer(d3.json, "data/us-state-centroids.json")
+    .defer(d3.json, "data/regionsOutline.json")
+    .defer(d3.json, "data/usStatesOutlineWithRegion.json")
     .await(createVis);
 
-region_data = {}
-state_data = {}
+/*
 
-function createVis(error, water_conditions, world, water_quality, world2) {
+region_data = {
+    "Region_1": {
+        "Total_Nitrogen": [],
+        "Total_Phosphorus": [],
+        "Turbidity": [],
+    },
+    "Region_2": ...,
+    "Region_3": ...,
+}
+
+state_data = {
+    "FL": {
+        "Total_Nitrogen": [],
+        "Total_Phosphorus": [],
+        "Turbidity": [],
+    },
+    "GA": ...,
+    "MT": ...,
+}
+*/
+
+region_data = {};
+state_data = {};
+nyHarborData = [];
+
+function createVis(error, water_conditions, usOutline, world, water_quality, waterAssess, states, stateCentroids, mergedStates, statesWithRegion) {
     if(error) throw error;
 
-    // console.log(water_conditions);
-    // console.log(water_quality);
-
+    // clean water-conditions data
     water_data = water_conditions.map(function(d,i) {
-       // console.log(d);
        return {
            "Region": d.EPA_REG,
            "Lat": +d.LAT_DD,
@@ -32,89 +59,87 @@ function createVis(error, water_conditions, world, water_quality, world2) {
            "Dissolved_Org_Carbon": +d.DOC,
        }
     });
-    /*
-
-   region_data = {
-        "Region_1": {
-            "Total_Nitrogen": [],
-            "Total_Phosphorus": [],
-            "Turbidity": [],
-        },
-        "Region_2": ...,
-        "Region_3": ...,
-   }
-
-   state_data = {
-        "FL": {
-            "Total_Nitrogen": [],
-            "Total_Phosphorus": [],
-            "Turbidity": [],
-        },
-        "GA": ...,
-        "MT": ...,
-   }
 
 
-
-    */
-    console.log(water_data);
-    water_data.map(function(d, i) {
-        // populate state_data
-        if (state_data[d.State]) {
-            state_data[d.State].Total_Nitrogen.push(d.Total_Nitrogen);
-            state_data[d.State].Total_Phosphorus.push(d.Total_Phosphorus);
-            state_data[d.State].Turbidity.push(d.Turbidity);
-        } else {
-            //first entry for state_data[d.State]
-            state_data[d.State] = {
-                "Total_Nitrogen": [d.Total_Nitrogen],
-                "Total_Phosphorus": [d.Total_Phosphorus],
-                "Turbidity": [d.Turbidity],
-            }
-        }
-
-
-        // populate region_data
-        if (region_data[d.Region]) {
-            region_data[d.Region].Total_Nitrogen.push(d.Total_Nitrogen);
-            region_data[d.Region].Total_Phosphorus.push(d.Total_Phosphorus);
-            region_data[d.Region].Turbidity.push(d.Turbidity);
-        } else {
-            //first entry for state_data[d.State]
-            region_data[d.Region] = {
-                "Total_Nitrogen": [d.Total_Nitrogen],
-                "Total_Phosphorus": [d.Total_Phosphorus],
-                "Turbidity": [d.Turbidity],
-            }
-        }
-
-
-
-    });
-
-    // region_data[d.Region].avg_Total_Nitrogen = average(region_data[d.Region].Total_Nitrogen)
-    // region_data[d.Region].avg_Total_Phosphorus = average(region_data[d.Region].Total_Phosphorus)
-    // region_data[d.Region].avg_Turbidity = average(region_data[d.Region].Turbidity)
-    //
-    // state_data[d.State].avg_Total_Nitrogen = average(state_data[d.State].Total_Nitrogen)
-    // state_data[d.State].avg_Total_Phosphorus = average(state_data[d.State].Total_Phosphorus)
-    // state_data[d.State].avg_Turbidity = average(state_data[d.State].Turbidity)
+    createDataSet(water_data, state_data, "State");
+    createDataSet(water_data, region_data, "Region");
 
     getAverage(state_data);
     getAverage(region_data);
 
-    // console.log(state_data);
-    // console.log(region_data);
+    // Clean assessment data
+    waterAssess.map(function(d) {
+        d.Cycle = +d.Cycle;
+        d.Region = +d.Region;
+        d['Water Size'] = +d['Water Size'];
+    });
 
-    var mapVis = new MapVis("map-vis", water_data, world2);
+    // NY Harbor Data - Takes a long time to load - process asynchronously
+    d3.csv("data/harbor-water-quality.csv", function(error, _nyHarborDataMessy) {
+        if(error) throw error;
+        // console.log(_nyHarborDataMessy);
+        d3.csv("data/harbor_sampling_ytd_2017.csv", function(error, _nyH2017) {
+            if(error) throw error;
+            nyHarborData = _nyH2017;
+            // console.log(_nyH2017);
+            createHarborVis(_nyHarborDataMessy, nyHarborData);
+        });
+    });
+
+
+    // console.log(chesapeake);
+    // chesapeakeData = chesapeake.map(function(d) {
+    //     return {
+    //         "Region": d.Region,
+    //         "Year": d3.timeParse("%Y")(d.Year),
+    //         "Nitrogen": +d.Nitrogen,
+    //         "Phosphorous": +d.Phosphorous,
+    //         "TSS": +d.TSS
+    //     }
+    // });
+    // console.log(chesapeakeData);
+
+    // var chesapeakeVis = new LineChart("chesapeakeBay", chesapeakeData)
+
+    // Create JSON with states as keys and abbreviations for values
+    function swap(json) {
+        var ret = {};
+        for (var key in json) {
+            ret[json[key]] = key;
+        }
+        return ret;
+    }
+    var abbToState = swap(states);
+
+    var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion);
+    var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
+
+}
+
+function createDataSet(water_data, new_data, key) {
+    water_data.map(function(d, i) {
+
+        if (new_data[d[key]]) {
+            new_data[d[key]].Total_Nitrogen.push(d.Total_Nitrogen);
+            new_data[d[key]].Total_Phosphorus.push(d.Total_Phosphorus);
+            new_data[d[key]].Turbidity.push(d.Turbidity);
+        } else {
+            new_data[d[key]] = {
+                "Total_Nitrogen": [d.Total_Nitrogen],
+                "Total_Phosphorus": [d.Total_Phosphorus],
+                "Turbidity": [d.Turbidity],
+            }
+        }
+        return(new_data);
+    });
 }
 
 function getAverage(data) {
 
     Object.keys(data).forEach(function(d, i) {
-        data[d].avg_Total_Nitrogen = average(data[d].Total_Nitrogen)
-        data[d].avg_Total_Phosphorus = average(data[d].Total_Phosphorus)
-        data[d].avg_Turbidity = average(data[d].Turbidity)
+        data[d].avg_Total_Nitrogen = average(data[d].Total_Nitrogen);
+        data[d].avg_Total_Phosphorus = average(data[d].Total_Phosphorus);
+        data[d].avg_Turbidity = average(data[d].Turbidity);
 
     });
     return data;
@@ -130,28 +155,38 @@ function getSum(total, num) {
 
 
 
-    // (3) Create event handler
-    // var MyEventHandler = {};
+function createHarborVis(_nyHarborDataMessy, nyHarborData) {
+    wrangleHarborData(_nyHarborDataMessy, nyHarborData);
 
-    // (4) Create visualization instances
+    // console.log(locations);
+    // console.log(nyHarborData);
+
+    var harborEventHandler = {};
+
+    var harborMapVis = new HarborMapVis("harbor-map", harborLocations, harborEventHandler);
+    // console.log(nyHarborData);
+    var harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations);
 
 
-    // var countVis = new CountVis("countvis", allData, MyEventHandler);
-//     // *** TO-DO ***
-//     //  pass event handler to CountVis, at constructor of CountVis above
-//
-//     // *** TO-DO ***
-//     var ageVis = new AgeVis("agevis", allData);
-//     var prioVis = new PrioVis("priovis", allData, metaData);
-//
-//
-//     // (5) Bind event handler
-//
-//     // *** TO-DO ***
-//     $(MyEventHandler).bind("selectionChanged", function(event, rangeStart, rangeEnd){
-//         ageVis.onSelectionChange(rangeStart, rangeEnd);
-//         prioVis.onSelectionChange(rangeStart, rangeEnd);
-//         countVis.onSelectionChange(rangeStart, rangeEnd);
-//     });
-//
 
+    var selectionBox = d3.select("#harbor-select-box");
+    // console.log(d3.select("#harbor-select-box").property("value"));
+    // console.log(d3.select("#ranking-type").property("value"));
+
+    selectionBox.on("change", function() {
+        $(harborEventHandler).trigger("harbor-filter-selection-changed")
+    });
+
+    $(harborEventHandler).bind("harbor-filter-selection-changed", function(_event) {
+        // console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
+        harborMapVis.updateVis(selectionBox.property("value"));
+        harborLinechartVis.updateVis(selectionBox.property("value"), null);
+    });
+    $(harborEventHandler).bind("sample-location-clicked-on-map", function(_event, markerProperties) {
+        console.log(markerProperties);
+        console.log(markerProperties.Site);
+        harborLinechartVis.updateVis(selectionBox.property("value"), markerProperties.Site);
+    });
+
+
+}
