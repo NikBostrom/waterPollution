@@ -1,7 +1,9 @@
 
 var margin = { top: 40, right: 40, bottom: 60, left: 100 };
 
-var width = 800 - margin.left - margin.right;
+
+var width = $(`#chesapeake`).width() - margin.left - margin.right;
+
 var height = 400 - margin.top - margin.bottom;
 
 
@@ -335,6 +337,16 @@ function updateChesapeake() {
             .attr("d", dottedLines[i].line);
     }
 
+    // console.log(targetData);
+    for (var i = 0; i < dottedLines.length; i++) {
+        // console.log(targetData[i][0], dottedLines.length);
+        dottedLines[i].newLine.datum(targetData[i])
+            .attr("class", targetData[i][0].Region + "line")
+            // .attr("class", "myline")
+            .attr("d", dottedLines[i].line);
+    }
+
+
     var tool_tip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-8, 0])
@@ -650,6 +662,7 @@ function updateChesapeake() {
 
         // Exit
         DCcircle.exit().remove();
+
 
         DEnewLine.remove();
         DEcircle.remove();
@@ -1210,5 +1223,4 @@ function updateChesapeake() {
         VAnewLine = svg.append("path");
 
     }
-
 }

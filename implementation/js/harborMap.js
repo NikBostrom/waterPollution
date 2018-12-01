@@ -9,6 +9,8 @@ HarborMapVis = function(_parentElement, _harborData, _harborEventHandler){
     // this.locations = _locationData;
     this.harborData = _harborData;
     this.mapPosition = [40.696284, -73.933518];
+
+    // this.mapPosition = [40.58167, -73.935832];
     this.eventHandler = _harborEventHandler;
 
     this.initVis();
@@ -23,13 +25,24 @@ let harborColorRanges = {
     green: ["#455611", "#E1F69E"],
     pink: ["#7E195B", "#E5AED1"],
     purple: ["#471C6E", "#C2A9D9"],
-    blue: ["#12246E", "#70B0D9"]
+
+    blue: ["#12246E", "#70B0D9"],
+    colors: ['#9f7884',
+        '#275a5e',
+        '#bb9c99',
+        '#123d4d',
+        '#0f264c',
+        '#332b56',
+        '#346464',
+        '#5a6f72']
+
 };
 
 HarborMapVis.prototype.initVis = function() {
     var vis = this;
 
-    vis.map = L.map(vis.parentElement).setView(vis.mapPosition, 10);
+
+    vis.map = L.map(vis.parentElement).setView(vis.mapPosition, 11);
 
     // var Stamen_Watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
     //     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -38,12 +51,24 @@ HarborMapVis.prototype.initVis = function() {
     //     maxZoom: 16,
     //     ext: 'jpg'
     // });
-    var openStreetMap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+
+    // var openStreetMap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    //     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    // });
+
+    var CartoDB_VoyagerLabelsUnder = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
     });
 
-    openStreetMap.addTo(vis.map);
     // Stamen_Watercolor.addTo(vis.map);
+    // openStreetMap.addTo(vis.map);
+    CartoDB_VoyagerLabelsUnder.addTo(vis.map);
+
+
+
 
     L.Icon.Default.imagePath = 'imgs/';
 
@@ -55,7 +80,7 @@ HarborMapVis.prototype.initVis = function() {
 
     vis.svg = d3.select("#harbor-map").select("svg");
 
-
+    
     // var t = d3
     vis.updateVis($("#harbor-select-box :selected").val());
 };
@@ -91,7 +116,10 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
             // console.log(d);
             // console.log(selection);
             // TODO - Change to be the select-box selected value
-            return +d[selection];
+
+            if (!isNaN(+d[selection][0]["Value"])) {
+                return +d[selection][0]["Value"];
+            }
         }))
         .range(colorSet);
 
@@ -112,10 +140,14 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
             if (vis.harborData[i]["Site"] === "CIC2") {
                 console.log(selectionVal);
             }
+
+            // console.log("Coord data:", vis.harborData[i][selection][0]["Value"]);
             if (isNaN(selectionVal)) {
                 tColor = "#bfbfbf";
             } else {
                 tColor = colorScale(selectionVal);
+
+                // console.log(tColor);
             }
             // console.log(tColor, vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
 
@@ -124,6 +156,8 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
 
             var loc = L.circle(vis.harborData[i]["coords"], 375, {
                 fillColor: tColor,
+
+                fillOpacity: 0.6,
                 // stroke attributes
                 color: "black",
                 weight: 0.5
@@ -143,6 +177,8 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
 
         vis.locMarkers.addTo(vis.map);
     // });
+
+
 
 };
 
