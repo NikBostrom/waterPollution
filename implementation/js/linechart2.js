@@ -1,7 +1,7 @@
 
 var margin = { top: 40, right: 40, bottom: 60, left: 100 };
 
-var width = 800 - margin.left - margin.right;
+var width = $(`#chesapeake`).width() - margin.left - margin.right;
 var height = 400 - margin.top - margin.bottom;
 
 

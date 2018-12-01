@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
-
+<body>
     <div class="hero-image">
         <div class="hero-text">
 
@@ -55,38 +55,117 @@
         </div>
         <div class="row color-bar">
             <div class="col-lg-6 story-text spacing placeholder">
+        <div class="row">
+            <div class="col-lg-12 story-text spacing placeholder">
                 This map shows the different regions of the United States and their respective proportions of healthy, threatened, impaired, and unassessed waters, including lakes, rivers, and estuaries. We can see clearly in the midwestern regions that there are far too many unassessed waters. This means that we do not have any data for these bodies and are not able to monitor trends and ecosystem health.
 
             </div>
-            <div class="col-lg-6 spacing placeholder"></div>
 
         </div>
         <div class="row color-bar">
             <div class="col-lg-6 story-text spacing placeholder">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="symb-vis"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 story-text spacing placeholder">
             To better understand the need for data in cleaning the waters, we will examine two case studies: The Chesapeake Bay and The New York Harbor.
 
             </div>
-            <div class="col-lg-6 spacing placeholder"></div>
             <!--Case studies-->
 
         </div>
         <div class="row color-bar">
             <div class="col-lg-6 story-text spacing placeholder">
             Prior to local industrial activity, the Chesapeake Bay was a strong, healthy estuary ecosystem. Nitrogen and phosphorus, according to the EPA, are natural parts of aquatic ecosystems.
-            “[Nitrogen and phosphorus] have increased to excessive levels over the last few decades. Prior to substantial human activity in the region, most nitrogen and phosphorus was absorbed or retained by natural forest and wetland vegetation. However, the activities of over 13.6 million people in the watershed have overwhelmed the Chesapeake Bay with excess amounts of nutrients.”
+                <blockquote> <em>“[Nitrogen and phosphorus] have increased to excessive levels over the last few decades. Prior to substantial human activity in the region, most nitrogen and phosphorus was absorbed or retained by natural forest and wetland vegetation. However, the activities of over 13.6 million people in the watershed have overwhelmed the Chesapeake Bay with excess amounts of nutrients.”</em></blockquote>
 
             </div>
             <div class="col-lg-6 spacing placeholder">
-            <p>
-                Excess amounts of nitrogen and phosphorus lead to a greatly increased population of algae in the ecosystem, which will decrease the oxygen available for the aquatic life and lead to large-scale fish kills, if unchecked. In this instance, the collection of water chemistry data allowed the involved organizations to find that there was a problem that arose specifically from the sheer amount of nitrogen and phosphorus in the water, and they were able to use those findings to pursue effective cleaning solutions.
-            </p>
-            <p>
-                In 2009, President Barack Obama, having been made aware of this situation, signed an Executive Order enforcing stringent laws and remediation strategies surrounding the bay and its nutrient pollution. These actions, along with subsequent efforts from the environmental agencies involved, have caused significant health improvements for the estuary.
-            </p>
+                <img src="imgs/dirtyChesapeake.jpg" class="imgs" alt="Dirty Chesapeake" width="600">
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6 story-text spacing placeholder">
+                <p>
+                    Excess amounts of nitrogen and phosphorus lead to a greatly increased population of algae in the ecosystem, which will decrease the oxygen available for the aquatic life and lead to large-scale fish kills, if unchecked. In this instance, the collection of water chemistry data allowed the involved organizations to find that there was a problem that arose specifically from the sheer amount of nitrogen and phosphorus in the water, and they were able to use those findings to pursue effective cleaning solutions.
+                </p>
+            </div>
+            <div class="col-lg-6 spacing placeholder">
+                <p>
+                    In 2009, President Barack Obama, having been made aware of this situation, signed an Executive Order enforcing stringent laws and remediation strategies surrounding the bay and its nutrient pollution. These actions, along with subsequent efforts from the environmental agencies involved, have caused significant health improvements for the estuary.
+                </p>
             </div>
 
         </div>
         <div class="row color-bar">
+        <div class="row">
+            <div class="col-lg-12 story-text spacing placeholder" id="chesapeake">
+                <form style="margin-bottom: 2%" class="form-inline">
+                    <div class="form-group" style="margin-left: 10%;">
+                        <label for="ranking-type">Show: &nbsp;</label>
+                        <select class="form-control" id="ranking-type" onchange="updateChesapeake();">
+                            <option value="Nitrogen">Nitrogen</option>
+                            <option value="Phosphorous">Phosphorous</option>
+                            <option value="TSS">TSS</option>
+                        </select>
+                    </div>
+                </form>
+                <form class="form-inline">
+                    <div class="form-group" style="margin-left: 10%;">
+                        <label for="ranking-type">Region: &nbsp;</label>
+                        <select class="form-control" id="region-type" onchange="updateChesapeake();">
+                            <option value="All">All</option>
+                            <option value="DC">Washington, D.C.</option>
+                            <option value="DE">Delaware</option>
+                            <option value="MD">Maryland</option>
+                            <option value="NY">New York</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WV">West Virginia</option>
+                        </select>
+                    </div>
+                </form>
+                <div class="col-md-9 spacing" id="chesapeakeChart"></div>
+                <div class="col-md-3 spacing" id="chesapeakeTable">
+                    <table>
+                <tr>
+                    <th>Region Colors</th>
+                </tr>
+                <tr>
+                    <td style="color:orange">Pennsylvania</td>
+                </tr>
+                <tr>
+                    <td style="color:hotpink">Virginia</td>
+                </tr>
+                <tr>
+                    <td style="color:blue">Maryland</td>
+                </tr>
+                <tr>
+                    <td style="color:purple">New York</td>
+                </tr>
+                <tr>
+                    <td style="color:#5D77FF">West Virginia</td>
+                </tr>
+                <tr>
+                    <td style="color:red">Delaware</td>
+                </tr>
+                <tr>
+                    <td style="color:#1C9A3D">Washington, D.C.</td>
+                </tr>
+                <tr>
+                    <td style="color:#ffe800">Target Goal by 2025</td>
+                </tr>
+            </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-lg-6 story-text spacing placeholder">
             Leading up to the passage of the Clean Water Act in 1972, the New York Harbor was made unswimmable by fecal pathogens and many other human-based pollutants. After collecting and sampling the water, the harbor was able to produce data showing that sewage contamination was the source of the pollution problem. We see in these visualizations the different concentrations of various contaminants being measured from the harbor, and how those concentrations change throughout the year on average.
             </div>
@@ -103,6 +182,18 @@
             </div>
             <!--Talk about fertilizer and plane spray problems in the midwest-->
 
+        </div>
+        <div class="row">
+
+            <div class="col-lg-12 spacing">
+                <select class="form-control" id="measurable">
+                    <option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>
+                    <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
+                    <option value="Turbidity">Turbidity (NTU)</option>
+                </select>
+                <p style="text-align: left; padding-top: 3%">Total Concentration of Pollutant</p>
+                <div id="map-vis"></div>
+            </div>
         </div>
         <div class="row color-bar">
             <div class="col-lg-6 story-text spacing placeholder">
@@ -263,6 +354,17 @@
                         <option value="DO (mg/L) - Bot">Dissolved Oxygen (mg/L) at Bottom of Water Body</option>
                         <option value="Fecal Coliform (#/100 mL) - Top" selected>Fecal Coliform (#/100 mL) at Water Surface</option>
                         <option value="Fecal Coliform (#/100 mL) - Bot">Fecal Coliform (#/100 mL) at Bottom of Water Body</option>
+
+    <div class="row">
+        <form class="form-inline" id="harbor-vis-form">
+            <div class="form-group">
+                <label for="harbor-select-box">Filter by</label>
+                <select class="form-control" id="harbor-select-box">
+                    <!--TODO: Separate single select box with all options into two: one for the actual "measure," the other for water surface or -->
+                    <option value="DO (mg/L) - Top">Dissolved Oxygen (mg/L) at Water Surface</option>
+                    <option value="DO (mg/L) - Bot">Dissolved Oxygen (mg/L) at Bottom of Water Body</option>
+                    <option value="Fecal Coliform (#/100 mL) - Top" selected>Fecal Coliform (#/100 mL) at Water Surface</option>
+                    <option value="Fecal Coliform (#/100 mL) - Bot">Fecal Coliform (#/100 mL) at Bottom of Water Body</option>
                 </select>
 
                 <!--Updating time period-->
