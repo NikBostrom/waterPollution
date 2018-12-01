@@ -74,7 +74,7 @@ HarborMapVis.prototype.initVis = function() {
 
     vis.svg = d3.select("#harbor-map").select("svg");
 
-
+    
     // var t = d3
     vis.updateVis($("#harbor-select-box :selected").val());
 };
@@ -167,6 +167,8 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
 
         vis.locMarkers.addTo(vis.map);
     // });
+
+
 
 };
 

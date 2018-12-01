@@ -209,9 +209,11 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 function colorPageRows() {
     let baseColorHue = 182;
     let baseColorSaturation = 76;
-    let baseColorLightness = 25;
 
-    let endColorLightness = 75;
+    // Change these values to determine the color range for the rows
+    let baseColorLightness = 15;
+    let endColorLightness = 45;
+
     let numRows = $(".color-bar").length;
     let lightnessIncrease = (endColorLightness - baseColorLightness) / numRows;
 

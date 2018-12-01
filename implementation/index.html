@@ -98,24 +98,27 @@
         <!--Case studies-->
 
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h2>Changes in the Chesapeake Bay</h2>
-        </div>
-    </div>
 
     <div class="row color-bar">
-        <div class="col-lg-6 story-text spacing placeholder">
-            Prior to local industrial activity, the Chesapeake Bay was a strong, healthy estuary ecosystem. Nitrogen and phosphorus, according to the EPA, are natural parts of aquatic ecosystems.
-            <blockquote> <em>“[Nitrogen and phosphorus] have increased to excessive levels over the last few decades. Prior to substantial human activity in the region, most nitrogen and phosphorus was absorbed or retained by natural forest and wetland vegetation. However, the activities of over 13.6 million people in the watershed have overwhelmed the Chesapeake Bay with excess amounts of nutrients.”</em></blockquote>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Changes in the Chesapeake Bay</h2>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-6 story-text spacing placeholder">
+                Prior to local industrial activity, the Chesapeake Bay was a strong, healthy estuary ecosystem. Nitrogen and phosphorus, according to the EPA, are natural parts of aquatic ecosystems.
+                <blockquote> <em>“[Nitrogen and phosphorus] have increased to excessive levels over the last few decades. Prior to substantial human activity in the region, most nitrogen and phosphorus was absorbed or retained by natural forest and wetland vegetation. However, the activities of over 13.6 million people in the watershed have overwhelmed the Chesapeake Bay with excess amounts of nutrients.”</em></blockquote>
+
+            </div>
+            <div class="col-lg-6 spacing placeholder">
+                <img src="imgs/dirtyChesapeake.jpg" class="imgs" alt="Dirty Chesapeake" width="600">
+            </div>
 
         </div>
-        <div class="col-lg-6 spacing placeholder">
-            <img src="imgs/dirtyChesapeake.jpg" class="imgs" alt="Dirty Chesapeake" width="600">
-        </div>
-
     </div>
-    <div class="row">
+    <div class="row color-bar">
         <div class="col-lg-6 story-text spacing placeholder">
             <p>
                 Excess amounts of nitrogen and phosphorus lead to a greatly increased population of algae in the ecosystem, which will decrease the oxygen available for the aquatic life and lead to large-scale fish kills, if unchecked. In this instance, the collection of water chemistry data allowed the involved organizations to find that there was a problem that arose specifically from the sheer amount of nitrogen and phosphorus in the water, and they were able to use those findings to pursue effective cleaning solutions.
@@ -192,7 +195,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row color-bar">
         <div class="col-lg-12 story-text spacing placeholder">
             <h2>Clean Water in Action</h2>
             Leading up to the passage of the Clean Water Act in 1972, the New York Harbor was made unswimmable by fecal pathogens and many other human-based pollutants. After collecting and sampling the water, the harbor was able to produce data showing that sewage contamination was the source of the pollution problem. We see in these visualizations the different concentrations of various contaminants being measured from the harbor, and how those concentrations change throughout the year on average.
@@ -232,24 +235,22 @@
             <div class="col-lg-6" id="harbor-linechart"></div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h2>Red Alert in the Midwest</h2>
+    <div class="color-bar">
+        <!--<div>-->
+            <div>
+                <h2 class="case-study-title"><span style="color: #910000"><strong>Red Alert</strong></span> in the Midwest</h2>
+            </div>
+        <!--</div>-->
+        <div class="row">
+            <div class="col-lg-6 story-text spacing placeholder">
+                We see from these cases that simply collecting data has huge advantages, both in terms of human and of aquatic life, and in terms of maintaining healthy ecosystems. When the data is accurate and available, researchers and scientists are able to monitor, identify, and analyze problems that arise from our systems and ecosystems, as was the case with Chesapeake Bay and New York Harbor. In this visualization, we see how the collection of data from lakes across the country clearly alerts us that there is a problem with water quality in the midwestern states.
+            </div>
+            <div class="col-lg-6 spacing placeholder">
+                An even bigger problem here lies outside of the data. This chart was created by water chemistry data
+                supplied by the EPA from the year 2007, but <strong>the EPA has not supplied water chemistry data for 9 years following this data set</strong> (2012 water chemistry data was supplied, but it does not include the locations of any of the tests). By not consistently monitoring and analyzing data before and after, the EPA has effectively opened the door for water pollution to grow larger in scale throughout the midwestern states, who already suffer from nutrient and other pollution.
+            </div>
+            <!--Talk about fertilizer and plane spray problems in the midwest-->
         </div>
-    </div>
-    <div class="row color-bar">
-
-        <div class="col-lg-6 story-text spacing placeholder">
-            We see from these cases that simply collecting data has huge advantages, both in terms of human and of aquatic life, and in terms of maintaining healthy ecosystems. When the data is accurate and available, researchers and scientists are able to monitor, identify, and analyze problems that arise from our systems and ecosystems, as was the case with Chesapeake Bay and New York Harbor. In this visualization, we see how the collection of data from lakes across the country clearly alerts us that there is a problem with water quality in the midwestern states.
-
-        </div>
-        <div class="col-lg-6 spacing placeholder">
-            An even bigger problem here lies outside of the data. This chart was created by water chemistry data
-            supplied by the EPA from the year 2007, but <strong>the EPA has not supplied water chemistry data for 9 years following this data set</strong> (2012 water chemistry data was supplied, but it does not include the locations of any of the tests). By not consistently monitoring and analyzing data before and after, the EPA has effectively opened the door for water pollution to grow larger in scale throughout the midwestern states, who already suffer from nutrient and other pollution.
-
-        </div>
-        <!--Talk about fertilizer and plane spray problems in the midwest-->
-
     </div>
     <div class="row">
         <div class="col-lg-12 spacing">
@@ -275,54 +276,36 @@
             <div id="map-vis"></div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 spacing">
-            <h2>A Case For More, Better Data</h2>
+    <div class="color-bar">
+        <div class="row">
+            <div class="col-lg-12 spacing">
+                <h2 class="case-study-title">A Case For More, Better Data</h2>
+            </div>
         </div>
-    </div>
-    <!--<div class="row">-->
-        <!-- ---------- -->
-        <!--<div class="row">-->
-            <!--<form class="form-inline" id="measurable-form">-->
-                <!--<div class="form-group">-->
-                    <!--<select class="form-control spacing" id="measurable">-->
-                        <!--<option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>-->
-                        <!--<option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>-->
-                        <!--<option value="Turbidity">Turbidity (NTU)</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
-        <!--<p style="text-align: left; padding-top: 3%">Total Concentration of Pollutant</p>-->
-        <!--<div id="map-vis"></div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <div class="row color-bar">
+        <div class="row">
+            <div class="col-lg-6 story-text spacing placeholder">
+                <p>
 
-        <!-- ---------- -->
+                    In <a href="http://netnebraska.org/article/news/water-woes-widespread-across-nebraska" target="_blank">this article from 2013</a>, 6 years after the publishing of the
+                    previously-mentioned dataset, we learn that park managers in Nebraska began using “expensive
+                    chemicals” around 2007 to combat invasive species, in the form of aerial spraying. The spraying
+                    began in 2007, and continued at least until the writing of this article. It was estimated at that
+                    time that more than $1 million per year would be allocated for this spraying to take place and
+                    combat the invasive plant species. The species are said to “choke” the water of its nutrients.
+                </p>
 
-        <div class="col-lg-6 story-text spacing placeholder">
-            <p>
+                <p>
+                    Had the EPA been consistently tracking data on the national bodies of water, we might have seen that
+                    the nitrogen levels of these bodies of water have increased exponentially after these sprayings, and
+                    that is without mentioning the impact of humans and industries being situated nearby and having
+                    nitrogen-based runoff and fertilizer, which likely contributed to the accumulation of water
+                    pollution in the beginning.
 
-                In <a href="http://netnebraska.org/article/news/water-woes-widespread-across-nebraska" target="_blank">this article from 2013</a>, 6 years after the publishing of the
-                previously-mentioned dataset, we learn that park managers in Nebraska began using “expensive
-                chemicals” around 2007 to combat invasive species, in the form of aerial spraying. The spraying
-                began in 2007, and continued at least until the writing of this article. It was estimated at that
-                time that more than $1 million per year would be allocated for this spraying to take place and
-                combat the invasive plant species. The species are said to “choke” the water of its nutrients.
-            </p>
-
-            <p>
-                Had the EPA been consistently tracking data on the national bodies of water, we might have seen that
-                the nitrogen levels of these bodies of water have increased exponentially after these sprayings, and
-                that is without mentioning the impact of humans and industries being situated nearby and having
-                nitrogen-based runoff and fertilizer, which likely contributed to the accumulation of water
-                pollution in the beginning.
-
-            </p>
+                </p>
+            </div>
+            <div class="col-lg-6 spacing placeholder"></div>
+            <!--Show choropleth and present problem that we could have prevented-->
         </div>
-        <div class="col-lg-6 spacing placeholder"></div>
-        <!--Show choropleth and present problem that we could have prevented-->
     </div>
     <div class="row color-bar">
         <!--<div class="col-lg-6 story-text spacing placeholder">-->

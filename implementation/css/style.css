@@ -68,8 +68,8 @@ a:hover {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-
-    margin-bottom: 4%;
+    /*To match the left and right borders used in bootstrap columns*/
+    margin-bottom: 15px;
 }
 
 /* Place text in the middle of the image */
@@ -186,8 +186,8 @@ body {
 
 .placeholder {
     padding: 20px;
-    border: black;
-    border-style: solid;
+    /*border: black;*/
+    /*border-style: solid;*/
 }
 
 .story-text {
@@ -219,7 +219,7 @@ p {
 }
 
 h2 {
-    margin-top: 2%;
+    padding-top: 2%;
     margin-bottom: 0;
 }
 
@@ -335,4 +335,8 @@ Specify size of the map container for leaflet
 }
 .case-study-title {
     text-align: center;
+}
+.color-bar:last-of-type {
+    /*To match the left and right borders used in bootstrap columns*/
+    margin-bottom: 15px;
 }
