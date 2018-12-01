@@ -20,24 +20,14 @@ body, html {
 }
 
 body {
-    /*background-color: #E6E7E8;*/
-    /*color: #0745af;*/
+    background-color: #E6E7E8;
+    color: #0745af;
 
-    background-color: #0f6d70;
-    /*background-color: #275a5e;*/
-    color: #d9d9d9
-;
 }
-a {
-    color: #99caff;
-}
-a:hover {
-    color: #66b0ff;
-}
+
 .row {
     margin-left: 4%;
     margin-right: 4%;
-    padding-bottom: 4%;
 }
 
 .imgs {
@@ -82,8 +72,6 @@ a:hover {
 
 .d3-tip {
     background: white;
-    color: black;
-    font-size: 10px;
     padding: 5px;
     border-radius: 5px;
 }
@@ -92,19 +80,10 @@ a:hover {
     text-align: center;
 }
 
-/*#measurable {*/
-    /*!*width: 22%;*!*/
-    /*!*text-align: center;*!*/
-/*}*/
-#measurable-form {
-    margin-left:auto;
-    margin-right:auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+#measurable {
+    width: 90%;
     text-align: center;
-    display: inline-block;
 }
-
 
 .form-control {
     display: inline;
@@ -170,8 +149,8 @@ body {
 
 .placeholder {
     padding: 20px;
-    border: black;
-    border-style: solid;
+    /*border: black;*/
+    /*border-style: solid;*/
 }
 
 .story-text {
@@ -180,9 +159,9 @@ body {
 
 /*Site colors*/
 
-/*.title {*/
-    /*color: #0745af;*/
-/*}*/
+.title {
+    color: #0745af;
+}
 
 .light {
     opacity: 0.2;
@@ -193,9 +172,8 @@ body {
 }
 
 p {
-    /*color: #0745af;*/
+    color: #0745af;
     /*margin-top: %;*/
-    color: white;
 }
 
 .text {
@@ -203,7 +181,7 @@ p {
 }
 
 h2 {
-    margin-top: 2%;
+    /*margin-top: 2%;*/
 }
 
 .dark-block {
@@ -279,11 +257,6 @@ Specify size of the map container for leaflet
     max-height: 500px;
     /*height: 600px;*/
 }
-/*#harbor-row {*/
-    /*!*background-color: #f2f2f2;*!*/
-    /*background-color: #3C8F93;*/
-
-/*}*/
 #harbor-linechart svg {
     width: 90%;
     height: 600px;
@@ -302,12 +275,4 @@ Specify size of the map container for leaflet
 }
 #harbor-select-box {
     margin-left: 15px;
-}
-#harbor-select-box-row {
-    /*cancel out attributes of .row*/
-    margin-left: 0%;
-    margin-right: 0%;
-    padding-bottom: 0%;
-    margin-bottom: 4%;
-    padding-top: 4%;
 }
