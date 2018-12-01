@@ -201,6 +201,8 @@ function updateVisualization() {
         .attr("class", "MDline")
         .attr("d", MDline);
 
+    
+
     // create line function for line chart
     NYline = d3.line()
         .x(function(d) { return x(d.Year); })
