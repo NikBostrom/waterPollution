@@ -68,6 +68,9 @@ HarborLinechartVis.prototype.initVis = function() {
     // Add upper boundary line
     vis.linePath = vis.svg.append("path");
 
+    d3.selectAll("text").style("fill", "white");
+    d3.selectAll(".axis").attr("stroke", "white");
+    d3.selectAll("#harbor-linechart-svg-group .domain").attr("stroke", "white");
     vis.updateVis($("#harbor-select-box :selected").val(), "CIC2");
 }
 
@@ -165,7 +168,8 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
         .on("end", function() {
             d3.select(this)
                 .style("opacity", 1.0)
-                .style("stroke", mainColor);
+                .style("stroke", "#fff");
+                // .style("stroke", mainColor);
         });
 }
 
