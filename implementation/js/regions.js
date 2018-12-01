@@ -58,9 +58,9 @@ RegionsVis.prototype.initVis = function() {
     vis.g = vis.svg.append("g");
 
     // Set up map
-    vis.projection = d3.geoAlbersUsa()
-        .scale(1100)
-        .translate([vis.width/2, vis.height/2]);
+    vis.projection = d3.geoAlbers()
+        .precision(0)
+        .scale(vis.height * 2).translate([vis.width / 2, vis.height / 2]);
 
     vis.path = d3.geoPath()
         .projection(vis.projection);
@@ -210,7 +210,7 @@ RegionsVis.prototype.updateVis = function() {
     var vis = this;
 
     // Draw regional geographic features
-    vis.regionPaths = vis.g.selectAll("path")
+    vis.regionPaths = vis.g.selectAll(".region")
         .data(vis.regionFeatures)
         .enter()
         .append("path")
