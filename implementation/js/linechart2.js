@@ -1,7 +1,9 @@
 
 var margin = { top: 40, right: 40, bottom: 60, left: 100 };
 
-var width = 800 - margin.left - margin.right;
+
+var width = $(`#chesapeake`).width() - margin.left - margin.right;
+
 var height = 400 - margin.top - margin.bottom;
 
 
@@ -107,6 +109,7 @@ loadData();
 
 // Chesapeake Bay Data
 var originalData = [];
+
 var chesapeakeData = [];
 var targetData = [];
 
@@ -114,7 +117,9 @@ function loadData() {
     d3.csv("data/chesapeakeBayLoads.csv", function(chesapeake) {
         // COMMD OUT - Nik
         // console.log(chesapeake);
+
         originalData = chesapeake;
+
         chesapeake.sort(function(a, b) { return a.Region - b.Region; });
         var regionBefore;
         var regionAfter;
@@ -127,6 +132,7 @@ function loadData() {
                 regionAfter = d;
             }
             if (+d.Year === 2025) {
+
                 // console.log(+d.year, "here");
                 targetData.push(
                     [
@@ -145,6 +151,7 @@ function loadData() {
                             "TSS": +regionAfter.TSS
                         }
                     ]
+
                 )
             }
             else if (+d.Year >= 2009) {
@@ -158,6 +165,7 @@ function loadData() {
                     }
                 )
             }
+
         });
         // COMMD OUT - Nik
         // console.log(chesapeakeData);
@@ -189,6 +197,7 @@ function initializePredictions() {
         .style("stroke", "gold")
         .style("fill", "none");
     // console.log(dottedLines.length);
+
 }
 
 // Render visualization
@@ -223,6 +232,7 @@ function updateChesapeake() {
     var WVdata = chesapeakeData.filter(function(d) {
         return d.Region === "WV";
     });
+
     max_y = d3.max(originalData, function(d) {
         if (+d.Year >= 2009) {
             if (selectedRegion === "All") {
@@ -265,6 +275,7 @@ function updateChesapeake() {
         .attr("y2", y(max_y));
 
 
+
     //Update X axis
     svg.select(".x-axis")
         .call(xAxis);
@@ -304,6 +315,7 @@ function updateChesapeake() {
         console.log(targetCircles);
     // }
 
+
     // draw lines for chart
     DCnewLine.datum(DCdata)
         .attr("class", "DCline")
@@ -326,6 +338,7 @@ function updateChesapeake() {
     WVnewLine.datum(WVdata)
         .attr("class", "WVline")
         .attr("d", WVline);
+
     // console.log(targetData);
     for (var i = 0; i < dottedLines.length; i++) {
         // console.log(targetData[i][0], dottedLines.length);
@@ -334,6 +347,7 @@ function updateChesapeake() {
             // .attr("class", "myline")
             .attr("d", dottedLines[i].line);
     }
+
 
     var tool_tip = d3.tip()
         .attr("class", "d3-tip")
@@ -372,6 +386,7 @@ function updateChesapeake() {
             .y(function(d) { return y(d[selectedOption]); });
 
         // dottedLines.forEach(function(line) {
+
         for (var i = 0; i < dottedLines.length; i++) {
             // console.log(dottedLines);
             // console.log(targetData);
@@ -429,6 +444,7 @@ function updateChesapeake() {
             // Exit
             targetCircles[i].exit().remove();
         }
+
 
         // create circles for chart
         // Enter (initialize the newly added elements)
@@ -589,6 +605,7 @@ function updateChesapeake() {
 
 
 
+
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 0) {
                 dottedLines[i].newLine.remove();
@@ -625,7 +642,6 @@ function updateChesapeake() {
             }
         }
 
-
         DCnewLine.datum(DCdata)
             .attr("class", "DCline")
             .attr("d", DCline);
@@ -650,6 +666,7 @@ function updateChesapeake() {
 
         // Exit
         DCcircle.exit().remove();
+
 
         DEnewLine.remove();
         DEcircle.remove();
@@ -677,6 +694,7 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "DE") {
+
 
 
         for (var i = 0; i < dottedLines.length; i++) {
@@ -768,6 +786,7 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "MD") {
 
+
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 2) {
                 dottedLines[i].newLine.remove();
@@ -803,7 +822,6 @@ function updateChesapeake() {
                 targetCircles[i].exit().remove();
             }
         }
-
         MDnewLine.datum(MDdata)
             .attr("class", "MDline")
             .attr("d", MDline);
@@ -855,6 +873,7 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "NY") {
+
 
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 3) {
@@ -945,6 +964,7 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "PA") {
 
+
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 4) {
                 dottedLines[i].newLine.remove();
@@ -1034,6 +1054,7 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "VA") {
 
+
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 5) {
                 dottedLines[i].newLine.remove();
@@ -1069,6 +1090,7 @@ function updateChesapeake() {
                 targetCircles[i].exit().remove();
             }
         }
+
 
         VAnewLine.datum(VAdata)
             .attr("class", "VAline")
@@ -1122,6 +1144,7 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "WV") {
+
 
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 6) {
@@ -1210,5 +1233,4 @@ function updateChesapeake() {
         VAnewLine = svg.append("path");
 
     }
-
 }

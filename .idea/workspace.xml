@@ -58,39 +58,23 @@
       <change beforePath="$PROJECT_DIR$/implementation/js/linechart2.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/linechart2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/implementation/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/implementation/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/js/map.js" afterDir="false" />
+
     </list>
-    <ignored path="$PROJECT_DIR$/.tmp/" />
-    <ignored path="$PROJECT_DIR$/temp/" />
-    <ignored path="$PROJECT_DIR$/tmp/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="688230061">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
+    <session id="-181208115">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="csv" value="1" />
-          <entry key="html" value="2" />
           <entry key="js" value="3" />
-          <entry key="json" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="2" />
-          <entry key="JSON" value="7" />
           <entry key="JavaScript" value="3" />
-          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -99,6 +83,7 @@
           <entry key="js" value="347" />
           <entry key="json" value="11" />
           <entry key="txt" value="36" />
+
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -139,6 +124,7 @@
         <counts>
           <entry key="CSV" value="1" />
           <entry key="JavaScript" value="1" />
+
         </counts>
       </usages-collector>
     </session>
@@ -174,6 +160,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
               <caret line="72" column="6" selection-start-line="72" selection-start-column="6" selection-end-line="72" selection-end-column="6" />
+
             </state>
           </provider>
         </entry>
@@ -183,6 +170,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-22938">
               <caret line="202" selection-start-line="202" selection-end-line="202" />
+
             </state>
           </provider>
         </entry>
@@ -192,6 +180,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="6808">
               <caret line="331" column="1" selection-start-line="331" selection-start-column="1" selection-end-line="331" selection-end-column="1" />
+
             </state>
           </provider>
         </entry>
@@ -201,7 +190,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="tsconfig.json" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -210,9 +201,20 @@
       <find>_worldData</find>
       <find>regio</find>
       <find>log</find>
+
     </findStrings>
     <replaceStrings>
       <replace>this.worldData</replace>
+      <replace>GlyphVis</replace>
+      <replace>vis.usData</replace>
+      <replace>stateOutlines</replace>
+      <replace>wrangledData</replace>
+      <replace>stateAbbs</replace>
+      <replace>abbToState</replace>
+      <replace>stateToAbb</replace>
+      <replace>g.</replace>
+      <replace>RegionsVis</replace>
+      <replace>byState</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -226,12 +228,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/js/getData.js" />
+        <option value="$PROJECT_DIR$/implementation/js/harborLinechart.js" />
         <option value="$PROJECT_DIR$/implementation/index.html" />
+        <option value="$PROJECT_DIR$/implementation/js/harborMap.js" />
         <option value="$PROJECT_DIR$/implementation/js/main.js" />
         <option value="$PROJECT_DIR$/implementation/js/map.js" />
         <option value="$PROJECT_DIR$/implementation/data/us-10m.json" />
         <option value="$PROJECT_DIR$/implementation/js/linechart2.js" />
+
       </list>
     </option>
   </component>
@@ -245,6 +249,7 @@
     <option name="x" value="676" />
     <option name="width" value="697" />
     <option name="height" value="735" />
+
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -295,12 +300,6 @@
       </pane>
     </panes>
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Lab 7" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -312,6 +311,16 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="map.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/implementation/js/map.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.map.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -325,6 +334,18 @@
       <updated>1542512182683</updated>
       <workItem from="1542512187150" duration="2903000" />
       <workItem from="1542569271052" duration="5047000" />
+      <workItem from="1542588119679" duration="7909000" />
+      <workItem from="1542599843743" duration="3932000" />
+      <workItem from="1543119462369" duration="2499000" />
+      <workItem from="1543189887830" duration="5277000" />
+      <workItem from="1543379063383" duration="1980000" />
+      <workItem from="1543414556710" duration="14825000" />
+      <workItem from="1543440963458" duration="1650000" />
+      <workItem from="1543460658366" duration="2555000" />
+      <workItem from="1543528161584" duration="1625000" />
+      <workItem from="1543532502294" duration="11062000" />
+      <workItem from="1543549657911" duration="7657000" />
+      <workItem from="1543581862860" duration="8500000" />
     </task>
     <servers />
   </component>
@@ -333,8 +354,28 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="676" y="0" width="697" height="735" extended-state="0" />
+
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24734446" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.2905983" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32858709" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3253012" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32968238" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24465811" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -374,6 +415,7 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -408,46 +450,70 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <MESSAGE value="update my branch with working navbar" />
     <option name="LAST_COMMIT_MESSAGE" value="update my branch with working navbar" />
+
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/data/json.json" />
-    <entry file="file://$PROJECT_DIR$/implementation/data/json2.json" />
-    <entry file="file://$PROJECT_DIR$/implementation/data/nla2007_chemical_conditionestimates_20091123.csv" />
-    <entry file="file://$PROJECT_DIR$/../../HW 4/implementation/js/main.js">
+    <entry file="file://$PROJECT_DIR$/implementation/js/harborMap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/data/water_conditions.csv">
+    <entry file="file://$PROJECT_DIR$/implementation/testRegions.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
+        <state relative-caret-position="85">
+          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/getData.js">
+
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="18" column="10" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+        <state relative-caret-position="527">
+          <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/data/world-110m.json">
+    <entry file="file://$PROJECT_DIR$/implementation/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret column="158" selection-start-column="158" selection-end-column="158" />
+        <state relative-caret-position="332">
+          <caret line="282" lean-forward="true" selection-start-line="282" selection-end-line="282" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#8;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#11964#11970#0" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#1;n#div#8;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#12468#12474#0" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#1;n#table#0;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#2;n#table#0;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#3;n#table#0;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#4;n#table#0;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#5;n#table#0;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#6;n#table#0;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#7;n#table#0;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#8;n#table#0;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/data/usStatesOutline-5m.json">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/implementation/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="74" column="7" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/js/map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="60" column="74" selection-start-line="60" selection-start-column="74" selection-end-line="60" selection-end-column="74" />
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -456,6 +522,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="118" column="7" lean-forward="true" selection-start-line="118" selection-start-column="7" selection-end-line="118" selection-end-column="7" />
+
         </state>
       </provider>
     </entry>
@@ -485,6 +552,7 @@
             <element signature="n#style#0;n#td#0;n#tr#7;n#table#0;n#div#1;n#div#4;n#section#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#0;n#tr#8;n#table#0;n#div#1;n#div#4;n#section#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+
         </state>
       </provider>
     </entry>
