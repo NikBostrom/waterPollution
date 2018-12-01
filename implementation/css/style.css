@@ -92,10 +92,19 @@ a:hover {
     text-align: center;
 }
 
-#measurable {
-    width: 90%;
+/*#measurable {*/
+    /*!*width: 22%;*!*/
+    /*!*text-align: center;*!*/
+/*}*/
+#measurable-form {
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-align: center;
+    display: inline-block;
 }
+
 
 .form-control {
     display: inline;
@@ -270,12 +279,11 @@ Specify size of the map container for leaflet
     max-height: 500px;
     /*height: 600px;*/
 }
-#harbor-row {
-    /*background-color: #f2f2f2;*/
-    background-color: #3C8F93;
-    padding-bottom: 4%;
-    margin-bottom: 4%;
-}
+/*#harbor-row {*/
+    /*!*background-color: #f2f2f2;*!*/
+    /*background-color: #3C8F93;*/
+
+/*}*/
 #harbor-linechart svg {
     width: 90%;
     height: 600px;
@@ -294,4 +302,12 @@ Specify size of the map container for leaflet
 }
 #harbor-select-box {
     margin-left: 15px;
+}
+#harbor-select-box-row {
+    /*cancel out attributes of .row*/
+    margin-left: 0%;
+    margin-right: 0%;
+    padding-bottom: 0%;
+    margin-bottom: 4%;
+    padding-top: 4%;
 }
