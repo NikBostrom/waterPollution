@@ -200,7 +200,7 @@ MapVis.prototype.updateChoropleth = function() {
     key.append("g")
         .attr("class", "y axis")
         .attr("transform", "translate(21,10)")
-        .call(yAxis)
+        .call(yAxis);
 
     d3.selectAll("text").style("fill", "white");
     d3.selectAll("line").attr("stroke", "white");
