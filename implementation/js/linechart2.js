@@ -106,6 +106,7 @@ var parseDate = d3.timeParse("%Y");
 loadData();
 
 // Chesapeake Bay Data
+var originalData = [];
 var chesapeakeData = [];
 var targetData = [];
 
@@ -113,6 +114,7 @@ function loadData() {
     d3.csv("data/chesapeakeBayLoads.csv", function(chesapeake) {
         // COMMD OUT - Nik
         // console.log(chesapeake);
+        originalData = chesapeake;
         chesapeake.sort(function(a, b) { return a.Region - b.Region; });
         var regionBefore;
         var regionAfter;
@@ -125,19 +127,24 @@ function loadData() {
                 regionAfter = d;
             }
             if (+d.Year === 2025) {
-                console.log(+d.year, "here");
+                // console.log(+d.year, "here");
                 targetData.push(
-                    {
-                        "Region": regionBefore.Region,
-                        "YearBefore": parseDate(regionBefore.Year),
-                        "YearAfter": parseDate(regionAfter.Year),
-                        "NitrogenBefore": +regionBefore.Nitrogen,
-                        "NitrogenAfter": +regionAfter.Nitrogen,
-                        "PhosphorousBefore": +regionBefore.Phosphorous,
-                        "PhosphorousAfter": +regionAfter.Phosphorous,
-                        "TSSBefore": +regionBefore.TSS,
-                        "TSS": +regionAfter.TSS
-                    }
+                    [
+                        {
+                            "Region": regionBefore.Region,
+                            "Year": parseDate(regionBefore.Year),
+                            "Nitrogen": +regionBefore.Nitrogen,
+                            "Phosphorous": +regionBefore.Phosphorous,
+                            "TSS": +regionBefore.TSS
+                        },
+                        {
+                            "Region": regionBefore.Region,
+                            "Year": parseDate(regionAfter.Year),
+                            "Nitrogen": +regionAfter.Nitrogen,
+                            "Phosphorous": +regionAfter.Phosphorous,
+                            "TSS": +regionAfter.TSS
+                        }
+                    ]
                 )
             }
             else if (+d.Year >= 2009) {
@@ -151,42 +158,37 @@ function loadData() {
                     }
                 )
             }
-            initializePredictions();
-        //     chesapeakeData = chesapeake.map(function(d) {
-        //         return {
-        //             "Region": d.Region,
-        //             "Year": parseDate(d.Year),
-        //             "Nitrogen": +d.Nitrogen,
-        //             "Phosphorous": +d.Phosphorous,
-        //             "TSS": +d.TSS
-        //         }
-        //     });
         });
         // COMMD OUT - Nik
         // console.log(chesapeakeData);
+        initializePredictions();
     });
 
-    setTimeout(updateChesapeake, 200);
+    setTimeout(updateChesapeake, 500);
 }
 
 var dottedLines = [];
+
 function initializePredictions() {
     targetData.forEach(function(target) {
-        console.log(target[selectedOption+"Before"]);
-        var prediction = svg.append("line")
-        //     .attr("x1", x(target.YearBefore))  //<<== change your code here
-        //     .attr("y1", y(target[selectedOption+"Before"]))
-        //     .attr("x2", x(target.YearAfter))  //<<== and here
-        //     .attr("y2", y(target[selectedOption+"After"]))
-            .attr("class", target.Region+"dottedLine " + target.Region+"line")
-            .style("stroke-dasharray", ("3, 3"))
-            .style("fill", "none");
-        // .style("display", "none");
-        dottedLines.push({
-            "Region": target.Region,
-            "Prediction": prediction
-        });
+        var targetline = d3.line()
+            .x(function(d) { return x(d.Year); })
+            .y(function(d) { return y(d[selectedOption]); });
+        var targetnewLine = svg.append("path")
+            .style("stroke-dasharray", ("3, 3"));
+        var tempObject = {
+            "line": targetline,
+            "newLine": targetnewLine
+        };
+        dottedLines.push(tempObject);
     });
+    limitLine = svg.append("line")
+        .attr("class", "targetline")
+        .style("stroke-dasharray", ("5, 8"))
+        .style("stroke-width", 2)
+        .style("stroke", "gold")
+        .style("fill", "none");
+    // console.log(dottedLines.length);
 }
 
 // Render visualization
@@ -221,73 +223,47 @@ function updateChesapeake() {
     var WVdata = chesapeakeData.filter(function(d) {
         return d.Region === "WV";
     });
-    max_y = d3.max(chesapeakeData, function(d) {
-        if (selectedRegion !== "All") {
-            if (d.Region === "All" || d.Region !== selectedRegion) {
-                return 0;
+    max_y = d3.max(originalData, function(d) {
+        if (+d.Year >= 2009) {
+            if (selectedRegion === "All") {
+                if (d.Region === "All") {
+                    return 0;
+                }
+                else {
+                    return +d[selectedOption];
+                }
+            }
+            if (d.Region === selectedRegion) {
+                return +d[selectedOption];
             }
             else {
-                return d[selectedOption];
+                return 0;
             }
         }
         else {
-            if (d.Region === "All") {
-                return 0;
-            }
-            else {
-                return d[selectedOption];
-            }
+            return 0;
         }
     });
-    x.domain([
-        d3.min(chesapeakeData, function(d) {
-            if (d.Region === selectedRegion) {
-                console.log(d.Year);
-                return d.Year;
-            }
-        }),
-        d3.max(targetData, function(d) {
-            if (d.Region === selectedRegion) {
-                console.log(d.YearAfter);
-                return d.YearAfter;
-            }
-        })
-    ]);
-    // x.domain(d3.extent(chesapeakeData, function(d) {
-    //     if (d.Region === selectedRegion) {
-    //         return d.Year;
-    //     }
-    // }));
+    x.domain(
+        [
+            d3.min(chesapeakeData, function(d) {
+                if (d.Region === selectedRegion) {
+                    // console.log(d.Year);
+                    return d.Year;
+                }
+            }),
+            parseDate("2025")
+        ]
+    );
 
     y.domain([0, max_y]);
 
-    // console.log(targetData);
-    // console.log(chesapeakeData);
-    // console.log(WVdata);
-    svg.append("line")
+    limitLine
         .attr("x1", x(parseDate("2025")))  //<<== change your code here
         .attr("y1", y(0))
         .attr("x2", x(parseDate("2025")))  //<<== and here
-        .attr("y2", y(max_y))
-        .attr("class", "targetline")
-        .style("stroke-dasharray", ("3, 3"))
-        .style("stroke-width", 2)
-        .style("stroke", "red")
-        .style("fill", "none");
+        .attr("y2", y(max_y));
 
-    // targetData.forEach(function(target) {
-    //     console.log(target[selectedOption+"Before"]);
-    //     svg.append("line")
-    //     // svg.selectAll(".dottedline").append("line")
-    //         .attr("x1", x(target.YearBefore))  //<<== change your code here
-    //         .attr("y1", y(target[selectedOption+"Before"]))
-    //         .attr("x2", x(target.YearAfter))  //<<== and here
-    //         .attr("y2", y(target[selectedOption+"After"]))
-    //         .attr("class", target.Region+"dottedLine " + target.Region+"line")
-    //         .style("stroke-dasharray", ("3, 3"))
-    //         .style("fill", "none");
-    //         // .style("display", "none");
-    // });
 
     //Update X axis
     svg.select(".x-axis")
@@ -315,6 +291,19 @@ function updateChesapeake() {
     var WVcircle = svg.selectAll(".WVcircle")
         .data(WVdata);
 
+    var targetCircles = [];
+    // function initializePredictions() {
+        targetData.forEach(function(target) {
+            var targetCircle = svg.selectAll("." + target[0].Region + "targetcircle")
+                .data(target);
+            console.log(target);
+            console.log("." + target[0].Region + "targetcircle");
+            targetCircles.push(targetCircle);
+            // console.log(target, WVdata);
+        });
+        console.log(targetCircles);
+    // }
+
     // draw lines for chart
     DCnewLine.datum(DCdata)
         .attr("class", "DCline")
@@ -337,6 +326,14 @@ function updateChesapeake() {
     WVnewLine.datum(WVdata)
         .attr("class", "WVline")
         .attr("d", WVline);
+    // console.log(targetData);
+    for (var i = 0; i < dottedLines.length; i++) {
+        // console.log(targetData[i][0], dottedLines.length);
+        dottedLines[i].newLine.datum(targetData[i])
+            .attr("class", targetData[i][0].Region + "line")
+            // .attr("class", "myline")
+            .attr("d", dottedLines[i].line);
+    }
 
     var tool_tip = d3.tip()
         .attr("class", "d3-tip")
@@ -375,27 +372,63 @@ function updateChesapeake() {
             .y(function(d) { return y(d[selectedOption]); });
 
         // dottedLines.forEach(function(line) {
-        // for
-        //     line.prediction
-        //         .attr("x1", x(line.Region.YearBefore))  //<<== change your code here
+        for (var i = 0; i < dottedLines.length; i++) {
+            // console.log(dottedLines);
+            // console.log(targetData);
+            dottedLines[i].line
+                .x(function(d) { return x(d.Year); })
+                .y(function(d) { return y(d[selectedOption]); });
+        }
+
+        // targetData.forEach(function(target) {
+        //     console.log(target[selectedOption+"Before"]);
+        //     svg.append("line")
+        //     // svg.selectAll(".dottedline").append("line")
+        //         .attr("x1", x(target.YearBefore))  //<<== change your code here
         //         .attr("y1", y(target[selectedOption+"Before"]))
         //         .attr("x2", x(target.YearAfter))  //<<== and here
         //         .attr("y2", y(target[selectedOption+"After"]))
-        // })
+        //         .attr("class", target.Region+"dottedLine " + target.Region+"line")
+        //         .style("stroke-dasharray", ("3, 3"))
+        //         .style("fill", "none");
+        //     // .style("display", "none");
+        // });
 
-        targetData.forEach(function(target) {
-            console.log(target[selectedOption+"Before"]);
-            svg.append("line")
-            // svg.selectAll(".dottedline").append("line")
-                .attr("x1", x(target.YearBefore))  //<<== change your code here
-                .attr("y1", y(target[selectedOption+"Before"]))
-                .attr("x2", x(target.YearAfter))  //<<== and here
-                .attr("y2", y(target[selectedOption+"After"]))
-                .attr("class", target.Region+"dottedLine " + target.Region+"line")
-                .style("stroke-dasharray", ("3, 3"))
-                .style("fill", "none");
-            // .style("display", "none");
-        });
+        for (var i = 0; i < targetCircles.length; i++) {
+
+            targetCircles[i].enter().append("circle")
+                .attr("class", "tooltip-circle " + targetData[i][0].Region + "targetcircle")
+                // Enter and Update (set the dynamic properties of the elements)
+                .merge(targetCircles[i])
+                .attr("r", 4)
+                .attr("cx", function (d) {
+                    return x(d.Year);
+                })
+                .attr("cy", function (d) {
+                    return y(d[selectedOption]);
+                })
+                .style("fill", function (d) {
+                    if (formatDate(d.Year) === "2025") {
+                        return "yellow";
+                    }
+                    else {
+                        return "lightgreen";
+                    }
+                })
+                .style("display", function(d) {
+                    if (formatDate(d.Year) === "2025") {
+                        return "default";
+                    }
+                    else {
+                        return "none";
+                    }
+                })
+                .on('mouseover', tool_tip.show)
+                .on('mouseout', tool_tip.hide);
+
+            // Exit
+            targetCircles[i].exit().remove();
+        }
 
         // create circles for chart
         // Enter (initialize the newly added elements)
@@ -554,6 +587,45 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "DC") {
 
+
+
+        for (var i = 0; i < dottedLines.length; i++) {
+            if (i !== 0) {
+                dottedLines[i].newLine.remove();
+                dottedLines[i].newLine = svg.append("path")
+                    .style("stroke-dasharray", ("3, 3"));
+                svg.selectAll("." + targetData[i][0].Region + "targetcircle").remove();
+            }
+            else {
+                console.log("here");
+                targetCircles[i].enter().append("circle")
+                    .attr("class", "tooltip-circle " + targetData[i][0].Region + "targetcircle")
+                    // Enter and Update (set the dynamic properties of the elements)
+                    .merge(targetCircles[i])
+                    .attr("r", 4)
+                    .attr("cx", function (d) {
+                        return x(d.Year);
+                    })
+                    .attr("cy", function (d) {
+                        return y(d[selectedOption]);
+                    })
+                    .style("fill", function (d) {
+                        if (formatDate(d.Year) === "2025") {
+                            return "yellow";
+                        }
+                        else {
+                            return "lightgreen";
+                        }
+                    })
+                    .on('mouseover', tool_tip.show)
+                    .on('mouseout', tool_tip.hide);
+
+                // Exit
+                targetCircles[i].exit().remove();
+            }
+        }
+
+
         DCnewLine.datum(DCdata)
             .attr("class", "DCline")
             .attr("d", DCline);
@@ -578,10 +650,6 @@ function updateChesapeake() {
 
         // Exit
         DCcircle.exit().remove();
-
-        var DCdotted = svg.select(".DCdottedLine")
-            .attr("y1", y(targetData[0][selectedOption+"Before"]))
-            .attr("y2", y(targetData[0][selectedOption+"After"]));
 
         DEnewLine.remove();
         DEcircle.remove();
@@ -609,6 +677,43 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "DE") {
+
+
+        for (var i = 0; i < dottedLines.length; i++) {
+            if (i !== 1) {
+                dottedLines[i].newLine.remove();
+                dottedLines[i].newLine = svg.append("path")
+                    .style("stroke-dasharray", ("3, 3"));
+                svg.selectAll("." + targetData[i][0].Region + "targetcircle").remove();
+            }
+            else {
+                console.log("here");
+                targetCircles[i].enter().append("circle")
+                    .attr("class", "tooltip-circle " + targetData[i][0].Region + "targetcircle")
+                    // Enter and Update (set the dynamic properties of the elements)
+                    .merge(targetCircles[i])
+                    .attr("r", 4)
+                    .attr("cx", function (d) {
+                        return x(d.Year);
+                    })
+                    .attr("cy", function (d) {
+                        return y(d[selectedOption]);
+                    })
+                    .style("fill", function (d) {
+                        if (formatDate(d.Year) === "2025") {
+                            return "yellow";
+                        }
+                        else {
+                            return "lightgreen";
+                        }
+                    })
+                    .on('mouseover', tool_tip.show)
+                    .on('mouseout', tool_tip.hide);
+
+                // Exit
+                targetCircles[i].exit().remove();
+            }
+        }
 
         DEnewLine.datum(DEdata)
             .attr("class", "DEline")
@@ -663,6 +768,42 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "MD") {
 
+        for (var i = 0; i < dottedLines.length; i++) {
+            if (i !== 2) {
+                dottedLines[i].newLine.remove();
+                dottedLines[i].newLine = svg.append("path")
+                    .style("stroke-dasharray", ("3, 3"));
+                svg.selectAll("." + targetData[i][0].Region + "targetcircle").remove();
+            }
+            else {
+                console.log("here");
+                targetCircles[i].enter().append("circle")
+                    .attr("class", "tooltip-circle " + targetData[i][0].Region + "targetcircle")
+                    // Enter and Update (set the dynamic properties of the elements)
+                    .merge(targetCircles[i])
+                    .attr("r", 4)
+                    .attr("cx", function (d) {
+                        return x(d.Year);
+                    })
+                    .attr("cy", function (d) {
+                        return y(d[selectedOption]);
+                    })
+                    .style("fill", function (d) {
+                        if (formatDate(d.Year) === "2025") {
+                            return "yellow";
+                        }
+                        else {
+                            return "lightgreen";
+                        }
+                    })
+                    .on('mouseover', tool_tip.show)
+                    .on('mouseout', tool_tip.hide);
+
+                // Exit
+                targetCircles[i].exit().remove();
+            }
+        }
+
         MDnewLine.datum(MDdata)
             .attr("class", "MDline")
             .attr("d", MDline);
@@ -714,6 +855,42 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "NY") {
+
+        for (var i = 0; i < dottedLines.length; i++) {
+            if (i !== 3) {
+                dottedLines[i].newLine.remove();
+                dottedLines[i].newLine = svg.append("path")
+                    .style("stroke-dasharray", ("3, 3"));
+                svg.selectAll("." + targetData[i][0].Region + "targetcircle").remove();
+            }
+            else {
+                console.log("here");
+                targetCircles[i].enter().append("circle")
+                    .attr("class", "tooltip-circle " + targetData[i][0].Region + "targetcircle")
+                    // Enter and Update (set the dynamic properties of the elements)
+                    .merge(targetCircles[i])
+                    .attr("r", 4)
+                    .attr("cx", function (d) {
+                        return x(d.Year);
+                    })
+                    .attr("cy", function (d) {
+                        return y(d[selectedOption]);
+                    })
+                    .style("fill", function (d) {
+                        if (formatDate(d.Year) === "2025") {
+                            return "yellow";
+                        }
+                        else {
+                            return "lightgreen";
+                        }
+                    })
+                    .on('mouseover', tool_tip.show)
+                    .on('mouseout', tool_tip.hide);
+
+                // Exit
+                targetCircles[i].exit().remove();
+            }
+        }
 
         NYnewLine.datum(NYdata)
             .attr("class", "NYline")
@@ -768,6 +945,42 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "PA") {
 
+        for (var i = 0; i < dottedLines.length; i++) {
+            if (i !== 4) {
+                dottedLines[i].newLine.remove();
+                dottedLines[i].newLine = svg.append("path")
+                    .style("stroke-dasharray", ("3, 3"));
+                svg.selectAll("." + targetData[i][0].Region + "targetcircle").remove();
+            }
+            else {
+                console.log("here");
+                targetCircles[i].enter().append("circle")
+                    .attr("class", "tooltip-circle " + targetData[i][0].Region + "targetcircle")
+                    // Enter and Update (set the dynamic properties of the elements)
+                    .merge(targetCircles[i])
+                    .attr("r", 4)
+                    .attr("cx", function (d) {
+                        return x(d.Year);
+                    })
+                    .attr("cy", function (d) {
+                        return y(d[selectedOption]);
+                    })
+                    .style("fill", function (d) {
+                        if (formatDate(d.Year) === "2025") {
+                            return "yellow";
+                        }
+                        else {
+                            return "lightgreen";
+                        }
+                    })
+                    .on('mouseover', tool_tip.show)
+                    .on('mouseout', tool_tip.hide);
+
+                // Exit
+                targetCircles[i].exit().remove();
+            }
+        }
+
         PAnewLine.datum(PAdata)
             .attr("class", "PAline")
             .attr("d", PAline);
@@ -820,6 +1033,42 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "VA") {
+
+        for (var i = 0; i < dottedLines.length; i++) {
+            if (i !== 5) {
+                dottedLines[i].newLine.remove();
+                dottedLines[i].newLine = svg.append("path")
+                    .style("stroke-dasharray", ("3, 3"));
+                svg.selectAll("." + targetData[i][0].Region + "targetcircle").remove();
+            }
+            else {
+                console.log("here");
+                targetCircles[i].enter().append("circle")
+                    .attr("class", "tooltip-circle " + targetData[i][0].Region + "targetcircle")
+                    // Enter and Update (set the dynamic properties of the elements)
+                    .merge(targetCircles[i])
+                    .attr("r", 4)
+                    .attr("cx", function (d) {
+                        return x(d.Year);
+                    })
+                    .attr("cy", function (d) {
+                        return y(d[selectedOption]);
+                    })
+                    .style("fill", function (d) {
+                        if (formatDate(d.Year) === "2025") {
+                            return "yellow";
+                        }
+                        else {
+                            return "lightgreen";
+                        }
+                    })
+                    .on('mouseover', tool_tip.show)
+                    .on('mouseout', tool_tip.hide);
+
+                // Exit
+                targetCircles[i].exit().remove();
+            }
+        }
 
         VAnewLine.datum(VAdata)
             .attr("class", "VAline")
@@ -874,6 +1123,42 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "WV") {
 
+        for (var i = 0; i < dottedLines.length; i++) {
+            if (i !== 6) {
+                dottedLines[i].newLine.remove();
+                dottedLines[i].newLine = svg.append("path")
+                    .style("stroke-dasharray", ("3, 3"));
+                svg.selectAll("." + targetData[i][0].Region + "targetcircle").remove();
+            }
+            else {
+                console.log("here");
+                targetCircles[i].enter().append("circle")
+                    .attr("class", "tooltip-circle " + targetData[i][0].Region + "targetcircle")
+                    // Enter and Update (set the dynamic properties of the elements)
+                    .merge(targetCircles[i])
+                    .attr("r", 4)
+                    .attr("cx", function (d) {
+                        return x(d.Year);
+                    })
+                    .attr("cy", function (d) {
+                        return y(d[selectedOption]);
+                    })
+                    .style("fill", function (d) {
+                        if (formatDate(d.Year) === "2025") {
+                            return "yellow";
+                        }
+                        else {
+                            return "lightgreen";
+                        }
+                    })
+                    .on('mouseover', tool_tip.show)
+                    .on('mouseout', tool_tip.hide);
+
+                // Exit
+                targetCircles[i].exit().remove();
+            }
+        }
+
         WVnewLine.datum(WVdata)
             .attr("class", "WVline")
             .attr("d", WVline);
@@ -925,8 +1210,5 @@ function updateChesapeake() {
         VAnewLine = svg.append("path");
 
     }
-
-
-
 
 }
