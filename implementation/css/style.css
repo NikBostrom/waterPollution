@@ -20,11 +20,20 @@ body, html {
 }
 
 body {
-    background-color: #E6E7E8;
-    color: #0745af;
+    /*background-color: #E6E7E8;*/
+    /*color: #0745af;*/
 
+    background-color: #0f6d70;
+    /*background-color: #275a5e;*/
+    color: #d9d9d9
+;
 }
-
+a {
+    color: #99caff;
+}
+a:hover {
+    color: #66b0ff;
+}
 .row {
     margin-left: 4%;
     margin-right: 4%;
@@ -67,6 +76,8 @@ body {
 
 .d3-tip {
     background: white;
+    color: black;
+    font-size: 10px;
     padding: 5px;
     border-radius: 5px;
 }
@@ -154,9 +165,9 @@ body {
 
 /*Site colors*/
 
-.title {
-    color: #0745af;
-}
+/*.title {*/
+    /*color: #0745af;*/
+/*}*/
 
 .light {
     opacity: 0.2;
@@ -167,8 +178,9 @@ body {
 }
 
 p {
-    color: #0745af;
+    /*color: #0745af;*/
     /*margin-top: %;*/
+    color: white;
 }
 
 .text {
@@ -250,6 +262,12 @@ Specify size of the map container for leaflet
 #harbor-map {
     width: 90%;
     height: 600px;
+}
+#harbor-row {
+    /*background-color: #f2f2f2;*/
+    background-color: #3C8F93;
+    padding-bottom: 4%;
+    margin-bottom: 4%;
 }
 #harbor-linechart svg {
     width: 90%;

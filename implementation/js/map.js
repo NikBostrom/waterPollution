@@ -25,7 +25,8 @@ MapVis = function(_parentElement, _data, _stateOutlines, _stateData, _stateToAbb
 let colorRanges = {
     green: ["#E1F69E", "#455611"],
     pink: ["#E5AED1", "#7E195B"],
-    purple: ["#C2A9D9", "#471C6E"]
+    // purple: ["#C2A9D9", "#471C6E"],
+    purple: ["#70B0D9", "#12246E"],
 };
 
 MapVis.prototype.initVis = function() {

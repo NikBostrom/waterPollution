@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body>
+
     <div class="hero-image">
         <div class="hero-text">
 
@@ -112,16 +112,18 @@
             <!--<h2><a href="https://www.epa.gov/nutrientpollution/where-occurs-lakes-and-rivers">Case studies that worked:</a></h2>-->
         <!--</div>-->
     <!--</div>-->
-    <div class="row">
-        <form class="form-inline" id="harbor-vis-form">
-            <div class="form-group">
-                <label for="harbor-select-box">Filter by</label>
-                <select class="form-control" id="harbor-select-box">
-                    <!--TODO: Separate single select box with all options into two: one for the actual "measure," the other for water surface or -->
-                    <option value="DO (mg/L) - Top">Dissolved Oxygen (mg/L) at Water Surface</option>
-                    <option value="DO (mg/L) - Bot">Dissolved Oxygen (mg/L) at Bottom of Water Body</option>
-                    <option value="Fecal Coliform (#/100 mL) - Top" selected>Fecal Coliform (#/100 mL) at Water Surface</option>
-                    <option value="Fecal Coliform (#/100 mL) - Bot">Fecal Coliform (#/100 mL) at Bottom of Water Body</option>
+
+    <div id="harbor-row">
+        <div class="row">
+            <form class="form-inline" id="harbor-vis-form">
+                <div class="form-group">
+                    <label for="harbor-select-box">Filter by</label>
+                    <select class="form-control" id="harbor-select-box">
+                        <!--TODO: Separate single select box with all options into two: one for the actual "measure," the other for water surface or -->
+                        <option value="DO (mg/L) - Top">Dissolved Oxygen (mg/L) at Water Surface</option>
+                        <option value="DO (mg/L) - Bot">Dissolved Oxygen (mg/L) at Bottom of Water Body</option>
+                        <option value="Fecal Coliform (#/100 mL) - Top" selected>Fecal Coliform (#/100 mL) at Water Surface</option>
+                        <option value="Fecal Coliform (#/100 mL) - Bot">Fecal Coliform (#/100 mL) at Bottom of Water Body</option>
                 </select>
 
                 <!--Updating time period-->
@@ -132,12 +134,13 @@
 
                 <!--<button type="button" class="btn btn-link" id="time-period-button" onclick="filterTime()">Filter</button>-->
                 <!--<button type="button" class="btn btn-link" id="time-period-reset-button" onclick="resetVisualization()">Reset</button>-->
-            </div>
-        </form>
-    </div>
-    <div class="row" id="harbor-vis">
-        <div class="col-lg-6" id="harbor-map"></div>
-        <div class="col-lg-6" id="harbor-linechart"></div>
+                </div>
+            </form>
+        </div>
+        <div class="row" id="harbor-vis">
+            <div class="col-lg-6" id="harbor-map"></div>
+            <div class="col-lg-6" id="harbor-linechart"></div>
+        </div>
     </div>
 
     <div class="row">
