@@ -1,3 +1,4 @@
+colorPageRows();
 
 // Function to convert date objects to strings or reverse
 var dateFormatter = d3.timeFormat("%Y-%m-%d");
@@ -12,6 +13,11 @@ queue()
     .defer(d3.json,"data/us_states.json")
     // .defer(d3.csv,"data/chesapeakeBayLoads.csv")
     .defer(d3.json, "data/us-state-centroids.json")
+
+    .defer(d3.json, "data/regionsOutline.json")
+    .defer(d3.json, "data/usStatesOutlineWithRegion.json")
+
+
     .await(createVis);
 
 /*
@@ -41,7 +47,9 @@ region_data = {};
 state_data = {};
 nyHarborData = [];
 
-function createVis(error, water_conditions, usOutline, world, water_quality, waterAssess, states, stateCentroids) {
+
+function createVis(error, water_conditions, usOutline, world, water_quality, waterAssess, states, stateCentroids, mergedStates, statesWithRegion) {
+
     if(error) throw error;
 
     // clean water-conditions data
@@ -72,17 +80,20 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
         d['Water Size'] = +d['Water Size'];
     });
 
+
+  // TODO: what is this.......
     // Nest data by state
-    var waterAssessByState = d3.nest()
-        // .key(function(d) { return d.Region })
-        .key(function(d) { return d.State })
-        .key(function(d) { return d['Water Status']})
-        // .rollup(function(leaves) { console.log(leaves); return {"state": leaves[0].State, "count": leaves.length}; })
-        .rollup(function(leaves) { return leaves.length })
-        .entries(waterAssess); // for array
-        // .object(water_assess); // for object
-    //COMMD OUT
-    // console.log(waterAssessByState);
+//     var waterAssessByState = d3.nest()
+//         // .key(function(d) { return d.Region })
+//         .key(function(d) { return d.State })
+//         .key(function(d) { return d['Water Status']})
+//         // .rollup(function(leaves) { console.log(leaves); return {"state": leaves[0].State, "count": leaves.length}; })
+//         .rollup(function(leaves) { return leaves.length })
+//         .entries(waterAssess); // for array
+//         // .object(water_assess); // for object
+//     //COMMD OUT
+//     // console.log(waterAssessByState);
+
 
     // NY Harbor Data - Takes a long time to load - process asynchronously
     d3.csv("data/harbor-water-quality.csv", function(error, _nyHarborDataMessy) {
@@ -120,11 +131,11 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
         return ret;
     }
     var abbToState = swap(states);
-    // console.log(stateToAbb);
 
-    // var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
+
+    var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion);
     var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
-    var symbVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState);
+
 
 }
 
@@ -144,6 +155,8 @@ function createDataSet(water_data, new_data, key) {
         }
         return(new_data);
     });
+
+
 }
 
 function getAverage(data) {
@@ -201,4 +214,26 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     });
 
 
+}
+
+function colorPageRows() {
+    let baseColorHue = 182;
+    let baseColorSaturation = 76;
+
+    // Change these values to determine the color range for the rows
+    let baseColorLightness = 15;
+    let endColorLightness = 45;
+
+    let numRows = $(".color-bar").length;
+    let lightnessIncrease = (endColorLightness - baseColorLightness) / numRows;
+
+    console.log("There are " + numRows + " rows");
+    console.log("The lightness should increase by " + lightnessIncrease + "%.");
+
+    d3.selectAll(".color-bar")
+        .style('background-color', function(_, i) {
+            let newColor = "hsla(" + baseColorHue + "," + baseColorSaturation + "%," + (baseColorLightness + (i * lightnessIncrease)) + "%)";
+            console.log(newColor);
+            return newColor;
+        });
 }
