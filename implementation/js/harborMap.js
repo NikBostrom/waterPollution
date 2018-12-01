@@ -9,6 +9,7 @@ HarborMapVis = function(_parentElement, _harborData, _harborEventHandler){
     // this.locations = _locationData;
     this.harborData = _harborData;
     this.mapPosition = [40.696284, -73.933518];
+
     // this.mapPosition = [40.58167, -73.935832];
     this.eventHandler = _harborEventHandler;
 
@@ -24,6 +25,7 @@ let harborColorRanges = {
     green: ["#455611", "#E1F69E"],
     pink: ["#7E195B", "#E5AED1"],
     purple: ["#471C6E", "#C2A9D9"],
+
     blue: ["#12246E", "#70B0D9"],
     colors: ['#9f7884',
         '#275a5e',
@@ -33,10 +35,12 @@ let harborColorRanges = {
         '#332b56',
         '#346464',
         '#5a6f72']
+
 };
 
 HarborMapVis.prototype.initVis = function() {
     var vis = this;
+
 
     vis.map = L.map(vis.parentElement).setView(vis.mapPosition, 11);
 
@@ -47,6 +51,7 @@ HarborMapVis.prototype.initVis = function() {
     //     maxZoom: 16,
     //     ext: 'jpg'
     // });
+
 
     // var openStreetMap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     //     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -61,6 +66,7 @@ HarborMapVis.prototype.initVis = function() {
     // Stamen_Watercolor.addTo(vis.map);
     // openStreetMap.addTo(vis.map);
     CartoDB_VoyagerLabelsUnder.addTo(vis.map);
+
 
 
 
@@ -110,6 +116,7 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
             // console.log(d);
             // console.log(selection);
             // TODO - Change to be the select-box selected value
+
             if (!isNaN(+d[selection][0]["Value"])) {
                 return +d[selection][0]["Value"];
             }
@@ -133,11 +140,13 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
             if (vis.harborData[i]["Site"] === "CIC2") {
                 console.log(selectionVal);
             }
+
             // console.log("Coord data:", vis.harborData[i][selection][0]["Value"]);
             if (isNaN(selectionVal)) {
                 tColor = "#bfbfbf";
             } else {
                 tColor = colorScale(selectionVal);
+
                 // console.log(tColor);
             }
             // console.log(tColor, vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
@@ -147,6 +156,7 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
 
             var loc = L.circle(vis.harborData[i]["coords"], 375, {
                 fillColor: tColor,
+
                 fillOpacity: 0.6,
                 // stroke attributes
                 color: "black",
