@@ -109,7 +109,6 @@ loadData();
 
 // Chesapeake Bay Data
 var originalData = [];
-
 var chesapeakeData = [];
 var targetData = [];
 
@@ -117,9 +116,7 @@ function loadData() {
     d3.csv("data/chesapeakeBayLoads.csv", function(chesapeake) {
         // COMMD OUT - Nik
         // console.log(chesapeake);
-
         originalData = chesapeake;
-
         chesapeake.sort(function(a, b) { return a.Region - b.Region; });
         var regionBefore;
         var regionAfter;
@@ -132,7 +129,6 @@ function loadData() {
                 regionAfter = d;
             }
             if (+d.Year === 2025) {
-
                 // console.log(+d.year, "here");
                 targetData.push(
                     [
@@ -151,7 +147,6 @@ function loadData() {
                             "TSS": +regionAfter.TSS
                         }
                     ]
-
                 )
             }
             else if (+d.Year >= 2009) {
@@ -165,7 +160,6 @@ function loadData() {
                     }
                 )
             }
-
         });
         // COMMD OUT - Nik
         // console.log(chesapeakeData);
@@ -197,7 +191,6 @@ function initializePredictions() {
         .style("stroke", "gold")
         .style("fill", "none");
     // console.log(dottedLines.length);
-
 }
 
 // Render visualization
@@ -232,7 +225,6 @@ function updateChesapeake() {
     var WVdata = chesapeakeData.filter(function(d) {
         return d.Region === "WV";
     });
-
     max_y = d3.max(originalData, function(d) {
         if (+d.Year >= 2009) {
             if (selectedRegion === "All") {
@@ -275,7 +267,6 @@ function updateChesapeake() {
         .attr("y2", y(max_y));
 
 
-
     //Update X axis
     svg.select(".x-axis")
         .call(xAxis);
@@ -315,7 +306,6 @@ function updateChesapeake() {
         console.log(targetCircles);
     // }
 
-
     // draw lines for chart
     DCnewLine.datum(DCdata)
         .attr("class", "DCline")
@@ -338,6 +328,14 @@ function updateChesapeake() {
     WVnewLine.datum(WVdata)
         .attr("class", "WVline")
         .attr("d", WVline);
+    // console.log(targetData);
+    for (var i = 0; i < dottedLines.length; i++) {
+        // console.log(targetData[i][0], dottedLines.length);
+        dottedLines[i].newLine.datum(targetData[i])
+            .attr("class", targetData[i][0].Region + "line")
+            // .attr("class", "myline")
+            .attr("d", dottedLines[i].line);
+    }
 
     // console.log(targetData);
     for (var i = 0; i < dottedLines.length; i++) {
@@ -386,7 +384,6 @@ function updateChesapeake() {
             .y(function(d) { return y(d[selectedOption]); });
 
         // dottedLines.forEach(function(line) {
-
         for (var i = 0; i < dottedLines.length; i++) {
             // console.log(dottedLines);
             // console.log(targetData);
@@ -444,7 +441,6 @@ function updateChesapeake() {
             // Exit
             targetCircles[i].exit().remove();
         }
-
 
         // create circles for chart
         // Enter (initialize the newly added elements)
@@ -605,7 +601,6 @@ function updateChesapeake() {
 
 
 
-
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 0) {
                 dottedLines[i].newLine.remove();
@@ -641,6 +636,7 @@ function updateChesapeake() {
                 targetCircles[i].exit().remove();
             }
         }
+
 
         DCnewLine.datum(DCdata)
             .attr("class", "DCline")
@@ -694,7 +690,6 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "DE") {
-
 
 
         for (var i = 0; i < dottedLines.length; i++) {
@@ -786,7 +781,6 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "MD") {
 
-
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 2) {
                 dottedLines[i].newLine.remove();
@@ -822,6 +816,7 @@ function updateChesapeake() {
                 targetCircles[i].exit().remove();
             }
         }
+
         MDnewLine.datum(MDdata)
             .attr("class", "MDline")
             .attr("d", MDline);
@@ -873,7 +868,6 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "NY") {
-
 
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 3) {
@@ -964,7 +958,6 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "PA") {
 
-
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 4) {
                 dottedLines[i].newLine.remove();
@@ -1054,7 +1047,6 @@ function updateChesapeake() {
     }
     else if (selectedRegion === "VA") {
 
-
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 5) {
                 dottedLines[i].newLine.remove();
@@ -1090,7 +1082,6 @@ function updateChesapeake() {
                 targetCircles[i].exit().remove();
             }
         }
-
 
         VAnewLine.datum(VAdata)
             .attr("class", "VAline")
@@ -1144,7 +1135,6 @@ function updateChesapeake() {
 
     }
     else if (selectedRegion === "WV") {
-
 
         for (var i = 0; i < dottedLines.length; i++) {
             if (i !== 6) {
