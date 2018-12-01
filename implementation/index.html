@@ -12,6 +12,12 @@
 
 </head>
 <body>
+
+
+
+
+
+    <header>
     <div class="hero-image">
         <div class="hero-text">
 
@@ -22,8 +28,28 @@
             </div>
         <!--<a id="unsplash-cred" href="https://unsplash.com/@its_tgain?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Tucker  Tangeman"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Tom Gainor</span></a>-->
     </div>
+    </header>
+
+
+
+    <nav>
+        <ul>
+            <li><a href="#section-1">Section 1</a></li>
+            <li><a href="#section-2">Section 2</a></li>
+            <li><a href="#section-3">Section 3</a></li>
+            <li><a href="#section-4">Section 4</a></li>
+            <li><a href="#section-5">Section 5</a></li>
+            <li><a href="#section-6">Section 6</a></li>
+            <li><a href="#section-7">Section 7</a></li>
+            <li><a href="#section-8">Section 8</a></li>
+            <li><a href="#section-9">Section 9</a></li>
+        </ul>
+    </nav>
+
+
     <div class="container-fluid">
-        <div class="row">
+        <section>
+        <div class="row" id="section-1">
             <div class="col-lg-6 story-text spacing">
                 <p>
                     Nitrogen and phosphorus are natural parts of aquatic ecosystems, and according to the
@@ -59,7 +85,9 @@
                 <div id="map-vis"></div>
             </div>
         </div>
-        <div class="row">
+        </section>
+        <section>
+        <div class="row" id="section-2">
             <div class="col-lg-6 story-text spacing">
                 <p>
                     Lakes are valued as water sources and for fishing, water transport, recreation, and tourism, so we can see
@@ -83,7 +111,9 @@
             </div>
             <div id="country-bar" class="col-lg-6 placeholder spacing"></div>
         </div>
-        <div class="row">
+        </section>
+        <section>
+        <div class="row" id="section-3">
             <div class="col-lg-10 spacing">
                 <h2 class="story-text">Murky Waters</h2>
                 <p class="story-text">In viewing the first choropleth map, we found that there was a major pollution problem in lakes in the midwest in 2007, but did not have data from the lakes over the last decade to trace those pollution levels over time. After visualizing and understanding these findings, we found a more comprehensive data set and found that there are lots of bodies of water across the country that are impaired, threatened, or are not being monitored at all. This presented us with the question, if we have tangible, accurate data showing the real, adverse effects of pollution on these bodies of water, is it enough to make a significant change?
@@ -93,7 +123,9 @@
             <!--<div class="col-lg-4 story-text">-->
             <!--</div>-->
         </div>
-        <div class="row">
+        </section>
+        <section>
+        <div class="row" id="section-4">
             <div class="col-lg-12 spacing">
                 <!--<div id="time-period-min"></div>-->
                 <!--<div id="time-period-max"></div>-->
@@ -105,14 +137,16 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </section>
+        <!--</div>-->
 
     <!--<div class="row">-->
         <!--<div class="col-md-12 placeholder">-->
             <!--<h2><a href="https://www.epa.gov/nutrientpollution/where-occurs-lakes-and-rivers">Case studies that worked:</a></h2>-->
         <!--</div>-->
     <!--</div>-->
-    <div class="row">
+    <section>
+    <div class="row" id="section-5">
         <form class="form-inline" id="harbor-vis-form">
             <div class="form-group">
                 <label for="harbor-select-box">Filter by</label>
@@ -135,6 +169,7 @@
             </div>
         </form>
     </div>
+    </section>
     <div class="row" id="harbor-vis">
         <div class="col-lg-6" id="harbor-map"></div>
         <div class="col-lg-6" id="harbor-linechart"></div>
@@ -146,8 +181,8 @@
         </div>
     </div>
 
-
-    <div class="centered">
+    <section>
+    <div class="centered" id="section-6">
         <div>
             <h2>
                 Changes in the Chesapeake Bay
@@ -246,10 +281,15 @@
             </table>
         </div>
     </div>
-    <div class="row">
+    </section>
+    <section>
+    <div class="row" id="section-7">
         <div class="col-lg-12">
             <p class="placeholder">Call to action</p>
         </div>
+    </div>
+    </section>
+
     </div>
 
     <!-- Load JS libraries -->
@@ -261,25 +301,27 @@
     <script src="js/d3.min.js"></script>
     <script src="js/d3-tip.js"></script>
     <script src="js/leaflet/leaflet.js"></script>
-    <!--<script src="js/d3-legend.js"></script>-->
+    <script src="js/d3-legend.js"></script>
     <!--<script src="js/nouislider.js"></script>-->
+
+    <script src="js/navbar.js"></script>
 
 
     <!-- Visualization objects -->
-    <!--<script src="js/map.js"></script>-->
+    <script src="js/map.js"></script>
     <!--&lt;!&ndash;<script src="js/timeSlider.js"></script>&ndash;&gt;-->
     <!--<script src="js/getData.js"></script>-->
     <!--<script src="js/glyph.js"></script>-->
     <!--<script src="js/linechart.js"></script>-->
     <script src="js/linechart2.js"></script>
-    <!--<script src="js/harborDataWrangling.js"></script>-->
-    <!--<script src="js/harborMap.js"></script>-->
-    <!--<script src="js/harborLinechart.js"></script>-->
-    <!--<script src="js/graduatedsymbol.js"></script>-->
-    <!--<script src="js/regions.js"></script>-->
+    <script src="js/harborDataWrangling.js"></script>
+    <script src="js/harborMap.js"></script>
+    <script src="js/harborLinechart.js"></script>
+    <script src="js/graduatedsymbol.js"></script>
+    <script src="js/regions.js"></script>
 
     <!-- Load data, create visualizations -->
-    <!--<script src="js/main.js"></script>-->
+    <script src="js/main.js"></script>
 
 </body>
 </html>
