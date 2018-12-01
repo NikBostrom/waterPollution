@@ -55,7 +55,7 @@ RegionsVis.prototype.initVis = function() {
     vis.g = vis.svg.append("g");
 
     // Set up map
-    vis.projection = d3.geoAlbersUsa()
+    vis.projection = d3.geoAlbers()
         .precision(0)
         .scale(vis.height * 2).translate([vis.width / 2, vis.height / 2]);
 
@@ -494,7 +494,8 @@ RegionsVis.prototype.usZoom = function() {
         .remove();
 
     // Remove tool tips
-    vis.g.selectAll('.state-tip').remove();
+    console.log(d3.selectAll('.state-tip'));
+    d3.selectAll('.state-tip').remove();
 
     // Draw regional pie charts
     vis.regionPoints = vis.g.selectAll(".region-pie")
