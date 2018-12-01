@@ -78,7 +78,8 @@ RegionsVis.prototype.initVis = function() {
     vis.assessLabels = ['Good', 'Impaired', 'Threatened', 'Not Assessed'];
     vis.colorScale = d3.scaleOrdinal()
         .domain(vis.assessTypes)
-        .range(['#386CB0', '#FFFF99', '#FDC086', '#666666']);
+        .range(['#60A718', '#E9BF00', '#6B8BAD', '#CC0048']);
+        // .range(['#386CB0', '#FFFF99', '#FDC086', '#666666']);
     vis.regionColorScale = d3.schemeCategory10;
 
     // Filter, aggregate, modify data
@@ -243,7 +244,8 @@ RegionsVis.prototype.updateVis = function() {
         //     if (region > 0) {return vis.regionColorScale[region-1]}
         //     else {return "white"}
         // })
-        .style("fill", "#BEBEBE")
+        .style("fill", "#C9D7F8")
+        // .style("fill", "#BEBEBE")
         .style("stroke", "grey")
         .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
         // .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")})

@@ -68,7 +68,7 @@ LineChart.prototype.initVis = function() {
     vis.svg.append("g")
         .attr("class", "y-axis axis");
 
-
+    d3.selectAll(".domain").attr("stroke", "white");
     vis.wrangleData();
 }
 
