@@ -136,6 +136,10 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
     var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion, "assess-legend");
     var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
 
+    d3.selectAll("text").style("fill", "white");
+    d3.selectAll(".axis").attr("stroke", "white");
+    d3.selectAll(".domain").attr("stroke", "white");
+
 
 }
 

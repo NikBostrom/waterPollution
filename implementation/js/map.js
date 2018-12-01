@@ -170,7 +170,8 @@ MapVis.prototype.updateChoropleth = function() {
         .attr("y1", "0%")
         .attr("x2", "100%")
         .attr("y2", "100%")
-        .attr("spreadMethod", "pad");
+        .attr("spreadMethod", "pad")
+        .style("color", "#d9d9d9");
 
     legend.append("stop")
         .attr("offset", "0%")
@@ -200,4 +201,8 @@ MapVis.prototype.updateChoropleth = function() {
         .attr("class", "y axis")
         .attr("transform", "translate(21,10)")
         .call(yAxis)
+
+    d3.selectAll("text").style("fill", "white");
+    d3.selectAll("line").attr("stroke", "white");
+    d3.selectAll("path .domain").attr("stroke", "white");
 };

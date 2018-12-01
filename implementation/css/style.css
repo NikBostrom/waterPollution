@@ -116,8 +116,8 @@ a:hover {
     /*top: 50%;*/
     /*left: 50%;*/
     /*transform: translate(-50%, -50%);*/
-    color: white;
-    width: 70%;
+    /*color: white;*/
+    /*width: 70%;*/
 }
 
 .d3-tip {
@@ -261,6 +261,7 @@ body {
 
 .story-text {
     /*margin-left: 4%;*/
+    color: #fffffa;
 }
 
 /*Site colors*/
