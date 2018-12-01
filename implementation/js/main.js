@@ -12,8 +12,6 @@ queue()
     .defer(d3.json,"data/us_states.json")
     // .defer(d3.csv,"data/chesapeakeBayLoads.csv")
     .defer(d3.json, "data/us-state-centroids.json")
-    .defer(d3.json, "data/regionsOutline.json")
-    .defer(d3.json, "data/usStatesOutlineWithRegion.json")
     .await(createVis);
 
 /*
@@ -43,7 +41,7 @@ region_data = {};
 state_data = {};
 nyHarborData = [];
 
-function createVis(error, water_conditions, usOutline, world, water_quality, waterAssess, states, stateCentroids, mergedStates, statesWithRegion) {
+function createVis(error, water_conditions, usOutline, world, water_quality, waterAssess, states, stateCentroids) {
     if(error) throw error;
 
     // clean water-conditions data
@@ -73,6 +71,18 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
         d.Region = +d.Region;
         d['Water Size'] = +d['Water Size'];
     });
+
+    // Nest data by state
+    var waterAssessByState = d3.nest()
+        // .key(function(d) { return d.Region })
+        .key(function(d) { return d.State })
+        .key(function(d) { return d['Water Status']})
+        // .rollup(function(leaves) { console.log(leaves); return {"state": leaves[0].State, "count": leaves.length}; })
+        .rollup(function(leaves) { return leaves.length })
+        .entries(waterAssess); // for array
+        // .object(water_assess); // for object
+    //COMMD OUT
+    // console.log(waterAssessByState);
 
     // NY Harbor Data - Takes a long time to load - process asynchronously
     d3.csv("data/harbor-water-quality.csv", function(error, _nyHarborDataMessy) {
@@ -110,9 +120,11 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
         return ret;
     }
     var abbToState = swap(states);
+    // console.log(stateToAbb);
 
-    var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion);
+    // var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
     var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
+    var symbVis = new SymbVis("symb-vis", waterAssess, usOutline, stateCentroids, states, abbToState);
 
 }
 
