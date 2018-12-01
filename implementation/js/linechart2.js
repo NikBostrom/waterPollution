@@ -14,6 +14,9 @@ var svg = d3.select("#chesapeakeChart").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
+var formatDate = d3.timeFormat("%Y");
+var parseDate = d3.timeParse("%Y");
+
 // Scales
 var x = d3.scaleTime()
     .rangeRound([0, width]);
@@ -91,6 +94,9 @@ var WVnewLine = svg.append("path");
 
 
 
+
+
+
 var selectedOption = d3.select("#ranking-type").property("value");
 var selectedRegion = d3.select("#region-type").property("value");
 var formatDate = d3.timeFormat("%Y");
@@ -100,20 +106,61 @@ var parseDate = d3.timeParse("%Y");
 loadData();
 
 // Chesapeake Bay Data
-var chesapeakeData;
+var chesapeakeData = [];
+var targetData = [];
 
 function loadData() {
     d3.csv("data/chesapeakeBayLoads.csv", function(chesapeake) {
         // COMMD OUT - Nik
         // console.log(chesapeake);
-        chesapeakeData = chesapeake.map(function(d) {
-            return {
-                "Region": d.Region,
-                "Year": parseDate(d.Year),
-                "Nitrogen": +d.Nitrogen,
-                "Phosphorous": +d.Phosphorous,
-                "TSS": +d.TSS
+        chesapeake.sort(function(a, b) { return a.Region - b.Region; });
+        var regionBefore;
+        var regionAfter;
+        chesapeake.forEach(function(d) {
+            // console.log(d.year);
+            if (+d.Year === 2018) {
+                regionBefore = d;
             }
+            else if (+d.Year === 2025) {
+                regionAfter = d;
+            }
+            if (+d.Year === 2025) {
+                console.log(+d.year, "here");
+                targetData.push(
+                    {
+                        "Region": regionBefore.Region,
+                        "YearBefore": parseDate(regionBefore.Year),
+                        "YearAfter": parseDate(regionAfter.Year),
+                        "NitrogenBefore": +regionBefore.Nitrogen,
+                        "NitrogenAfter": +regionAfter.Nitrogen,
+                        "PhosphorousBefore": +regionBefore.Phosphorous,
+                        "PhosphorousAfter": +regionAfter.Phosphorous,
+                        "TSSBefore": +regionBefore.TSS,
+                        "TSS": +regionAfter.TSS
+                    }
+                )
+            }
+            else if (+d.Year >= 2009) {
+                chesapeakeData.push(
+                    {
+                    "Region": d.Region,
+                    "Year": parseDate(d.Year),
+                    "Nitrogen": +d.Nitrogen,
+                    "Phosphorous": +d.Phosphorous,
+                    "TSS": +d.TSS
+                    }
+                )
+            }
+            initializePredictions();
+        //     chesapeakeData = chesapeake.map(function(d) {
+        //         return {
+        //             "Region": d.Region,
+        //             "Year": parseDate(d.Year),
+        //             "Nitrogen": +d.Nitrogen,
+        //             "Phosphorous": +d.Phosphorous,
+        //             "TSS": +d.TSS
+        //         }
+        //     });
         });
         // COMMD OUT - Nik
         // console.log(chesapeakeData);
@@ -122,6 +169,25 @@ function loadData() {
     setTimeout(updateChesapeake, 200);
 }
 
+var dottedLines = [];
+function initializePredictions() {
+    targetData.forEach(function(target) {
+        console.log(target[selectedOption+"Before"]);
+        var prediction = svg.append("line")
+        //     .attr("x1", x(target.YearBefore))  //<<== change your code here
+        //     .attr("y1", y(target[selectedOption+"Before"]))
+        //     .attr("x2", x(target.YearAfter))  //<<== and here
+        //     .attr("y2", y(target[selectedOption+"After"]))
+            .attr("class", target.Region+"dottedLine " + target.Region+"line")
+            .style("stroke-dasharray", ("3, 3"))
+            .style("fill", "none");
+        // .style("display", "none");
+        dottedLines.push({
+            "Region": target.Region,
+            "Prediction": prediction
+        });
+    });
+}
 
 // Render visualization
 function updateChesapeake() {
@@ -131,6 +197,7 @@ function updateChesapeake() {
     // sort the data, define axes
     selectedOption = d3.select("#ranking-type").property("value");
     selectedRegion = d3.select("#region-type").property("value");
+    var max_y;
 
     chesapeakeData.sort(function(a, b) { return a.Year - b.Year; });
     var DCdata = chesapeakeData.filter(function(d) {
@@ -154,12 +221,7 @@ function updateChesapeake() {
     var WVdata = chesapeakeData.filter(function(d) {
         return d.Region === "WV";
     });
-    x.domain(d3.extent(chesapeakeData, function(d) {
-        if (d.Region === selectedRegion) {
-            return d.Year;
-        }
-    }));
-    y.domain([0, d3.max(chesapeakeData, function(d) {
+    max_y = d3.max(chesapeakeData, function(d) {
         if (selectedRegion !== "All") {
             if (d.Region === "All" || d.Region !== selectedRegion) {
                 return 0;
@@ -176,7 +238,56 @@ function updateChesapeake() {
                 return d[selectedOption];
             }
         }
-    })]);
+    });
+    x.domain([
+        d3.min(chesapeakeData, function(d) {
+            if (d.Region === selectedRegion) {
+                console.log(d.Year);
+                return d.Year;
+            }
+        }),
+        d3.max(targetData, function(d) {
+            if (d.Region === selectedRegion) {
+                console.log(d.YearAfter);
+                return d.YearAfter;
+            }
+        })
+    ]);
+    // x.domain(d3.extent(chesapeakeData, function(d) {
+    //     if (d.Region === selectedRegion) {
+    //         return d.Year;
+    //     }
+    // }));
+
+    y.domain([0, max_y]);
+
+    // console.log(targetData);
+    // console.log(chesapeakeData);
+    // console.log(WVdata);
+    svg.append("line")
+        .attr("x1", x(parseDate("2025")))  //<<== change your code here
+        .attr("y1", y(0))
+        .attr("x2", x(parseDate("2025")))  //<<== and here
+        .attr("y2", y(max_y))
+        .attr("class", "targetline")
+        .style("stroke-dasharray", ("3, 3"))
+        .style("stroke-width", 2)
+        .style("stroke", "red")
+        .style("fill", "none");
+
+    // targetData.forEach(function(target) {
+    //     console.log(target[selectedOption+"Before"]);
+    //     svg.append("line")
+    //     // svg.selectAll(".dottedline").append("line")
+    //         .attr("x1", x(target.YearBefore))  //<<== change your code here
+    //         .attr("y1", y(target[selectedOption+"Before"]))
+    //         .attr("x2", x(target.YearAfter))  //<<== and here
+    //         .attr("y2", y(target[selectedOption+"After"]))
+    //         .attr("class", target.Region+"dottedLine " + target.Region+"line")
+    //         .style("stroke-dasharray", ("3, 3"))
+    //         .style("fill", "none");
+    //         // .style("display", "none");
+    // });
 
     //Update X axis
     svg.select(".x-axis")
@@ -262,6 +373,29 @@ function updateChesapeake() {
         WVline = d3.line()
             .x(function(d) { return x(d.Year); })
             .y(function(d) { return y(d[selectedOption]); });
+
+        // dottedLines.forEach(function(line) {
+        // for
+        //     line.prediction
+        //         .attr("x1", x(line.Region.YearBefore))  //<<== change your code here
+        //         .attr("y1", y(target[selectedOption+"Before"]))
+        //         .attr("x2", x(target.YearAfter))  //<<== and here
+        //         .attr("y2", y(target[selectedOption+"After"]))
+        // })
+
+        targetData.forEach(function(target) {
+            console.log(target[selectedOption+"Before"]);
+            svg.append("line")
+            // svg.selectAll(".dottedline").append("line")
+                .attr("x1", x(target.YearBefore))  //<<== change your code here
+                .attr("y1", y(target[selectedOption+"Before"]))
+                .attr("x2", x(target.YearAfter))  //<<== and here
+                .attr("y2", y(target[selectedOption+"After"]))
+                .attr("class", target.Region+"dottedLine " + target.Region+"line")
+                .style("stroke-dasharray", ("3, 3"))
+                .style("fill", "none");
+            // .style("display", "none");
+        });
 
         // create circles for chart
         // Enter (initialize the newly added elements)
@@ -444,6 +578,10 @@ function updateChesapeake() {
 
         // Exit
         DCcircle.exit().remove();
+
+        var DCdotted = svg.select(".DCdottedLine")
+            .attr("y1", y(targetData[0][selectedOption+"Before"]))
+            .attr("y2", y(targetData[0][selectedOption+"After"]));
 
         DEnewLine.remove();
         DEcircle.remove();
