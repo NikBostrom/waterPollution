@@ -53,8 +53,6 @@
             <div class="col-lg-6 spacing placeholder"></div>
 
         </div>
-        <div class="row color-bar">
-            <div class="col-lg-6 story-text spacing placeholder">
         <div class="row">
             <div class="col-lg-12 story-text spacing placeholder">
                 This map shows the different regions of the United States and their respective proportions of healthy, threatened, impaired, and unassessed waters, including lakes, rivers, and estuaries. We can see clearly in the midwestern regions that there are far too many unassessed waters. This means that we do not have any data for these bodies and are not able to monitor trends and ecosystem health.
@@ -62,8 +60,6 @@
             </div>
 
         </div>
-        <div class="row color-bar">
-            <div class="col-lg-6 story-text spacing placeholder">
         <div class="row">
             <div class="col-lg-12">
                 <div id="symb-vis"></div>
@@ -103,7 +99,6 @@
 
         </div>
         <div class="row color-bar">
-        <div class="row">
             <div class="col-lg-12 story-text spacing placeholder" id="chesapeake">
                 <form style="margin-bottom: 2%" class="form-inline">
                     <div class="form-group" style="margin-left: 10%;">
@@ -166,10 +161,36 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6 story-text spacing placeholder">
+            <div class="col-lg-12 story-text spacing placeholder">
             Leading up to the passage of the Clean Water Act in 1972, the New York Harbor was made unswimmable by fecal pathogens and many other human-based pollutants. After collecting and sampling the water, the harbor was able to produce data showing that sewage contamination was the source of the pollution problem. We see in these visualizations the different concentrations of various contaminants being measured from the harbor, and how those concentrations change throughout the year on average.
             </div>
-            <div class="col-lg-6 spacing placeholder"></div>
+        </div>
+        <div class="row">
+            <form class="form-inline" id="harbor-vis-form">
+                <div class="form-group">
+                    <label for="harbor-select-box">Filter by</label>
+                    <select class="form-control" id="harbor-select-box">
+                        <!--TODO: Separate single select box with all options into two: one for the actual "measure," the other for water surface or -->
+                        <option value="DO (mg/L) - Top">Dissolved Oxygen (mg/L) at Water Surface</option>
+                        <option value="DO (mg/L) - Bot">Dissolved Oxygen (mg/L) at Bottom of Water Body</option>
+                        <option value="Fecal Coliform (#/100 mL) - Top" selected>Fecal Coliform (#/100 mL) at Water Surface</option>
+                        <option value="Fecal Coliform (#/100 mL) - Bot">Fecal Coliform (#/100 mL) at Bottom of Water Body</option>
+                    </select>
+
+                    <!--Updating time period-->
+                    <!--<label id="time-period-text">Time Period:</label>-->
+                    <!--<input type="text" class="form-control time-period-bounds" id="lower-bound" placeholder="Lower Bound">-->
+                    <!--<label id="time-period-hyphen">-</label>-->
+                    <!--<input type="text" class="form-control time-period-bounds" id="upper-bound" placeholder="Upper Bound">-->
+
+                    <!--<button type="button" class="btn btn-link" id="time-period-button" onclick="filterTime()">Filter</button>-->
+                    <!--<button type="button" class="btn btn-link" id="time-period-reset-button" onclick="resetVisualization()">Reset</button>-->
+                </div>
+            </form>
+        </div>
+        <div class="row" id="harbor-vis">
+            <div class="col-lg-6" id="harbor-map"></div>
+            <div class="col-lg-6" id="harbor-linechart"></div>
         </div>
         <div class="row color-bar">
             <div class="col-lg-6 story-text spacing placeholder">
@@ -186,7 +207,7 @@
         <div class="row">
 
             <div class="col-lg-12 spacing">
-                <select class="form-control" id="measurable">
+                <select class="form-control spacing" id="measurable">
                     <option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>
                     <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
                     <option value="Turbidity">Turbidity (NTU)</option>
@@ -219,27 +240,26 @@
             <!--Show choropleth and present problem that we could have prevented-->
         </div>
         <div class="row color-bar">
-            <div class="col-lg-6 story-text spacing placeholder">
+            <!--<div class="col-lg-6 story-text spacing placeholder">-->
+            <div class="col-lg-6 spacing placeholder">
                 <p>
-            We do not have information on the current state of Nebraska’s bodies of water, nor of the rest of the midwest, nor of the rest of the country. This is the biggest problem that we face with respect to our pursuit of water quality in the midwest, and the United States as a whole. When we have concrete data and can understand the state of a system, we are able to enact effective policy, such as President Obama did in 2009 and as we saw from the Clean Water Act of 1972, to create and maintain the health of our waters
+                    We do not have information on the current state of Nebraska’s bodies of water, nor of the rest of the midwest, nor of the rest of the country. This is the biggest problem that we face with respect to our pursuit of water quality in the midwest, and the United States as a whole. When we have concrete data and can understand the state of a system, we are able to enact effective policy, such as President Obama did in 2009 and as we saw from the Clean Water Act of 1972, to create and maintain the health of our waters
 
                 </p>
-            <p>
-                We need more data on those bodies of water if we are going to even begin to solve the nation’s water quality challenges, and it starts with the EPA.
-            </p>
+                <p>
+                    We need more data on those bodies of water if we are going to even begin to solve the nation’s water quality challenges, and it starts with the EPA.
+                </p>
             </div>
-            <div class="col-lg-6 spacing placeholder"></div>
-
+            <!--Show choropleth and present problem that we could have prevented-->
         </div>
 
         <div class="row color-bar">
             <div class="col-lg-6 story-text spacing placeholder">
+        <div class="row">
+            <div class="col-lg-12 story-text spacing placeholder">
                 Petition the EPA to start collecting data regularly on the nation’s bodies of water and to make this data available for data scientists and researchers here:
 
             </div>
-            <div class="col-lg-6 spacing placeholder"></div>
-
-
         </div>
 
 
@@ -251,252 +271,11 @@
 
         </div>
 
+            <!--<h2>-->
+                <!--Changes in the Chesapeake Bay-->
+            <!--</h2>-->
+            <!--<h5>How the Chesapeake Bay Finds Data-Driven Solutions</h5>-->
 
-
-        <div class="row color-bar">
-            <div class="col-lg-6 story-text spacing">
-                <p>
-                    Nitrogen and phosphorus are natural parts of aquatic ecosystems, and according to the
-                    <a href="https://www.epa.gov/nutrientpollution/problem">
-                        EPA
-                    </a>,
-                </p>
-                <blockquote>
-
-                    “[Nitrogen and Phosphorus] support the growth of algae and aquatic plants, which provide
-                    food and habitat for fish, shellfish and smaller organisms that live
-                    in water… <br> Too much nitrogen and phosphorus in the water causes algae
-                    to grow faster than ecosystems can handle. Significant increases in algae
-                    harm water quality, food resources and habitats, and <strong>decrease the oxygen
-                    that fish and other aquatic life need to survive</strong>. Large growths of algae
-                    are called <strong>algal blooms</strong> and they can <strong>severely reduce or eliminate oxygen
-                    in the water, leading to illnesses in fish and the death of large numbers
-                    of fish</strong>. Some algal blooms are <strong>harmful to humans</strong> because they produce elevated
-                    toxins and bacterial growth that <strong>can make people sick if they come into contact
-                    with polluted water, consume tainted fish or shellfish, or drink contaminated water.</strong>”
-                    (emphasis added)
-                </blockquote>
-
-
-            </div>
-            <div class="col-lg-6 spacing">
-                <select class="form-control" id="measurable">
-                    <option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>
-                    <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
-                    <option value="Turbidity">Turbidity (NTU)</option>
-                </select>
-                <p style="text-align: left; padding-top: 3%">Total Concentration of Pollutant</p>
-                <div id="map-vis"></div>
-            </div>
-        </div>
-        <div class="row color-bar">
-            <div class="col-lg-6 story-text spacing">
-                <p>
-                    Lakes are valued as water sources and for fishing, water transport, recreation, and tourism, so we can see
-                    that more than just an ecosystem is at risk when our lakes become contaminated.
-
-                    According to the
-                    <a href="https://www2.gov.bc.ca/assets/gov/environment/air-land-water/water/waterquality/wqgs-wqos/approved-wqgs/nitrogen-overview.pdf">
-                        Water Quality Guidelines for Nitrogen (Nitrate, Nitrite,
-                    and Ammonia) by Water Stewardship Division Ministry of Environment Province
-                    of British Columbia </a>, with respect to nitrate (as N), the <strong> average concentration
-                    to protect freshwater aquatic life</strong> is <strong>3000 ug/L</strong> (micrograms per liter). For nitrate (as N), the 30-day average
-                    <strong>concentration to protect marine aquatic life</strong> is <strong>3700 ug/L</strong>. The concentrations of total nitrogen,
-                    which includes nitrate, nitrite, and ammonia (the maximums for the latter two are not listed in
-                    our consideration) for the most polluted states in terms of their lakes' water quality on average are:
-                <!--<ul>-->
-                    <!--<li> North Dakota: 3,866 ug/L</li>-->
-                    <!--<li> South Dakota: 4,015 ug/L</li>-->
-                    <!--<li> Nebraska: 4,681 ug/L</li>-->
-                <!--</ul>-->
-                </p>
-            </div>
-            <div id="country-bar" class="col-lg-6 placeholder spacing"></div>
-        </div>
-        <div class="row color-bar">
-            <div class="col-lg-10 spacing">
-                <h2 class="story-text">Murky Waters</h2>
-                <p class="story-text">In viewing the first choropleth map, we found that there was a major pollution problem in lakes in the midwest in 2007, but did not have data from the lakes over the last decade to trace those pollution levels over time. After visualizing and understanding these findings, we found a more comprehensive data set and found that there are lots of bodies of water across the country that are impaired, threatened, or are not being monitored at all. This presented us with the question, if we have tangible, accurate data showing the real, adverse effects of pollution on these bodies of water, is it enough to make a significant change?
-                </p>
-                <div id="regions-vis"></div>
-            </div>
-            <!--<div class="col-lg-4 story-text">-->
-            <!--</div>-->
-        </div>
-        <div class="row color-bar">
-            <div class="col-lg-12 spacing">
-                <!--<div id="time-period-min"></div>-->
-                <!--<div id="time-period-max"></div>-->
-                    <h2 class="story-text">What If We Had the Data?</h2>
-                    <p class="story-text">This question led us to take a look at various case studies of how different
-                        specific locations used the presence of data to solve their pollution problems. Now, we look at
-                        the process followed by the New York Harbor and Chesapeake Bay area to show how they were able
-                        to find solutions for their pollutant issues.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-    <!--<div class="row">-->
-        <!--<div class="col-md-12 placeholder">-->
-            <!--<h2><a href="https://www.epa.gov/nutrientpollution/where-occurs-lakes-and-rivers">Case studies that worked:</a></h2>-->
-        <!--</div>-->
-    <!--</div>-->
-
-    <div class="color-bar" id="harbor-row">
-        <div class="row">
-            <form class="form-inline" id="harbor-vis-form">
-                <div class="form-group">
-                    <label for="harbor-select-box">Filter by</label>
-                    <select class="form-control" id="harbor-select-box">
-                        <!--TODO: Separate single select box with all options into two: one for the actual "measure," the other for water surface or -->
-                        <option value="DO (mg/L) - Top">Dissolved Oxygen (mg/L) at Water Surface</option>
-                        <option value="DO (mg/L) - Bot">Dissolved Oxygen (mg/L) at Bottom of Water Body</option>
-                        <option value="Fecal Coliform (#/100 mL) - Top" selected>Fecal Coliform (#/100 mL) at Water Surface</option>
-                        <option value="Fecal Coliform (#/100 mL) - Bot">Fecal Coliform (#/100 mL) at Bottom of Water Body</option>
-
-    <div class="row">
-        <form class="form-inline" id="harbor-vis-form">
-            <div class="form-group">
-                <label for="harbor-select-box">Filter by</label>
-                <select class="form-control" id="harbor-select-box">
-                    <!--TODO: Separate single select box with all options into two: one for the actual "measure," the other for water surface or -->
-                    <option value="DO (mg/L) - Top">Dissolved Oxygen (mg/L) at Water Surface</option>
-                    <option value="DO (mg/L) - Bot">Dissolved Oxygen (mg/L) at Bottom of Water Body</option>
-                    <option value="Fecal Coliform (#/100 mL) - Top" selected>Fecal Coliform (#/100 mL) at Water Surface</option>
-                    <option value="Fecal Coliform (#/100 mL) - Bot">Fecal Coliform (#/100 mL) at Bottom of Water Body</option>
-                </select>
-
-                <!--Updating time period-->
-                <!--<label id="time-period-text">Time Period:</label>-->
-                <!--<input type="text" class="form-control time-period-bounds" id="lower-bound" placeholder="Lower Bound">-->
-                <!--<label id="time-period-hyphen">-</label>-->
-                <!--<input type="text" class="form-control time-period-bounds" id="upper-bound" placeholder="Upper Bound">-->
-
-                <!--<button type="button" class="btn btn-link" id="time-period-button" onclick="filterTime()">Filter</button>-->
-                <!--<button type="button" class="btn btn-link" id="time-period-reset-button" onclick="resetVisualization()">Reset</button>-->
-                </div>
-            </form>
-        </div>
-        <div class="row" id="harbor-vis">
-            <div class="col-lg-6" id="harbor-map"></div>
-            <div class="col-lg-6" id="harbor-linechart"></div>
-        </div>
-    </div>
-
-    <div class="row color-bar">
-        <div class="col-md-12">
-            <p class="placeholder">Explanation of above charts; How NY Harbor solved their problem</p>
-        </div>
-    </div>
-
-    <div class="color-bar">
-        <div class="centered">
-            <div>
-                <h2>
-                    Changes in the Chesapeake Bay
-                </h2>
-                <h5>How the Chesapeake Bay Finds Data-Driven Solutions</h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 spacing">
-                <p class="story-text">
-                    Although there are many places where a large amount of work needs to be done, there are some
-                    places in which remediation work has already started. Chesapeake Bay has been a major area of
-                    concern for many years. According to the EPA, “Nitrogen and phosphorus have always been a part of
-                    the Chesapeake Bay ecosystem, but have increased to excessive levels over the last few decades.
-                    Prior to substantial human activity in the region, most nitrogen and phosphorus was absorbed or
-                    retained by natural forest and wetland vegetation. However, the activities of over 13.6 million
-                    people in the watershed have overwhelmed the Chesapeake Bay with excess amounts of nutrients.”
-                </p>
-            </div>
-            <div class="col-lg-6 spacing">
-                <img src="imgs/dirtyChesapeake.jpg" alt="Dirty Chesapeake" width="600">
-            </div>
-        </div>
-    </div>
-    <div class="row color-bar">
-        <div class="col-lg-12 spacing">
-            <p class="story-text" id="positivity">
-                Luckily, there has been a push for change.  The Chesapeake Bay is the largest estuary in the
-                United States, and as such, it needs to be protected from any anthropogenic harm.  In recent years,
-                there have been initiatives to lower the concentrations of the nutrients back to healthy levels.
-                In 2009, President Barack Obama signed an Executive Order forcing there to be more stringent laws
-                and remediation activities surrounding the bay.  This action along with subsequent efforts has
-                caused significant improvement for the estuary.
-                Chesapeake Bay spans several states, including Delaware, Maryland, Virginia, and New Jersey.
-                There are currently goals to reduce nutrient levels by 2025.
-            </p>
-        </div>
-    </div>
-    <div class="color-bar">
-        <div class="row color-bar">
-            <form class="form-inline">
-                <div class="form-group" style="margin-left: 10%;">
-                    <label for="ranking-type">Show: &nbsp;</label>
-                    <select class="form-control" id="ranking-type" onchange="updateChesapeake();">
-                        <option value="Nitrogen">Nitrogen</option>
-                        <option value="Phosphorous">Phosphorous</option>
-                        <option value="TSS">TSS</option>
-                    </select>
-                </div>
-            </form>
-            <form class="form-inline">
-                <div class="form-group" style="margin-left: 10%;">
-                    <label for="ranking-type">Region: &nbsp;</label>
-                    <select class="form-control" id="region-type" onchange="updateChesapeake();">
-                        <option value="All">All</option>
-                        <option value="DC">Washington, D.C.</option>
-                        <option value="DE">Delaware</option>
-                        <option value="MD">Maryland</option>
-                        <option value="NY">New York</option>
-                        <option value="PA">Pennsylvania</option>
-                        <option value="VA">Virginia</option>
-                        <option value="WV">West Virginia</option>
-                    </select>
-                </div>
-            </form>
-        </div>
-        <div class="row">
-            <div class="col-md-9 spacing" id="chesapeakeChart"></div>
-            <div class="col-md-3 spacing" id="chesapeakeTable">
-                <table>
-                    <tr>
-                        <th>Region Colors</th>
-                    </tr>
-                    <tr>
-                        <td style="color:orange">Pennsylvania</td>
-                    </tr>
-                    <tr>
-                        <td style="color:hotpink">Virginia</td>
-                    </tr>
-                    <tr>
-                        <td style="color:blue">Maryland</td>
-                    </tr>
-                    <tr>
-                        <td style="color:purple">New York</td>
-                    </tr>
-                    <tr>
-                        <td style="color:#5D77FF">West Virginia</td>
-                    </tr>
-                    <tr>
-                        <td style="color:red">Delaware</td>
-                    </tr>
-                    <tr>
-                        <td style="color:#1C9A3D">Washington, D.C.</td>
-                    </tr>
-                    <tr>
-                        <td style="color:#ffe800">Target Goal by 2025</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="row color-bar">
-        <div class="col-lg-12">
-            <p class="placeholder">Call to action</p>
-        </div>
     </div>
 
     <!-- Load JS libraries -->
