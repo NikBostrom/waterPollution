@@ -149,8 +149,8 @@ body {
 
 .placeholder {
     padding: 20px;
-    border: black;
-    border-style: solid;
+    /*border: black;*/
+    /*border-style: solid;*/
 }
 
 .story-text {
@@ -181,7 +181,7 @@ p {
 }
 
 h2 {
-    margin-top: 2%;
+    /*margin-top: 2%;*/
 }
 
 .dark-block {
