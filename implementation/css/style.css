@@ -254,7 +254,8 @@ Specify size of the map container for leaflet
  */
 #harbor-map {
     width: 90%;
-    height: 600px;
+    max-height: 500px;
+    /*height: 600px;*/
 }
 #harbor-linechart svg {
     width: 90%;
