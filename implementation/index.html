@@ -199,20 +199,22 @@
         </div>
     </div>
     <div class="color-bar">
+        <div>
+            <h2 class="case-study-title">There's Something in the Harbor!</h2>
+        </div>
         <div class="row" id="harbor-select-box-row">
             <form class="form-inline" id="harbor-vis-form">
-                <div>
-                    <h2 style="margin-top: 2%">There's Something in the Harbor!</h2>
-                </div>
+
                 <div class="form-group">
                     <label for="harbor-select-box">Filter by</label>
-                    <select class="form-control" id="harbor-select-box">
+                    <select class="form-control spacing" id="harbor-select-box">
                         <!--TODO: Separate single select box with all options into two: one for the actual "measure," the other for water surface or -->
                         <option value="DO (mg/L) - Top">Dissolved Oxygen (mg/L) at Water Surface</option>
                         <option value="DO (mg/L) - Bot">Dissolved Oxygen (mg/L) at Bottom of Water Body</option>
                         <option value="Fecal Coliform (#/100 mL) - Top" selected>Fecal Coliform (#/100 mL) at Water Surface</option>
                         <option value="Fecal Coliform (#/100 mL) - Bot">Fecal Coliform (#/100 mL) at Bottom of Water Body</option>
                     </select>
+
 
                     <!--Updating time period-->
                     <!--<label id="time-period-text">Time Period:</label>-->
@@ -252,12 +254,23 @@
     <div class="row">
         <div class="col-lg-12 spacing">
             <!-- here's where to fix -->
-            <h2>Nutrient Pollution in the Midwest</h2>
-            <select class="form-control spacing" id="measurable">
-                <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
-                <option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>
-                <option value="Turbidity">Turbidity (NTU)</option>
-            </select>
+            <div class="case-study-title">
+                <h2>Nutrient Pollution in the Midwest</h2>
+            </div>
+            <div class="row" id="measurable-select-box-row">
+                <form class="form-inline" id="measurable-form">
+
+                    <div class="form-group">
+                        <label for="measurable">Filter by</label>
+                        <select class="form-control spacing" id="measurable">
+                            <option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>
+                            <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
+                            <option value="Turbidity">Turbidity (NTU)</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <!--</div-->
             <p style="text-align: left; padding-top: 3%">Total Concentration<br> of Pollutant</p>
             <div id="map-vis"></div>
         </div>
@@ -267,24 +280,26 @@
             <h2>A Case For More, Better Data</h2>
         </div>
     </div>
-    <div class="row">
+    <!--<div class="row">-->
+        <!-- ---------- -->
+        <!--<div class="row">-->
+            <!--<form class="form-inline" id="measurable-form">-->
+                <!--<div class="form-group">-->
+                    <!--<select class="form-control spacing" id="measurable">-->
+                        <!--<option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>-->
+                        <!--<option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>-->
+                        <!--<option value="Turbidity">Turbidity (NTU)</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+        <!--<p style="text-align: left; padding-top: 3%">Total Concentration of Pollutant</p>-->
+        <!--<div id="map-vis"></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="row color-bar">
 
-        <!--                 <div class="row">
-                            <form class="form-inline" id="measurable-form">
-                                <div class="form-group">
-                                    <select class="form-control spacing" id="measurable">
-                                        <option value="Total_Phosphorus">Total Phosphorus (ug/L)</option>
-                                        <option value="Total_Nitrogen">Total Nitrogen (ug/L)</option>
-                                        <option value="Turbidity">Turbidity (NTU)</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <p style="text-align: left; padding-top: 3%">Total Concentration of Pollutant</p>
-                        <div id="map-vis"></div>
-                    </div>
-                </div>
-                <div class="row color-bar"> -->
+        <!-- ---------- -->
 
         <div class="col-lg-6 story-text spacing placeholder">
             <p>
