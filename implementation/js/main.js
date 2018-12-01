@@ -124,7 +124,7 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
 
     // var glyphVis = new GlyphVis("glyph-vis", waterAssessByState);
     var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
-    var symbVis = new SymbVis("symb-vis", waterAssess, usOutline, stateCentroids, states, abbToState);
+    var symbVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState);
 
 }
 

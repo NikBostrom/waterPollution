@@ -172,7 +172,7 @@ function loadData() {
 var dottedLines = [];
 function initializePredictions() {
     targetData.forEach(function(target) {
-        console.log(target[selectedOption+"Before"]);
+        // console.log(target[selectedOption+"Before"]);
         var prediction = svg.append("line")
         //     .attr("x1", x(target.YearBefore))  //<<== change your code here
         //     .attr("y1", y(target[selectedOption+"Before"]))
