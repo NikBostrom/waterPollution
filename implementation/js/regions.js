@@ -11,10 +11,7 @@
  * @param _legendElement    -- the HTML element in which to draw the legend
  */
 
-// TODO: Check out Felix's code
-// TODO: thick region border when hover
-// TODO: Add state outlines on top of regions
-// TODO: check behavior if directly transitioning between regions. or disable clicking on other regions
+// TODO: Hover tooltips w/stats for each state?
 // TODO: Fix centers of regions?
 
 RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion, _legendElement){
@@ -227,7 +224,9 @@ RegionsVis.prototype.updateVis = function() {
         // })
         .style("fill", "#BEBEBE")
         .style("stroke", "grey")
-        .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)});
+        .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
+        .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")})
+        .on("mouseout", function(d) {d3.select(this).style("stroke-width", "1")});
 
     console.log(vis.byRegion);
 
@@ -276,16 +275,54 @@ RegionsVis.prototype.updateVis = function() {
 
 RegionsVis.prototype.regionZoom = function(id) {
     var vis = this;
+    console.log("regionZoom");
 
     // Define transition
-    vis.t = d3.transition().duration(1000);
+    // vis.t = d3.transition().duration(1000);
+    vis.t0 = d3.transition().duration(750); // remove regionPies
+    vis.t1 = d3.transition().duration(1000); // zoom in
+    vis.t2 = d3.transition().delay(1000).duration(500); // bring in statePies
 
     // Remove regionPies
     vis.g.selectAll('.region-pie')
         .data([])
-        .exit().transition(vis.t)
+        .exit().transition(vis.t0)
         .style('opacity', 0)
         .remove();
+
+    // Remove statePies
+    vis.g.selectAll('.state-pie')
+        .data([])
+        .exit().transition(vis.t0)
+        .style('opacity', 0)
+        .remove();
+
+    // console.log("remove state data");
+    // console.log("    vis.g.selectAll('.state')\n" +
+    //     "        .data([])");console.log(
+    //     vis.g.selectAll('.state')
+    //         .data([])
+    // );
+    // console.log("vis.g.selectAll('.state')\n" +
+    //     "        .data([])\n" +
+    //     "        .exit()");
+    // console.log(vis.g.selectAll('.state')
+    //     .data([])
+    //     .exit());
+    // console.log(vis.g.selectAll('.state'));
+
+    // Remove state data?
+    vis.g.selectAll('.state')
+        .data([])
+        .exit().transition(vis.t)
+        .attr('d', vis.path)
+        .style('opacity', 0)
+        .remove();
+
+    // Disable region click and mouseover TODO: enable region to region transition?
+    vis.regionPaths
+        .on("click", null)
+        .on("mouseover", null);
 
     // Define region
     vis.regionFocus = vis.regionFeatures.find(function(d) {return d.properties.EPA_REGION === id});
@@ -296,6 +333,7 @@ RegionsVis.prototype.regionZoom = function(id) {
     });
 
     // Define statePaths
+    // vis.stateG =
     vis.statePaths = vis.g.selectAll(".state")
         .data(vis.regionStates, function(d) { return d.properties.EPA_REGION });
 
@@ -320,7 +358,7 @@ RegionsVis.prototype.regionZoom = function(id) {
     vis.regionByState = vis.byState.filter(function(d) {
         return vis.stateToRegion[id].hasOwnProperty(d.key)
     });
-    console.log(vis.regionByState);
+    // console.log(vis.regionByState);
 
     // Define statePies
     vis.statePoints = vis.g.selectAll(".state-pie")
@@ -348,32 +386,34 @@ RegionsVis.prototype.regionZoom = function(id) {
         .style('opacity', 0);
 
     // Transition regionPaths to grey
-    vis.regionPaths.transition(vis.t)
+    vis.regionPaths.transition(vis.t1)
         .attr('d', vis.path)
-        .style('fill', '#444');
+        .style('fill', '#444')
 
     // Transition enterStatePaths into opacity
-    vis.enterStatePaths.transition(vis.t)
+    vis.enterStatePaths.transition(vis.t1)
         .attr('d', vis.path)
         .style('opacity', 1);
 
     // Transition state pie charts into opacity
-    // TODO: either delay until zoom in is complete, or slide in during zoom
-    vis.statePiePaths.transition(vis.t)
+    vis.statePiePaths.transition(vis.t2)
         .attr('d', vis.arc)
         .style('opacity', 1);
 
     // Exit statePaths (this doesn't seem completely necessary. exit is empty
-    vis.statePaths.exit().transition(vis.t)
+    vis.statePaths.exit().transition(vis.t1)
         .attr('d', vis.path)
         .style('opacity', 0)
         .remove();
 
-    // // Exit statePiePaths TODO: what would this do?
-    // vis.statePiePaths.exit().transition(vis.t)
-    //     .attr('d', vis.path)
-    //     .style('opacity', 0)
-    //     .remove();
+    console.log('vis.statePiePaths');
+    console.log(vis.statePiePaths);
+    // Exit statePiePaths
+    vis.statePiePaths.transition(vis.t1)
+        .attr('d', vis.path)
+        .style('opacity', 0);
+
+    console.log(vis.statePiePaths);
 };
 
 RegionsVis.prototype.usZoom = function() {
@@ -400,8 +440,9 @@ RegionsVis.prototype.usZoom = function() {
         // });
         .style("fill", "#BEBEBE")
         .style("stroke", "grey");
-
-    // TODO: Add transitions back to pie charts
+    // Re-enable region clicking and mouseover
+    vis.regionPaths.on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
+        .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")});
 
     // Remove statePies
     vis.g.selectAll('.state-pie')

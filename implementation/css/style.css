@@ -1,5 +1,16 @@
 
 /* YOUR CSS STYLES */
+
+/*For regions map*/
+
+/*.region:hover {*/
+    /*stroke-width: 3;*/
+/*}*/
+
+.state:hover {
+    stroke-width: 3
+}
+
 .state {
     stroke: grey;
 }
@@ -274,8 +285,14 @@ p {
     color: white;
 }
 
+/* What is this for? */
 .text {
     color: #F8FCFF;
+}
+
+/* For region map legend labels */
+.label {
+    fill: #d9d9d9;
 }
 
 h2 {
