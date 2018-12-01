@@ -3,9 +3,9 @@
 
 /*For regions map*/
 
-/*.region:hover {*/
-    /*stroke-width: 3;*/
-/*}*/
+.region:hover {
+    stroke-width: 3;
+}
 
 .state:hover {
     stroke-width: 3

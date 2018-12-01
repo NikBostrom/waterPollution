@@ -55,7 +55,7 @@ RegionsVis.prototype.initVis = function() {
     vis.g = vis.svg.append("g");
 
     // Set up map
-    vis.projection = d3.geoAlbers()
+    vis.projection = d3.geoAlbersUsa()
         .precision(0)
         .scale(vis.height * 2).translate([vis.width / 2, vis.height / 2]);
 
@@ -75,6 +75,7 @@ RegionsVis.prototype.initVis = function() {
 
     // Ordinal color scale
     vis.assessTypes = ['GOOD', 'IMPAIRED', 'THREATENED', 'NOT_ASSESSED'];
+    vis.assessLabels = ['Good', 'Impaired', 'Threatened', 'Not Assessed'];
     vis.colorScale = d3.scaleOrdinal()
         .domain(vis.assessTypes)
         .range(['#386CB0', '#FFFF99', '#FDC086', '#666666']);
@@ -206,6 +207,26 @@ RegionsVis.prototype.wrangleData = function() {
 RegionsVis.prototype.updateVis = function() {
     var vis = this;
 
+    console.log(vis.byRegion);
+
+    // Define region tool tip
+    vis.regionToolTip = d3.tip()
+        .attr("class", "region-tip d3-tip")
+        .offset([-3,0])
+        .html(function(d) {
+            var region = d.properties.EPA_REGION;
+            var data = vis.byRegion.find(function(d) {return d.key === region});
+            // console.log(region);
+            // console.log(data.values);
+            var text = "EPA Region " + region + "<br/>";
+            for (var i=0; i<data.values.length; i++) {
+                text += vis.assessLabels[i] + ": " + data.values[i] + "<br/>"
+            }
+            return text
+        });
+
+    vis.svg.call(vis.regionToolTip);
+
     // Draw regional geographic features
     vis.regionPaths = vis.g.selectAll(".region")
         .data(vis.regionFeatures)
@@ -225,12 +246,13 @@ RegionsVis.prototype.updateVis = function() {
         .style("fill", "#BEBEBE")
         .style("stroke", "grey")
         .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
-        .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")})
-        .on("mouseout", function(d) {d3.select(this).style("stroke-width", "1")});
+        // .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")})
+        .on("mouseover", vis.regionToolTip.show)
+        // .on("mouseout", function(d) {d3.select(this).style("stroke-width", "1")})
+        .on("mouseout", vis.regionToolTip.hide);
 
-    console.log(vis.byRegion);
 
-    // TODO: Factor drawing pie charts into usZoom function
+    // TODO: Factor drawing pie charts into usZoom function?
     // Draw regional pie charts
     vis.regionPoints = vis.g.selectAll(".region-pie")
         .data(vis.byRegion)
@@ -266,7 +288,7 @@ RegionsVis.prototype.updateVis = function() {
 
     vis.legendOrdinal = d3.legendColor()
         .title("Water Assessment Status")
-        .labels(['Good', 'Impaired', 'Threatened', 'Not Assessed'])
+        .labels(vis.assessLabels)
         .scale(vis.colorScale);
 
     vis.legendSvg.select(".legendOrdinal")
@@ -319,7 +341,7 @@ RegionsVis.prototype.regionZoom = function(id) {
         .style('opacity', 0)
         .remove();
 
-    // Disable region click and mouseover TODO: enable region to region transition?
+    // // Disable region click and mouseover TODO: enable region to region transition?
     vis.regionPaths
         .on("click", null)
         .on("mouseover", null);
@@ -332,6 +354,22 @@ RegionsVis.prototype.regionZoom = function(id) {
         return d.properties.EPA_REGION === id;
     });
 
+    // Define state tool tip
+    vis.stateToolTip = d3.tip()
+        .attr("class", "state-tip d3-tip")
+        .offset([-3,0])
+        .html(function(d) {
+            var state = d.properties.NAME;
+            var data = vis.byState.find(function(d) {return d.key === state});
+            var text = state + "<br/>";
+            for (var i=0; i<data.values.length; i++) {
+                text += vis.assessLabels[i] + ": " + data.values[i] + "<br/>"
+            }
+            return text
+        });
+
+    vis.svg.call(vis.stateToolTip);
+
     // Define statePaths
     // vis.stateG =
     vis.statePaths = vis.g.selectAll(".state")
@@ -343,7 +381,9 @@ RegionsVis.prototype.regionZoom = function(id) {
         .attr("d", vis.path)
         .style("fill", "#BEBEBE")
         .style('opacity', 0)
-        .on('click', function() {vis.usZoom()});
+        .on('click', function() {vis.usZoom()})
+        .on('mouseover', vis.stateToolTip.show)
+        .on('mouseout', vis.stateToolTip.hide);
 
     // Change projection
     vis.padding = 20;
@@ -442,7 +482,9 @@ RegionsVis.prototype.usZoom = function() {
         .style("stroke", "grey");
     // Re-enable region clicking and mouseover
     vis.regionPaths.on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
-        .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")});
+        // .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")});
+        .on("mouseover", vis.regionToolTip.show)
+        .on("mouseout", vis.regionToolTip.hide);
 
     // Remove statePies
     vis.g.selectAll('.state-pie')
@@ -450,6 +492,9 @@ RegionsVis.prototype.usZoom = function() {
         .exit().transition(vis.t)
         .style('opacity', 0)
         .remove();
+
+    // Remove tool tips
+    vis.g.selectAll('.state-tip').remove();
 
     // Draw regional pie charts
     vis.regionPoints = vis.g.selectAll(".region-pie")
