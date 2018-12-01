@@ -90,6 +90,7 @@ HarborLinechartVis.prototype.initVis = function() {
 
 // Animations
 var transitionDuration = 800;
+
 // var mainColor = "white";
 // var mainColor = "#6dabd5";
 var mainColor = "#0f6d70";

@@ -1,3 +1,5 @@
+// DO NOT USE. Use RegionsVis instead!!!!
+
 /*
  * GraduatedSymbolVis - Object constructor function
  * @param _parentElement 	-- the HTML element in which to draw the visualization

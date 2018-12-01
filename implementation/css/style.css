@@ -1,5 +1,16 @@
 
 /* YOUR CSS STYLES */
+
+/*For regions map*/
+
+/*.region:hover {*/
+    /*stroke-width: 3;*/
+/*}*/
+
+.state:hover {
+    stroke-width: 3
+}
+
 .state {
     stroke: grey;
 }
@@ -20,14 +31,28 @@ body, html {
 }
 
 body {
-    background-color: #E6E7E8;
-    color: #0745af;
 
+    /*background-color: #E6E7E8;*/
+    /*color: #0745af;*/
+
+    /*background-color: #0f6d70;*/
+    background-color: #144f52;
+
+
+    /*background-color: #275a5e;*/
+    color: #d9d9d9
+;
 }
-
+a {
+    color: #99caff;
+}
+a:hover {
+    color: #66b0ff;
+}
 .row {
     margin-left: 4%;
     margin-right: 4%;
+    padding-bottom: 4%;
 }
 
 .imgs {
@@ -36,6 +61,7 @@ body {
 }
 
 #dirty-water {
+
 
 }
 
@@ -55,12 +81,13 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-
-    margin-bottom: 4%;
+    /*To match the left and right borders used in bootstrap columns*/
+    margin-bottom: 15px;
 }
 
 /* Place text in the middle of the image */
 .hero-text {
+
     text-align: center;
     position: absolute;
     top: 50%;
@@ -81,8 +108,87 @@ body {
 }
 
 #measurable {
-    width: 90%;
+/*     width: 90%; */
+
+
+    /*text-align: center;*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    color: white;
+    width: 70%;
+}
+
+.d3-tip {
+    background: white;
+    color: black;
+    font-size: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#heading, .centered {
     text-align: center;
+}
+
+#measurable {
+    /*width: 22%;*/
+    /*text-align: center;*/
+    margin-left: 15px;
+}
+#measurable-form {
+    margin-left:auto;
+    margin-right:auto;
+    /*margin-top: 20px;*/
+    /*margin-bottom: 20px;*/
+    text-align: center;
+    display: inline-block;
+}
+
+#measurable-select-box-row {
+    /*cancel out attributes of .row*/
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 4%;
+    /*padding-top: 4%;*/
+
+}
+
+
+.form-control {
+    display: inline;
+}
+
+
+h1 {
+    margin: 3%;
+    font-size: 4rem;
+    font-family: 'Oswald', sans-serif;
+}
+
+#unsplash-cred {
+    background-color:black;
+    color:white;
+    text-decoration:none;
+    padding:4px 6px;
+    font-size:12px;
+    font-weight:bold;
+    line-height:1.2;
+    display:inline-block;
+    border-radius:3px;
+    float: right;
+}
+
+blockquote {
+    margin-left: 30px;
+}
+
+body {
+    /*text-align: center;*/
 }
 
 .form-control {
@@ -159,9 +265,10 @@ body {
 
 /*Site colors*/
 
-.title {
-    color: #0745af;
-}
+
+/*.title {*/
+    /*color: #0745af;*/
+/*}*/
 
 .light {
     opacity: 0.2;
@@ -172,16 +279,25 @@ body {
 }
 
 p {
-    color: #0745af;
+
+    /*color: #0745af;*/
     /*margin-top: %;*/
+    color: white;
 }
 
+/* What is this for? */
 .text {
     color: #F8FCFF;
 }
 
+/* For region map legend labels */
+.label {
+    fill: #d9d9d9;
+}
+
 h2 {
-    /*margin-top: 2%;*/
+    padding-top: 2%;
+    margin-bottom: 0;
 }
 
 .dark-block {
@@ -257,6 +373,11 @@ Specify size of the map container for leaflet
     max-height: 500px;
     /*height: 600px;*/
 }
+/*#harbor-row {*/
+    /*!*background-color: #f2f2f2;*!*/
+    /*background-color: #3C8F93;*/
+
+/*}*/
 #harbor-linechart svg {
     width: 90%;
     height: 600px;
@@ -268,11 +389,88 @@ Specify size of the map container for leaflet
 #harbor-vis-form {
     margin-left:auto;
     margin-right:auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    /*margin-top: 20px;*/
+    /*margin-bottom: 20px;*/
     text-align: center;
     display: inline-block;
 }
 #harbor-select-box {
     margin-left: 15px;
+}
+
+/* navigation bars */
+/*html {*/
+    /*scroll-behavior: smooth;*/
+/*}*/
+/*body {*/
+    /*margin: 0;*/
+    /*display: grid;*/
+    /*grid-template-columns: min-content 1fr;*/
+    /*font-family: system-ui, sans-serif;*/
+
+    /*!* this breaks position sticky in Firefox *!*/
+    /*!* overflow-x: hidden; *!*/
+/*}*/
+/*header {*/
+    /*grid-column: 1 / 3;*/
+    /*background: #455A64;*/
+    /*color: white;*/
+    /*!*padding: 20rem;*!*/
+    /*text-align: center;*/
+    /*!* Set a specific height *!*/
+    /*height: 100%;*/
+
+    /*!* Position and center the image to scale nicely on all screens *!*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    /*position: relative;*/
+
+    /*margin-bottom: 50%;*/
+/*}*/
+
+/*nav {*/
+    /*white-space: nowrap;*/
+    /*background: #37474F;*/
+/*}*/
+/*nav ul {*/
+    /*list-style: none;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+/*!* Only stick if you can fit *!*/
+/*@media (min-height: 300px) {*/
+    /*nav ul {*/
+        /*position: sticky;*/
+        /*top: 0;*/
+    /*}*/
+/*}*/
+/*nav ul li a {*/
+    /*display: block;*/
+    /*padding: 0.5rem 1rem;*/
+    /*color: white;*/
+    /*text-decoration: none;*/
+/*}*/
+/*nav ul li a.current {*/
+    /*background: black;*/
+/*}*/
+#harbor-select-box-row {
+    /*cancel out attributes of .row*/
+    margin-left: 0%;
+    margin-right: 0%;
+    padding-bottom: 0%;
+    padding-top: 0%;
+    margin-bottom: 4%;
+}
+.color-bar {
+    margin-left: 0;
+    margin-right: 0;
+    /*background-color: orangered;*/
+}
+.case-study-title {
+    text-align: center;
+}
+.color-bar:last-of-type {
+    /*To match the left and right borders used in bootstrap columns*/
+    margin-bottom: 15px;
 }
