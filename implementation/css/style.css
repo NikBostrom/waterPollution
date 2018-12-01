@@ -23,7 +23,10 @@ body {
     /*background-color: #E6E7E8;*/
     /*color: #0745af;*/
 
-    background-color: #0f6d70;
+    /*background-color: #0f6d70;*/
+    background-color: #144f52;
+
+
     /*background-color: #275a5e;*/
     color: #d9d9d9
 ;
@@ -324,6 +327,11 @@ Specify size of the map container for leaflet
     padding-bottom: 0%;
     padding-top: 0%;
     margin-bottom: 4%;
+}
+.color-bar {
+    margin-left: 0;
+    margin-right: 0;
+    /*background-color: orangered;*/
 }
 .case-study-title {
     text-align: center;

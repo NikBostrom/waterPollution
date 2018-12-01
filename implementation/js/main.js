@@ -1,3 +1,4 @@
+colorPageRows();
 
 // Function to convert date objects to strings or reverse
 var dateFormatter = d3.timeFormat("%Y-%m-%d");
@@ -144,6 +145,8 @@ function createDataSet(water_data, new_data, key) {
         }
         return(new_data);
     });
+
+
 }
 
 function getAverage(data) {
@@ -201,4 +204,24 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     });
 
 
+}
+
+function colorPageRows() {
+    let baseColorHue = 182;
+    let baseColorSaturation = 76;
+    let baseColorLightness = 25;
+
+    let endColorLightness = 75;
+    let numRows = $(".color-bar").length;
+    let lightnessIncrease = (endColorLightness - baseColorLightness) / numRows;
+
+    console.log("There are " + numRows + " rows");
+    console.log("The lightness should increase by " + lightnessIncrease + "%.");
+
+    d3.selectAll(".color-bar")
+        .style('background-color', function(_, i) {
+            let newColor = "hsla(" + baseColorHue + "," + baseColorSaturation + "%," + (baseColorLightness + (i * lightnessIncrease)) + "%)";
+            console.log(newColor);
+            return newColor;
+        });
 }
