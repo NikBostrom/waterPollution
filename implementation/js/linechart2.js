@@ -38,19 +38,19 @@ var yAxis = d3.axisLeft()
 
 //Create X axis
 svg.append("g")
-    .attr("class", "x-axis axis")
+    .attr("class", "x-axis-chesapeake axis")
     .attr("transform", "translate(0," + height + ")");
 
 
 //Create Y axis
 svg.append("g")
-    .attr("class", "y-axis axis");
+    .attr("class", "y-axis-chesapeake axis");
 
 svg.append("text")
     .attr("class", "x-label")
     .attr("transform", "translate(" + (width/2) + ", " + (height + 9*margin.bottom/10) + ")")
     .style("text-anchor", "middle")
-    .text("Date");
+    .text("Year");
 svg.append("text")
     .attr("class", "y-label")
     .attr("transform", "translate(-70, " + (0-15) + ")")
@@ -268,11 +268,14 @@ function updateChesapeake() {
 
 
     //Update X axis
-    svg.select(".x-axis")
+    svg.select(".x-axis-chesapeake")
+        .transition()
         .call(xAxis);
 
     //Update Y axis
-    svg.select(".y-axis")
+    svg.select(".y-axis-chesapeake")
+        .transition()
+        .duration(500)
         .call(yAxis);
 
     svg.select(".x-label").text("Year");

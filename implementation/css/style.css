@@ -479,7 +479,8 @@ nav ul li a.current {
     margin-bottom: 15px;
 }
 .x-axis-group.harbor path, .y-axis-group.harbor path,
-.x-axis-group.harbor line, .y-axis-group.harbor line {
+.x-axis-group.harbor line, .y-axis-group.harbor line,
+.y-axis-chesapeake line {
     stroke: white;
 }
 #harbor-linchart-title, #harbor-map-title, #harbor-location-label {
