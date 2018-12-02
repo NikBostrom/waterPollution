@@ -3,7 +3,7 @@
 
 /*For regions map*/
 
-.region:hover {
+.region-on:hover {
     stroke-width: 3;
 }
 

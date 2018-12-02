@@ -11,7 +11,6 @@
  * @param _legendElement    -- the HTML element in which to draw the legend
  */
 
-// TODO: Hover tooltips w/stats for each state?
 // TODO: Fix centers of regions?
 
 RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion, _legendElement){
@@ -214,7 +213,7 @@ RegionsVis.prototype.updateVis = function() {
                 return [-5,325]
             }
             else if (region === '10') {
-                return [525,350]
+                return [500,275]
             }
             return [-5,0]
         })
@@ -236,13 +235,12 @@ RegionsVis.prototype.updateVis = function() {
         .enter()
         .append("path")
         .attr("d", vis.path)
-        .attr("class", "region")
+        .attr("class", "region region-on")
         .attr("id", function(d) {
             return d.properties.EPA_REGION
         })
-        // .style("fill", "#C9D7F8")
-        .style("fill", "#BEBEBE")
-        .style("stroke", "grey")
+        .style("fill", "#D3D3D3")
+        .style("stroke", "#A9A9A9")
         .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
         // .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")})
         .on("mouseover", vis.regionToolTip.show)
@@ -276,13 +274,13 @@ RegionsVis.prototype.updateVis = function() {
 
     // Define SVG for legend
     vis.legendSvg = d3.select("#" + vis.legendElement).append("svg")
-        .attr("width", 150)
-        .attr("height", 120);
+        .attr("width", 200)
+        .attr("height", 150);
 
     // Create legend
     vis.legendSvg.append("g")
-        .attr("class", "legendOrdinal");
-        // .attr("transform", "translate(20, 40)");
+        .attr("class", "legendOrdinal")
+        .attr("transform", "translate(0, 40)");
 
     vis.legendOrdinal = d3.legendColor()
         .title("Water Assessment Status")
@@ -342,7 +340,8 @@ RegionsVis.prototype.regionZoom = function(id) {
     // // Disable region click and mouseover TODO: enable region to region transition?
     vis.regionPaths
         .on("click", null)
-        .on("mouseover", null);
+        .on("mouseover", null)
+        .attr("class", "region region-off");
 
     // Define region
     vis.regionFocus = vis.regionFeatures.find(function(d) {return d.properties.EPA_REGION === id});
@@ -377,7 +376,8 @@ RegionsVis.prototype.regionZoom = function(id) {
     vis.enterStatePaths = vis.statePaths.enter().append("path")
         .attr("class", "state")
         .attr("d", vis.path)
-        .style("fill", "#BEBEBE")
+        .style("fill", "#D3D3D3")
+        .style("stroke", "#A9A9A9")
         .style('opacity', 0)
         .on('click', function() {vis.usZoom()})
         .on('mouseover', vis.stateToolTip.show)
@@ -426,7 +426,7 @@ RegionsVis.prototype.regionZoom = function(id) {
     // Transition regionPaths to grey
     vis.regionPaths.transition(vis.t1)
         .attr('d', vis.path)
-        .style('fill', '#444')
+        .style('fill', '#444');
 
     // Transition enterStatePaths into opacity
     vis.enterStatePaths.transition(vis.t1)
@@ -476,13 +476,14 @@ RegionsVis.prototype.usZoom = function() {
         //     if (region > 0) {return vis.regionColorScale[region-1]}
         //     else {return "white"}
         // });
-        .style("fill", "#BEBEBE")
-        .style("stroke", "grey");
+        .style("fill", "#D3D3D3")
+        .style("stroke", "#A9A9A9");
     // Re-enable region clicking and mouseover
     vis.regionPaths.on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
         // .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")});
         .on("mouseover", vis.regionToolTip.show)
-        .on("mouseout", vis.regionToolTip.hide);
+        .on("mouseout", vis.regionToolTip.hide)
+        .attr("class", "region region-on");
 
     // Remove statePies
     vis.g.selectAll('.state-pie')
