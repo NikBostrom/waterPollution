@@ -477,3 +477,16 @@ nav ul li a.current {
     /*To match the left and right borders used in bootstrap columns*/
     margin-bottom: 15px;
 }
+.x-axis-group.harbor path, .y-axis-group.harbor path,
+.x-axis-group.harbor line, .y-axis-group.harbor line {
+    stroke: white;
+}
+#harbor-linchart-title, #harbor-map-title, #harbor-location-label {
+    text-align: center;
+}
+#harbor-time-slider {
+    width: 70%;
+}
+#temp {
+    width: 600px;
+}
