@@ -57,7 +57,8 @@ HarborLinechartVis.prototype.initVis = function() {
     vis.xAxisLabel = vis.svg.append("text")
         .attr("class", "axis-label x-axis-label")
         .attr("transform", "translate(" + (vis.width / 2) + ", " + (vis.height + 0.75 * vis.margin.bottom) + ")")
-        .text("Date");
+        .text("Date")
+        .style("text-anchor", "middle");
 
     vis.yAxis = d3.axisLeft().scale(vis.yScale);
     vis.yAxisGroup = vis.svg.append("g")

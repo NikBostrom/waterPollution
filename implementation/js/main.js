@@ -192,10 +192,10 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 
     var harborEventHandler = {};
 
-    // var harborMapVis = new HarborMapVis("harbor-map", harborLocations, harborEventHandler);
+    var harborMapVis = new HarborMapVis("harbor-map", harborLocations, harborEventHandler);
     // console.log(nyHarborData);
-    // var harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations);
-
+    var harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations);
+    // var harborTimeSlider = new HarborTimeSlider("harbor-time-slider");
 
 
     var selectionBox = d3.select("#harbor-select-box");
@@ -208,8 +208,8 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 
     $(harborEventHandler).bind("harbor-filter-selection-changed", function(_event) {
         // console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
-        // harborMapVis.updateVis(selectionBox.property("value"));
-        // harborLinechartVis.updateVis(selectionBox.property("value"), null);
+        harborMapVis.updateVis(selectionBox.property("value"));
+        harborLinechartVis.updateVis(selectionBox.property("value"), null);
     });
     $(harborEventHandler).bind("sample-location-clicked-on-map", function(_event, markerProperties) {
         console.log(_event);
