@@ -246,9 +246,7 @@ RegionsVis.prototype.updateVis = function() {
         .on("mouseover", vis.regionToolTip.show)
         // .on("mouseout", function(d) {d3.select(this).style("stroke-width", "1")})
         .on("mouseout", vis.regionToolTip.hide);
-
-
-    // TODO: Factor drawing pie charts into usZoom function?
+    
     // Draw regional pie charts
     vis.regionPoints = vis.g.selectAll(".region-pie")
         .data(vis.byRegion)
@@ -337,7 +335,7 @@ RegionsVis.prototype.regionZoom = function(id) {
         .style('opacity', 0)
         .remove();
 
-    // // Disable region click and mouseover TODO: enable region to region transition?
+    // // Disable region click and mouseover
     vis.regionPaths
         .on("click", null)
         .on("mouseover", null)
@@ -470,17 +468,10 @@ RegionsVis.prototype.usZoom = function() {
         .attr("id", function(d) {
             return d.properties.EPA_REGION
         })
-        // .style("fill", function(d) {
-        //     // convert region to number
-        //     var region = +d.properties.EPA_REGION;
-        //     if (region > 0) {return vis.regionColorScale[region-1]}
-        //     else {return "white"}
-        // });
         .style("fill", "#D3D3D3")
         .style("stroke", "#A9A9A9");
     // Re-enable region clicking and mouseover
     vis.regionPaths.on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
-        // .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")});
         .on("mouseover", vis.regionToolTip.show)
         .on("mouseout", vis.regionToolTip.hide)
         .attr("class", "region region-on");
@@ -520,7 +511,6 @@ RegionsVis.prototype.usZoom = function() {
         .style('opacity', 0);
 
     // Transition region pie charts into opacity
-    // TODO: either delay until zoom in is complete, or slide in during zoom
     vis.regionPiePaths.transition(vis.t)
         .attr('d', vis.arc)
         .style('opacity', 1);
