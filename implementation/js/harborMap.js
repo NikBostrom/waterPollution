@@ -110,6 +110,7 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
             colorSet = harborColorRanges.blue;
             break;
     }
+    console.log(colorSet);
 
     let colorScale = d3.scaleLinear()
         .domain(d3.extent(vis.harborData, function(d) {
@@ -123,10 +124,15 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
         }))
         .range(colorSet);
 
+    console.log(colorSet);
+
 
     // colorScale(location["Fecal Coliform (#/100 mL) - Top"]);
 
-    vis.map.removeLayer(vis.locMarkers);
+    vis.locMarkers.eachLayer(function(layer) {
+        vis.map.removeLayer(layer);
+    });
+    // new Promise(resolve => setTimeout(resolve, 2000));
 
     // TODO: Go through all data instead of just the first 1000 values and store that data into a separate file instead of having to parse it every time the page loads
     // vis.harborData.forEach(function(location) {
@@ -135,29 +141,35 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
         // console.log(vis.harborData[i]);
         if (vis.harborData[i]["coords"]) {
             let tColor;
+            let tOpacity;
             // TODO: Change the 0 below to the date if time allows for animated time movement / a slider
             let selectionVal = vis.harborData[i][selection][0]["Value"];
             if (vis.harborData[i]["Site"] === "CIC2") {
                 console.log(selectionVal);
             }
 
+
+
             // console.log("Coord data:", vis.harborData[i][selection][0]["Value"]);
             if (isNaN(selectionVal)) {
-                tColor = "#bfbfbf";
+                // tColor = "#bfbfbf";
+                tColor = "black";
+                tOpacity = 0.1;
             } else {
                 tColor = colorScale(selectionVal);
-
+                tOpacity = 0.75;
                 // console.log(tColor);
             }
+            // console.log(vis.harborData[i]["Site"], selectionVal, tColor, tOpacity);
             // console.log(tColor, vis.harborData[i]["Fecal Coliform (#/100 mL) - Top"]);
 
             var popupContent =  "<strong>Sample Site: </strong>" + vis.harborData[i]["Site"] + "<br/>";
             popupContent += "<strong>" + selection + ": </strong>" + vis.harborData[i][selection][0]["Value"] + "<br/>";
 
-            var loc = L.circle(vis.harborData[i]["coords"], 375, {
+            var loc = L.circle(vis.harborData[i]["coords"], 400, {
                 fillColor: tColor,
 
-                fillOpacity: 0.6,
+                fillOpacity: tOpacity,
                 // stroke attributes
                 color: "black",
                 weight: 0.5
@@ -170,8 +182,10 @@ HarborMapVis.prototype.addLocationMarkers = function(selection) {
             // Add custom properties to Leaflet markers to be passed on click
             loc.properties = {};
             loc.properties.Site = vis.harborData[i]["Site"];
+            // console.log(loc.)
 
             vis.locMarkers.addLayer(loc);
+            console.log(vis.locMarkers.length);
         }
     }
 

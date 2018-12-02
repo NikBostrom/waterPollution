@@ -195,7 +195,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
     var harborMapVis = new HarborMapVis("harbor-map", harborLocations, harborEventHandler);
     // console.log(nyHarborData);
     var harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations);
-
+    // var harborTimeSlider = new HarborTimeSlider("harbor-time-slider");
 
 
     var selectionBox = d3.select("#harbor-select-box");
@@ -212,6 +212,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
         harborLinechartVis.updateVis(selectionBox.property("value"), null);
     });
     $(harborEventHandler).bind("sample-location-clicked-on-map", function(_event, markerProperties) {
+        console.log(_event);
         console.log(markerProperties);
         console.log(markerProperties.Site);
         harborLinechartVis.updateVis(selectionBox.property("value"), markerProperties.Site);
@@ -237,7 +238,7 @@ function colorPageRows() {
     d3.selectAll(".color-bar")
         .style('background-color', function(_, i) {
             let newColor = "hsla(" + baseColorHue + "," + baseColorSaturation + "%," + (baseColorLightness + (i * lightnessIncrease)) + "%)";
-            console.log(newColor);
+            // console.log(newColor);
             return newColor;
         });
 }

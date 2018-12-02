@@ -23,7 +23,7 @@ HarborLinechartVis.prototype.initVis = function() {
 
     vis.width = $(`#${vis.parentElement}`).width() - vis.margin.left - vis.margin.right;
 
-    vis.height = 600 - vis.margin.top - vis.margin.bottom;
+    vis.height = 500 - vis.margin.top - vis.margin.bottom;
 
     // console.log(vis.harborData);
 
@@ -48,18 +48,21 @@ HarborLinechartVis.prototype.initVis = function() {
         .range([vis.height, 0]);
 
     // Axes
-    vis.xAxis = d3.axisBottom().scale(vis.xScale);
+    vis.xAxis = d3.axisBottom()
+        .scale(vis.xScale)
+        .tickFormat(d3.timeFormat("%b, %Y"));
     vis.xAxisGroup = vis.svg.append("g")
-        .attr("class", "x-axis-group axis")
+        .attr("class", "x-axis-group harbor axis")
         .attr("transform", "translate(0," + vis.height + ")");
     vis.xAxisLabel = vis.svg.append("text")
         .attr("class", "axis-label x-axis-label")
-        .attr("transform", "translate(" + (vis.width / 2) + ", " + (vis.height + 0.5 * vis.margin.bottom) + ")")
-        .text("Date");
+        .attr("transform", "translate(" + (vis.width / 2) + ", " + (vis.height + 0.75 * vis.margin.bottom) + ")")
+        .text("Date")
+        .style("text-anchor", "middle");
 
     vis.yAxis = d3.axisLeft().scale(vis.yScale);
     vis.yAxisGroup = vis.svg.append("g")
-        .attr("class", "y-axis-group axis");
+        .attr("class", "y-axis-group harbor axis");
     vis.yAxisLabel = vis.svg.append("text")
         .attr("class", "axis-label y-axis-label")
         .attr("transform", "translate(" + -(vis.margin.left * 3/4) + "," + (vis.height / 2) + ") rotate(-90)");
@@ -74,19 +77,7 @@ HarborLinechartVis.prototype.initVis = function() {
     vis.updateVis($("#harbor-select-box :selected").val(), "CIC2");
 }
 
-// Slider
-// var slider = d3.select("#slider");
 
-// $( document ).ready(function() {
-//     noUISlider.create(slider, {
-//         start: [20, 80],
-//         connect: true,
-//         range: {
-//             'min': 0,
-//             'max': 100
-//         }
-//     });
-// });
 
 // Initialize data
 // loadData();
@@ -133,7 +124,14 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
     vis.svg.select(".x-axis-group")
         .transition()
         .duration(transitionDuration)
-        .call(vis.xAxis);
+        .call(vis.xAxis)
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", function(d) {
+            return "rotate(-45)"
+        });
     // Add y-axis
     vis.svg.select(".y-axis-group")
         .transition()
@@ -146,7 +144,8 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
     // });
 
     vis.yAxisLabel.text(measureSelection);
-
+    $("#harbor-linchart-title").text($("#harbor-select-box :selected").text());
+    $("#harbor-location-label").text("Sample Site: " + locationSelection);
 
     // Draw line
     vis.line = d3.line()
