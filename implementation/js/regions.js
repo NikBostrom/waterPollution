@@ -46,12 +46,6 @@ RegionsVis.prototype.initVis = function() {
         .attr("width", vis.width)
         .attr("height", vis.height);
 
-    // vis.svg.append("rect")
-    //     .attr("class", "background")
-    //     .attr("width", vis.width)
-    //     .attr("height", vis.height)
-    //     .attr("fill", "white");
-
     vis.g = vis.svg.append("g");
 
     // Set up map
@@ -213,12 +207,20 @@ RegionsVis.prototype.updateVis = function() {
     // Define region tool tip
     vis.regionToolTip = d3.tip()
         .attr("class", "region-tip d3-tip")
-        .offset([-3,0])
+        .offset(function(d) {
+            var region = d.properties.EPA_REGION;
+            // custom offsets for regions 9 and 10 because of Hawaii and Alaska
+            if (region === '9') {
+                return [-5,325]
+            }
+            else if (region === '10') {
+                return [525,350]
+            }
+            return [-5,0]
+        })
         .html(function(d) {
             var region = d.properties.EPA_REGION;
             var data = vis.byRegion.find(function(d) {return d.key === region});
-            // console.log(region);
-            // console.log(data.values);
             var text = "EPA Region " + region + "<br/>";
             for (var i=0; i<data.values.length; i++) {
                 text += vis.assessLabels[i] + ": " + data.values[i] + "<br/>"
@@ -238,14 +240,8 @@ RegionsVis.prototype.updateVis = function() {
         .attr("id", function(d) {
             return d.properties.EPA_REGION
         })
-        // .style("fill", function(d) {
-        //     // convert region to number
-        //     var region = +d.properties.EPA_REGION;
-        //     if (region > 0) {return vis.regionColorScale[region-1]}
-        //     else {return "white"}
-        // })
-        .style("fill", "#C9D7F8")
-        // .style("fill", "#BEBEBE")
+        // .style("fill", "#C9D7F8")
+        .style("fill", "#BEBEBE")
         .style("stroke", "grey")
         .on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
         // .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")})
