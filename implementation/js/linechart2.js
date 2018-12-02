@@ -2,7 +2,7 @@
 var margin = { top: 40, right: 40, bottom: 60, left: 100 };
 
 
-var width = $(`#chesapeake`).width() - margin.left - margin.right;
+var width = $(`#chesapeake`).width()*(0.6) - margin.left - margin.right;
 
 var height = 400 - margin.top - margin.bottom;
 
@@ -53,8 +53,8 @@ svg.append("text")
     .text("Date");
 svg.append("text")
     .attr("class", "y-label")
-    .attr("transform", "translate(-70, " + (0-5) + ")")
-    .text("Goals");
+    .attr("transform", "translate(-70, " + (0-15) + ")")
+    .text("Nitrogen (lbs/year)");
 
 // create line function for line chart
 var DCline = d3.line()
@@ -350,7 +350,8 @@ function updateChesapeake() {
     var tool_tip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-8, 0])
-        .html(function(d) { return "Region: " + d.Region + ", Year: " + formatDate(d.Year) + "<br>" + selectedOption + ": " + d[selectedOption] + " lbs/year"; });
+        .html(function(d) { return "Region: " + d.Region + ", Year: " + formatDate(d.Year) + "<br>"
+            + selectedOption + ": " + d[selectedOption].toLocaleString(undefined, {maximumFractionDigits:2}) + " lbs/year"; });
     svg.call(tool_tip);
 
 
