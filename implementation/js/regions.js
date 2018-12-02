@@ -37,7 +37,7 @@ RegionsVis.prototype.initVis = function() {
     // SVG variables
     vis.margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-    vis.width = 850 - vis.margin.left - vis.margin.right;
+    vis.width = 800 - vis.margin.left - vis.margin.right;
     vis.height = 550 - vis.margin.top - vis.margin.bottom;
 
     // SVG drawing area
@@ -246,7 +246,7 @@ RegionsVis.prototype.updateVis = function() {
         .on("mouseover", vis.regionToolTip.show)
         // .on("mouseout", function(d) {d3.select(this).style("stroke-width", "1")})
         .on("mouseout", vis.regionToolTip.hide);
-    
+
     // Draw regional pie charts
     vis.regionPoints = vis.g.selectAll(".region-pie")
         .data(vis.byRegion)
