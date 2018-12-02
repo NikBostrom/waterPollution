@@ -11,7 +11,6 @@
  * @param _legendElement    -- the HTML element in which to draw the legend
  */
 
-// TODO: Hover tooltips w/stats for each state?
 // TODO: Fix centers of regions?
 
 RegionsVis = function(_parentElement, _data, _stateOutlines, _stateCentroids, _stateToAbb, _abbToState, _mergedStates, _statesWithRegion, _legendElement){
@@ -236,7 +235,7 @@ RegionsVis.prototype.updateVis = function() {
         .enter()
         .append("path")
         .attr("d", vis.path)
-        .attr("class", "region")
+        .attr("class", "region region-on")
         .attr("id", function(d) {
             return d.properties.EPA_REGION
         })
@@ -341,7 +340,8 @@ RegionsVis.prototype.regionZoom = function(id) {
     // // Disable region click and mouseover TODO: enable region to region transition?
     vis.regionPaths
         .on("click", null)
-        .on("mouseover", null);
+        .on("mouseover", null)
+        .attr("class", "region region-off");
 
     // Define region
     vis.regionFocus = vis.regionFeatures.find(function(d) {return d.properties.EPA_REGION === id});
@@ -477,12 +477,13 @@ RegionsVis.prototype.usZoom = function() {
         //     else {return "white"}
         // });
         .style("fill", "#D3D3D3")
-        .style("stroke", "#A9A9A9")
+        .style("stroke", "#A9A9A9");
     // Re-enable region clicking and mouseover
     vis.regionPaths.on("click", function(d) {vis.regionZoom(d.properties.EPA_REGION)})
         // .on("mouseover", function(d) {d3.select(this).style("stroke-width", "3")});
         .on("mouseover", vis.regionToolTip.show)
-        .on("mouseout", vis.regionToolTip.hide);
+        .on("mouseout", vis.regionToolTip.hide)
+        .attr("class", "region region-on");
 
     // Remove statePies
     vis.g.selectAll('.state-pie')
