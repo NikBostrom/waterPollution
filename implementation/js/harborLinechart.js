@@ -10,7 +10,7 @@ HarborLinechartVis = function(_parentElement, _harborData){
     this.harborData = _harborData;
     this.filteredData = this.harborData;
 
-    console.log(this.filteredData);
+    // console.log(this.filteredData);
 
     this.initVis();
 };
@@ -41,13 +41,9 @@ HarborLinechartVis.prototype.initVis = function() {
     // Convert a string back to a date
     vis.parseDate = d3.timeParse("%Y");
 
-    // Scales
+    // Scales, axes, and labels
     vis.xScale = d3.scaleTime()
         .range([0, vis.width]);
-    vis.yScale = d3.scaleLinear()
-        .range([vis.height, 0]);
-
-    // Axes
     vis.xAxis = d3.axisBottom()
         .scale(vis.xScale)
         .tickFormat(d3.timeFormat("%b, %Y"));
@@ -60,6 +56,8 @@ HarborLinechartVis.prototype.initVis = function() {
         .text("Date")
         .style("text-anchor", "middle");
 
+    vis.yScale = d3.scaleLinear()
+        .range([vis.height, 0]);
     vis.yAxis = d3.axisLeft().scale(vis.yScale);
     vis.yAxisGroup = vis.svg.append("g")
         .attr("class", "y-axis-group harbor axis");
@@ -170,6 +168,22 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
                 .style("stroke", "#fff");
                 // .style("stroke", mainColor);
         });
+
+    vis.handle = vis.svg.insert("g","first-child")
+        .append("line")
+        .attr("id","stackhandle")
+        .attr("class","handle")
+        .attr("x1",0)
+        .attr("y1", 0)
+        .attr("x2",0)
+        .attr("y2",vis.height + 6)
+        .style("stroke-linecap","round")
+        .style("stroke-width",2)
+        .attr("d","M5 40 l215 0")
+        .attr("stroke","black")
+        .style("stroke-dasharray","10,10")
+        .attr("z-index",10)
+        .attr("transform", "translate(" + vis.margin.left + ",0)");
 }
 
 // function addTooltips() {

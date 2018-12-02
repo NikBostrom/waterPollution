@@ -298,12 +298,12 @@ function updateChesapeake() {
         targetData.forEach(function(target) {
             var targetCircle = svg.selectAll("." + target[0].Region + "targetcircle")
                 .data(target);
-            console.log(target);
-            console.log("." + target[0].Region + "targetcircle");
+            // console.log(target);
+            // console.log("." + target[0].Region + "targetcircle");
             targetCircles.push(targetCircle);
             // console.log(target, WVdata);
         });
-        console.log(targetCircles);
+        // console.log(targetCircles);
     // }
 
     // draw lines for chart

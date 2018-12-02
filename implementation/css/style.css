@@ -490,3 +490,10 @@ nav ul li a.current {
 #temp {
     width: 600px;
 }
+#harbor-time-slider .timeslidehandle rect {
+    fill:red;
+    stroke: red;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    cursor: pointer;
+}

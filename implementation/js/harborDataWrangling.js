@@ -7,7 +7,7 @@ function wrangleHarborData(_nyHarborDataMessy, nyHarborData) {
         return $(this).val();
     });
 
-    console.log(measures);
+    // console.log(measures);
 
     // Get all sampling locations and add location data to that harbor data location
     var parseDate = d3.timeParse("%m/%d/%Y");
