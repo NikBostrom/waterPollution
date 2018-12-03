@@ -47,7 +47,7 @@ MapVis.prototype.initVis = function() {
     // Set up map
     vis.projection = d3.geoAlbersUsa()
 
-        .translate([vis.width/1.95, vis.height/2.45])
+        .translate([vis.width/1.75, vis.height/2.45])
         .scale(900);
 
 
