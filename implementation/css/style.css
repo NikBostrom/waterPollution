@@ -3,7 +3,7 @@
 
 /*For regions map*/
 
-.region:hover {
+.region-on:hover {
     stroke-width: 3;
 }
 
@@ -404,6 +404,7 @@ Specify size of the map container for leaflet
 /* navigation bars */
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 body {
     margin: 0;
@@ -438,7 +439,7 @@ nav {
 }
 nav ul {
     list-style: none;
-    margin: 0;
+    margin-right: 0;
     padding: 0;
 }
 /* Only stick if you can fit */
@@ -478,7 +479,8 @@ nav ul li a.current {
     margin-bottom: 15px;
 }
 .x-axis-group.harbor path, .y-axis-group.harbor path,
-.x-axis-group.harbor line, .y-axis-group.harbor line {
+.x-axis-group.harbor line, .y-axis-group.harbor line,
+.y-axis-chesapeake line {
     stroke: white;
 }
 #harbor-time-slider line, #harbor-time-slider path, #harbor-time-slider text {

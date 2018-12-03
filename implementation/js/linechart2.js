@@ -2,7 +2,7 @@
 var margin = { top: 40, right: 40, bottom: 60, left: 100 };
 
 
-var width = $(`#chesapeake`).width() - margin.left - margin.right;
+var width = $(`#chesapeake`).width()*(0.6) - margin.left - margin.right;
 
 var height = 400 - margin.top - margin.bottom;
 
@@ -38,23 +38,23 @@ var yAxis = d3.axisLeft()
 
 //Create X axis
 svg.append("g")
-    .attr("class", "x-axis axis")
+    .attr("class", "x-axis-chesapeake axis")
     .attr("transform", "translate(0," + height + ")");
 
 
 //Create Y axis
 svg.append("g")
-    .attr("class", "y-axis axis");
+    .attr("class", "y-axis-chesapeake axis");
 
 svg.append("text")
     .attr("class", "x-label")
     .attr("transform", "translate(" + (width/2) + ", " + (height + 9*margin.bottom/10) + ")")
     .style("text-anchor", "middle")
-    .text("Date");
+    .text("Year");
 svg.append("text")
     .attr("class", "y-label")
-    .attr("transform", "translate(-70, " + (0-5) + ")")
-    .text("Goals");
+    .attr("transform", "translate(-70, " + (0-15) + ")")
+    .text("Nitrogen (lbs/year)");
 
 // create line function for line chart
 var DCline = d3.line()
@@ -268,11 +268,14 @@ function updateChesapeake() {
 
 
     //Update X axis
-    svg.select(".x-axis")
+    svg.select(".x-axis-chesapeake")
+        .transition()
         .call(xAxis);
 
     //Update Y axis
-    svg.select(".y-axis")
+    svg.select(".y-axis-chesapeake")
+        .transition()
+        .duration(500)
         .call(yAxis);
 
     svg.select(".x-label").text("Year");
@@ -350,7 +353,8 @@ function updateChesapeake() {
     var tool_tip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-8, 0])
-        .html(function(d) { return "Region: " + d.Region + ", Year: " + formatDate(d.Year) + "<br>" + selectedOption + ": " + d[selectedOption] + " lbs/year"; });
+        .html(function(d) { return "Region: " + d.Region + ", Year: " + formatDate(d.Year) + "<br>"
+            + selectedOption + ": " + d[selectedOption].toLocaleString(undefined, {maximumFractionDigits:2}) + " lbs/year"; });
     svg.call(tool_tip);
 
 
