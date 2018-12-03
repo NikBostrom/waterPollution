@@ -35,6 +35,7 @@ HarborTimeSlider.prototype.initVis = function() {
         //     return d.date;
         // }));
 
+
     vis.xAxis = d3.axisBottom()
         .scale(vis.x)
         .tickFormat(d3.timeFormat("%b, %Y"));
@@ -53,6 +54,8 @@ HarborTimeSlider.prototype.initVis = function() {
 
     vis.slider = vis.svg.append("g")
         .attr("class", "slider brush");
+
+
 
     vis.updateVis($("#harbor-select-box :selected").val(), "CIC2");
 }
@@ -103,6 +106,8 @@ HarborTimeSlider.prototype.updateVis = function(measureSelection, locationSelect
     // TODO: Bring back the handle here too
     vis.handle = vis.slider.append("g")
         .attr("class", "timeslidehandle");
+
+    vis.handle.clickevent = false;
 
     vis.handle.append("rect")
         .attr("width", 5)
