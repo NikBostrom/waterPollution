@@ -195,9 +195,12 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 
     var harborEventHandler = {};
 
+    console.log(harborLocations);
+    console.log(harborAverageLocationsData);
+
     harborMapVis = new HarborMapVis("harbor-map", harborLocations, harborEventHandler);
     // console.log(nyHarborData);
-    harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations);
+    harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations, harborAverageLocationsData);
     harborTimeSlider = new HarborTimeSlider("harbor-time-slider", harborLocations);
 
 
@@ -218,7 +221,11 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
         // console.log(_event);
         // console.log(markerProperties);
         // console.log(markerProperties.Site);
-        harborLinechartVis.updateVis(selectionBox.property("value"), markerProperties.Site);
+        if (markerProperties == null) {
+            harborLinechartVis.updateVis(selectionBox.property("value"), null);
+        } else {
+            harborLinechartVis.updateVis(selectionBox.property("value"), markerProperties.Site);
+        }
     });
 
 

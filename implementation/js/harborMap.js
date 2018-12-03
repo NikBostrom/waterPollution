@@ -238,8 +238,12 @@ HarborMapVis.prototype.addLocationMarkers = function(selection, sliderDate) {
         }
     }
 
-        vis.locMarkers.addTo(vis.map);
+    vis.locMarkers.addTo(vis.map);
     // });
+
+    vis.map.on("click", function () {
+        $(vis.eventHandler).trigger("sample-location-clicked-on-map", null);
+    })
 
 
 
