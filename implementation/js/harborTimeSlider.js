@@ -1,13 +1,14 @@
-/******** Modified from code written by Lily Li ********/
+/******** Adapted from code written by Lily Li ********/
 // Ref: http://www.syria-visualized.com/
 
-Timeslide = function(_parentElement, _data){
+HarborTimeSlider = function(_parentElement, _harborData){
     this.parentElement = _parentElement;
-    this.campdata = _data;
+    this.harborData = _harborData;
+    this.filteredData = this.harborData;
     this.initVis();
 };
 
-Timeslide.prototype.initVis = function() {
+HarborTimeSlider.prototype.initVis = function() {
     var vis = this;
 
     // -------------------------------------------------------------------------
@@ -16,6 +17,8 @@ Timeslide.prototype.initVis = function() {
     vis.margin = {top: 5, right: 35, bottom: 20, left: 20};
     vis.width = $("#" + vis.parentElement).width() - vis.margin.left - vis.margin.right;
     vis.height = 80 - vis.margin.top - vis.margin.bottom;
+
+    // console.log(vis.width, vis.height);
 
     // SVG drawing area
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
@@ -26,45 +29,72 @@ Timeslide.prototype.initVis = function() {
     // -------------------------------------------------------------------------
     // Scales and axes
     // -------------------------------------------------------------------------
-    vis.x = d3.time.scale()
-        .range([0, vis.width])
-        .domain(d3.extent(vis.campdata, function (d) {
-            return d.date;
-        }));
+    vis.x = d3.scaleTime()
+        .range([0, vis.width]);
+        // .domain(d3.extent(vis.harborData, function (d) {
+        //     return d.date;
+        // }));
 
-    vis.xAxis = d3.svg.axis()
+
+    vis.xAxis = d3.axisBottom()
         .scale(vis.x)
-        .orient("bottom")
-        .tickFormat(d3.time.format("%b-%y"))
-        .ticks(d3.time.month, 6);
+        .tickFormat(d3.timeFormat("%b, %Y"));
+    // .ticks(d3.time.month, 6);
 
-    vis.svg.append("g")
+    vis.harborTimeAxisGroup = vis.svg.append("g")
         .attr("class", "axis")
-        .attr("transform", "translate(0," + vis.height/2 + ")")
-        .call(vis.xAxis)
+        .attr("transform", "translate(0," + vis.height / 2 + ")");
+
+
+    // Brush - to be used as a slider
+    vis.brush = d3.brushX()
+    // .scale(vis.xContext)
+        .extent([[0, 0], [vis.width, vis.height]])
+        .on("brush", brushedHarborTimeSlider);
+
+    vis.slider = vis.svg.append("g")
+        .attr("class", "slider brush");
+
+
+
+    vis.updateVis($("#harbor-select-box :selected").val(), "CIC2");
+}
+
+HarborTimeSlider.prototype.updateVis = function(measureSelection, locationSelection) {
+    var vis = this;
+
+    if (locationSelection !== null) {
+        vis.filteredData = vis.harborData.filter(function(loc) {
+            return loc["Site"] === locationSelection;
+        })[0][measureSelection].filter(function(loc) {
+            return (!isNaN(loc["Value"]));
+        });
+    }
+
+    // console.log(vis.filteredData);
+
+    vis.x.domain(d3.extent(vis.filteredData, function (d) {
+        // console.log(d);
+        // console.log(d["Date"]);
+        return d["Date"];
+    }));
+
+    vis.harborTimeAxisGroup.call(vis.xAxis)
         .selectAll("text")
         .attr("dy", "1.2em");
 
-    // -------------------------------------------------------------------------
-    // Define Brush
-    // -------------------------------------------------------------------------
-    vis.xContext = d3.time.scale()
+    vis.xContext = d3.scaleTime()
         .range([0, vis.width])
-        .domain(d3.extent(vis.campdata, function (d) {
-            return d.date;
+        .domain(d3.extent(vis.filteredData, function (d) {
+            return d["Date"];
         }));
 
-    var formatDate = d3.time.format("%b-%y");
-    var mindate = d3.min(vis.campdata, function(d) {return d.date});
+    var formatDate = d3.timeFormat("%b, %Y");
+    var minDate = d3.min(vis.filteredData, function(d) {return d["Date"]});
 
-    vis.brush = d3.svg.brush()
-        .x(vis.xContext)
-        .extent([0, 0])
-        .on("brush", brushed_refugeemap);
 
-    vis.slider = vis.svg.append("g")
-        .attr("class", "slider")
-        .call(vis.brush);
+    // Updating the brush slider
+    vis.slider.call(vis.brush);
 
     vis.slider.selectAll(".extent,.resize")
         .remove();
@@ -72,8 +102,12 @@ Timeslide.prototype.initVis = function() {
     vis.slider.select(".background")
         .attr("height", vis.height);
 
+
+    // TODO: Bring back the handle here too
     vis.handle = vis.slider.append("g")
         .attr("class", "timeslidehandle");
+
+    vis.handle.clickevent = false;
 
     vis.handle.append("rect")
         .attr("width", 5)
@@ -81,7 +115,11 @@ Timeslide.prototype.initVis = function() {
         .attr("y", vis.height/3 );
 
     vis.handle.append("text")
-        .text(formatDate(mindate))
+        .text(formatDate(minDate))
         .attr("fill","white")
-        .attr("transform", "translate(" + -15 + " ," + 10 + ")");
+        .attr("font-size", 12)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "hanging")
+        .attr("transform", "translate(" + 3 + " ,0)");
 };
+

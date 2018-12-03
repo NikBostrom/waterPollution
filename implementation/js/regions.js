@@ -89,7 +89,7 @@ RegionsVis.prototype.wrangleData = function() {
         .rollup(function(leaves) { return leaves.length })
         .entries(vis.data);
 
-    console.log(vis.byRegion);
+    // console.log(vis.byRegion);
 
     // Define center state for each region
     vis.EPARegions = [
@@ -150,7 +150,7 @@ RegionsVis.prototype.wrangleData = function() {
         .key(function(d) { return vis.abbToState[d.State] })
         .rollup(function(leaves) {return 0})
         .object(vis.data);
-    console.log(vis.stateToRegion);
+    // console.log(vis.stateToRegion);
 
     // Filter out non-states
     vis.byState = vis.byState.filter(function(d) {return d.key in vis.abbToState});
@@ -193,7 +193,7 @@ RegionsVis.prototype.wrangleData = function() {
         d.values = tempVals;
         // console.log(d);
     });
-    console.log(vis.byState);
+    // console.log(vis.byState);
 
     vis.updateVis()
 };
@@ -201,7 +201,7 @@ RegionsVis.prototype.wrangleData = function() {
 RegionsVis.prototype.updateVis = function() {
     var vis = this;
 
-    console.log(vis.byRegion);
+    // console.log(vis.byRegion);
 
     // Define region tool tip
     vis.regionToolTip = d3.tip()

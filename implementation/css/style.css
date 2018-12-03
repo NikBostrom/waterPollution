@@ -483,12 +483,28 @@ nav ul li a.current {
 .y-axis-chesapeake line {
     stroke: white;
 }
-#harbor-linchart-title, #harbor-map-title, #harbor-location-label {
+#harbor-time-slider line, #harbor-time-slider path, #harbor-time-slider text {
+    stroke: white;
+}
+#harbor-linchart-title, #harbor-map-title, #harbor-location-label, #harbor-time-slider {
     text-align: center;
 }
 #harbor-time-slider {
     width: 70%;
+    margin-left:auto;
+    margin-right:auto;
 }
 #temp {
     width: 600px;
+}
+#harbor-time-slider .timeslidehandle rect {
+    fill:red;
+    stroke: red;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    cursor: pointer;
+}
+rect.selection {
+    fill-opacity: 0;
+    stroke: transparent;
 }
