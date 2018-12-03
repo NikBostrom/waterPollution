@@ -68,7 +68,7 @@ HarborTimeSlider.prototype.updateVis = function(measureSelection, locationSelect
         });
     }
 
-    console.log(vis.filteredData);
+    // console.log(vis.filteredData);
 
     vis.x.domain(d3.extent(vis.filteredData, function (d) {
         // console.log(d);
@@ -89,31 +89,32 @@ HarborTimeSlider.prototype.updateVis = function(measureSelection, locationSelect
     var formatDate = d3.timeFormat("%b, %Y");
     var minDate = d3.min(vis.filteredData, function(d) {return d["Date"]});
 
-    // console.log(vis.harborData);
-
 
     // Updating the brush slider
     vis.slider.call(vis.brush);
 
-    // vis.slider.selectAll(".extent,.resize")
-    //     .remove();
+    vis.slider.selectAll(".extent,.resize")
+        .remove();
 
-    // vis.slider.select(".background")
-    //     .attr("height", vis.height);
+    vis.slider.select(".background")
+        .attr("height", vis.height);
 
 
     // TODO: Bring back the handle here too
-    // vis.handle = vis.slider.append("g")
-    //     .attr("class", "timeslidehandle");
-    //
-    // vis.handle.append("rect")
-    //     .attr("width", 5)
-    //     .attr("height", 20)
-    //     .attr("y", vis.height/3 );
-    //
-    // vis.handle.append("text")
-    //     .text(formatDate(minDate))
-    //     .attr("fill","white")
-    //     .attr("transform", "translate(" + -15 + " ," + 10 + ")");
+    vis.handle = vis.slider.append("g")
+        .attr("class", "timeslidehandle");
+
+    vis.handle.append("rect")
+        .attr("width", 5)
+        .attr("height", 20)
+        .attr("y", vis.height/3 );
+
+    vis.handle.append("text")
+        .text(formatDate(minDate))
+        .attr("fill","white")
+        .attr("font-size", 12)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "hanging")
+        .attr("transform", "translate(" + 3 + " ,0)");
 };
 

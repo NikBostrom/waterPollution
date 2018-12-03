@@ -136,8 +136,8 @@ function createVis(error, water_conditions, usOutline, world, water_quality, wat
     var abbToState = swap(states);
 
 
-    // var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion, "assess-legend");
-    // var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
+    var regionsVis = new RegionsVis("regions-vis", waterAssess, usOutline, stateCentroids, states, abbToState, mergedStates, statesWithRegion, "assess-legend");
+    var mapVis = new MapVis("map-vis", water_data, usOutline, state_data, states);
 
     d3.selectAll("text").style("fill", "white");
     d3.selectAll(".axis").attr("stroke", "white");
@@ -215,9 +215,9 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
         harborLinechartVis.updateVis(selectionBox.property("value"), null);
     });
     $(harborEventHandler).bind("sample-location-clicked-on-map", function(_event, markerProperties) {
-        console.log(_event);
-        console.log(markerProperties);
-        console.log(markerProperties.Site);
+        // console.log(_event);
+        // console.log(markerProperties);
+        // console.log(markerProperties.Site);
         harborLinechartVis.updateVis(selectionBox.property("value"), markerProperties.Site);
     });
 
@@ -329,11 +329,11 @@ function brushedHarborTimeSlider() {
         var formatDate = d3.timeFormat("%b, %Y");
 
         // TODO: bring back the handle
-        // harborTimeSlider.handle.select("rect").attr("x", harborTimeSlider.xContext(harborTimeSlider.currentTime));
-        // harborTimeSlider.handle.select("text").text(formatDate(harborTimeSlider.currentTime));
-        // harborTimeSlider.handle.select("text").attr("x", harborTimeSlider.xContext(harborTimeSlider.currentTime));
+        harborTimeSlider.handle.select("rect").attr("x", harborTimeSlider.xContext(harborTimeSlider.currentTime));
+        harborTimeSlider.handle.select("text").text(formatDate(harborTimeSlider.currentTime));
+        harborTimeSlider.handle.select("text").attr("x", harborTimeSlider.xContext(harborTimeSlider.currentTime));
 
-    console.log(harborTimeSlider.currentTime);
+    // console.log(harborTimeSlider.currentTime);
 
     harborLinechartVis.handle.attr("x1",harborLinechartVis.xScale(d3.isoParse(harborTimeSlider.currentTime)))
             .attr("x2",harborLinechartVis.xScale(d3.isoParse(harborTimeSlider.currentTime)));

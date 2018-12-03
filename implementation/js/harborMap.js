@@ -83,7 +83,7 @@ HarborMapVis.prototype.initVis = function() {
     vis.formatPopUpDate = d3.timeFormat("%b %d, %Y");
     
     // var t = d3
-    console.log(vis.harborData);
+    // console.log(vis.harborData);
     let selection = $("#harbor-select-box :selected").val();
     vis.updateVis(selection, vis.harborData[0][selection][0]["Date"]);
 };
@@ -131,7 +131,7 @@ HarborMapVis.prototype.updateColorScale = function(selection) {
     //     }
     // }
 
-    console.log(extentOfAllLocations);
+    // console.log(extentOfAllLocations);
     vis.colorScale = d3.scaleLinear()
         .domain(extentOfAllLocations)
         .range(colorSet);
@@ -179,12 +179,12 @@ HarborMapVis.prototype.addLocationMarkers = function(selection, sliderDate) {
             let closestDateIndex = vis.getClosestDateIndex(sliderDate, i, selection);
 
             let selectionVal = vis.harborData[i][selection][closestDateIndex]["Value"];
-            console.log(vis.harborData[i][selection][closestDateIndex]["Date"], sliderDate, selectionVal);
-            if (vis.harborData[i]["Site"] === "E2") {
-                console.log(selectionVal);
+            // console.log(vis.harborData[i][selection][closestDateIndex]["Date"], sliderDate, selectionVal);
+            // if (vis.harborData[i]["Site"] === "E2") {
+                // console.log(selectionVal);
                 // console.log(vis.harborData[i][selection]);
 
-            }
+            // }
 
             // console.log(selectionVal);
 
@@ -201,9 +201,9 @@ HarborMapVis.prototype.addLocationMarkers = function(selection, sliderDate) {
                 // console.log(tColor);
             }
 
-            if (vis.harborData[i]["Site"] === "E2") {
-                console.log(tColor);
-            }
+            // if (vis.harborData[i]["Site"] === "E2") {
+            //     console.log(tColor);
+            // }
 
 
             // console.log(vis.harborData[i]["Site"], selectionVal, tColor, tOpacity);
@@ -277,9 +277,9 @@ HarborMapVis.prototype.getClosestDateIndex = function(sliderDate, sampleSiteInde
         // console.log(sliderDate, vis.harborData[sampleSiteIndex][selection][closestDateIndex]["Date"]);
     });
 
-    if (vis.harborData[sampleSiteIndex]["Site"] === "E2") {
-        console.log(sliderDate, vis.harborData[sampleSiteIndex][selection][closestDateIndex]["Date"], vis.harborData[sampleSiteIndex][selection][closestDateIndex]["Value"]);
-    }
+    // if (vis.harborData[sampleSiteIndex]["Site"] === "E2") {
+    //     console.log(sliderDate, vis.harborData[sampleSiteIndex][selection][closestDateIndex]["Date"], vis.harborData[sampleSiteIndex][selection][closestDateIndex]["Value"]);
+    // }
 
     return closestDateIndex;
 }

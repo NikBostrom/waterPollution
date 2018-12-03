@@ -504,3 +504,7 @@ nav ul li a.current {
     stroke-linecap: round;
     cursor: pointer;
 }
+rect.selection {
+    fill-opacity: 0;
+    stroke: transparent;
+}

@@ -88,7 +88,6 @@ HarborLinechartVis.prototype.initVis = function() {
         .attr("stroke","black")
         .style("stroke-dasharray","10,10")
         .attr("z-index",10);
-        // .attr("transform", "translate(" + vis.margin.left + ",0)");
 }
 
 

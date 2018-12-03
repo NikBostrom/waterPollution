@@ -53,6 +53,6 @@ function wrangleHarborData(_nyHarborDataMessy, nyHarborData) {
         }
     }
 
-    console.log(harborLocations);
+    // console.log(harborLocations);
     // console.log(nyHarborData);
 }
