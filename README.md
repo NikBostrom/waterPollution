@@ -3,6 +3,9 @@
 #### Final Project for Harvard’s CS 171: Data Visualization (Fall 2018)
 #### Niklas Bostrom, Chandler Brown, Jackie Chea, Elgin Davis
 
+Video link: https://youtu.be/aKxWc4csy1k
+Github: https://github.com/NikBostrom/waterPollution
+
 The purpose of *Water Woes in the Midwest* is to demonstrate the detrimental effects of having limited data on water quality, specifically in the Midwest Region of the United States.  In the past, because there has not been a large emphasis and push for conservation of the environment, there is a very sparse collection of information for data on water bodies throughout the United States.  This lack of information can lead to elevated levels of pollutants and contaminants such as Nitrogen and Phosphorous due to increased anthropogenic input and work.  However, once a focus is placed on the quality and the health of the water body by the public or outside officials, one can see that humans have the power to effect great change and remediation efforts.
 
 The website was primarily written in html and JavaScript.  There are several JavaScript libraries imported and used.  These include:
