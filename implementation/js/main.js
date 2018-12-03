@@ -5,6 +5,7 @@ var dateFormatter = d3.timeFormat("%Y-%m-%d");
 var dateParser = d3.timeParse("%Y-%m-%d");
 var harborTimeSlider;
 var harborLinechartVis;
+var harborMapVis;
 
 queue()
     .defer(d3.csv,"data/water_conditions.csv")
@@ -194,7 +195,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 
     var harborEventHandler = {};
 
-    // var harborMapVis = new HarborMapVis("harbor-map", harborLocations, harborEventHandler);
+    harborMapVis = new HarborMapVis("harbor-map", harborLocations, harborEventHandler);
     // console.log(nyHarborData);
     harborLinechartVis = new HarborLinechartVis("harbor-linechart", harborLocations);
     harborTimeSlider = new HarborTimeSlider("harbor-time-slider", harborLocations);
@@ -210,7 +211,7 @@ function createHarborVis(_nyHarborDataMessy, nyHarborData) {
 
     $(harborEventHandler).bind("harbor-filter-selection-changed", function(_event) {
         // console.log("Oh hey you changed the selection to:", selectionBox.property("value"));
-        // harborMapVis.updateVis(selectionBox.property("value"));
+        harborMapVis.updateVis(selectionBox.property("value"), null);
         harborLinechartVis.updateVis(selectionBox.property("value"), null);
     });
     $(harborEventHandler).bind("sample-location-clicked-on-map", function(_event, markerProperties) {
@@ -246,7 +247,7 @@ function colorPageRows() {
 }
 
 function brushedHarborTimeSlider() {
-    console.log("Hey");
+    // console.log("Hey");
 
     var duration = 1;
     // maxstep = d3.max(refugeemap.campdata, function(d){return d.date;}),
@@ -301,13 +302,13 @@ function brushedHarborTimeSlider() {
     // clearInterval(timer);
 
     // if (d3.event.sourceEvent) { // not a programmatic event
-        console.log("yo");
+    //     console.log("yo");
 
         // Where the user clicks / drags
         value = harborTimeSlider.xContext.invert(d3.mouse(this)[0]);
-        harborTimeSlider.brush.extent([value, value]);
-        console.log(value, harborTimeSlider.brush.extent([value, value])[0]);
-        console.log(minstep, maxstep);
+        // harborTimeSlider.brush.extent([value, value]);
+        // console.log(value, harborTimeSlider.brush.extent([value, value])[0]);
+        // console.log(minstep, maxstep);
 
         if (value < minstep) {
             harborTimeSlider.currentTime = minstep;
@@ -336,7 +337,7 @@ function brushedHarborTimeSlider() {
 
     harborLinechartVis.handle.attr("x1",harborLinechartVis.xScale(d3.isoParse(harborTimeSlider.currentTime)))
             .attr("x2",harborLinechartVis.xScale(d3.isoParse(harborTimeSlider.currentTime)));
-    // }
-    // }
 
+
+    harborMapVis.updateVis($("#harbor-select-box :selected").val(), harborTimeSlider.currentTime);
 };

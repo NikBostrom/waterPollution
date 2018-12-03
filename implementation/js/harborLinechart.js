@@ -73,6 +73,22 @@ HarborLinechartVis.prototype.initVis = function() {
     d3.selectAll(".axis").attr("stroke", "white");
     d3.selectAll("#harbor-linechart-svg-group .domain").attr("stroke", "white");
     vis.updateVis($("#harbor-select-box :selected").val(), "CIC2");
+
+    vis.handle = vis.svg.insert("g","first-child")
+        .append("line")
+        .attr("id","stackhandle")
+        .attr("class","handle")
+        .attr("x1",0)
+        .attr("y1", 0)
+        .attr("x2",0)
+        .attr("y2",vis.height + 6)
+        .style("stroke-linecap","round")
+        .style("stroke-width",2)
+        .attr("d","M5 40 l215 0")
+        .attr("stroke","black")
+        .style("stroke-dasharray","10,10")
+        .attr("z-index",10);
+        // .attr("transform", "translate(" + vis.margin.left + ",0)");
 }
 
 
@@ -102,7 +118,7 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
         });
     }
     // vis.filteredData.sort(function(a, b) { return a["Date"] - b["Date"]; });
-    console.log(vis.filteredData);
+    // console.log(vis.filteredData);
 
     // Dynamically update the domains based on user selection
     vis.xScale.domain(d3.extent(vis.filteredData, function (d) {
@@ -169,21 +185,7 @@ HarborLinechartVis.prototype.updateVis = function(measureSelection, locationSele
                 // .style("stroke", mainColor);
         });
 
-    vis.handle = vis.svg.insert("g","first-child")
-        .append("line")
-        .attr("id","stackhandle")
-        .attr("class","handle")
-        .attr("x1",0)
-        .attr("y1", 0)
-        .attr("x2",0)
-        .attr("y2",vis.height + 6)
-        .style("stroke-linecap","round")
-        .style("stroke-width",2)
-        .attr("d","M5 40 l215 0")
-        .attr("stroke","black")
-        .style("stroke-dasharray","10,10")
-        .attr("z-index",10)
-        .attr("transform", "translate(" + vis.margin.left + ",0)");
+
 }
 
 // function addTooltips() {
