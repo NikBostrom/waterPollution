@@ -115,17 +115,38 @@ HarborMapVis.prototype.updateColorScale = function(selection) {
     }
     // console.log(colorSet);
 
-    vis.colorScale = d3.scaleLinear()
-        .domain(d3.extent(vis.harborData, function(d) {
-            console.log(d);
-            // console.log(selection);
-            // TODO - Change to be the select-box selected value
+    let extentOfAllLocations = [
+        d3.min(vis.harborData, location => d3.min(location[selection], dateVal => dateVal["Value"])),
+        d3.max(vis.harborData, location => d3.max(location[selection], dateVal => dateVal["Value"]))
+    ];
+    // for (var i = 0; i < vis.harborData.length, i++) {
+    //     function(d) {
+    //         console.log(d);
+    //         // console.log(selection);
+    //         // TODO - Change to be the select-box selected value
+    //
+    //         if (!isNaN(+d[selection][0]["Value"])) {
+    //             return +d[selection][0]["Value"];
+    //         }
+    //     }
+    // }
 
-            if (!isNaN(+d[selection][0]["Value"])) {
-                return +d[selection][0]["Value"];
-            }
-        }))
+    console.log(extentOfAllLocations);
+    vis.colorScale = d3.scaleLinear()
+        .domain(extentOfAllLocations)
         .range(colorSet);
+
+    // vis.colorScale = d3.scaleLinear()
+    //     .domain(d3.extent(vis.harborData, function(d) {
+    //         console.log(d);
+    //         // console.log(selection);
+    //         // TODO - Change to be the select-box selected value
+    //
+    //         if (!isNaN(+d[selection][0]["Value"])) {
+    //             return +d[selection][0]["Value"];
+    //         }
+    //     }))
+    //     .range(colorSet);
 }
 
 HarborMapVis.prototype.addLocationMarkers = function(selection, sliderDate) {
@@ -169,8 +190,16 @@ HarborMapVis.prototype.addLocationMarkers = function(selection, sliderDate) {
 
             // console.log("Coord data:", vis.harborData[i][selection][0]["Value"]);
 
-            tColor = vis.colorScale(selectionVal);
-            tOpacity = 0.75;
+
+            if (isNaN(selectionVal)) {
+                // tColor = "#bfbfbf";
+                tColor = "black";
+                tOpacity = 0.1;
+            } else {
+                tColor = vis.colorScale(selectionVal);
+                tOpacity = 0.75;
+                // console.log(tColor);
+            }
 
             if (vis.harborData[i]["Site"] === "E2") {
                 console.log(tColor);
