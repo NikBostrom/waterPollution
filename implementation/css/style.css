@@ -481,11 +481,16 @@ nav ul li a.current {
 .x-axis-group.harbor line, .y-axis-group.harbor line {
     stroke: white;
 }
-#harbor-linchart-title, #harbor-map-title, #harbor-location-label {
+#harbor-time-slider line, #harbor-time-slider path, #harbor-time-slider text {
+    stroke: white;
+}
+#harbor-linchart-title, #harbor-map-title, #harbor-location-label, #harbor-time-slider {
     text-align: center;
 }
 #harbor-time-slider {
     width: 70%;
+    margin-left:auto;
+    margin-right:auto;
 }
 #temp {
     width: 600px;
