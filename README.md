@@ -24,8 +24,6 @@ The website was primarily written in HTML and JavaScript.  There are several Jav
 * D3-legend
 * Navbar
    * Establish framework for navigation bar on side of screen
-* Nouislider
-  * Time slider
 
 
 There are several JavaScript files written for the whole program.  These include:
